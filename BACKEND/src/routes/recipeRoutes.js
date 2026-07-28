@@ -1,14 +1,12 @@
-import { Router } from 'express';
-import * as recipeController from '../controllers/recipeController.js';
-
+import { Router } from "express";
+import * as recipeController from "../controllers/recipeController.js";
 
 const router = Router();
 
-router.get('/', recipeController.getAllRecipes);
-router.get('/:id', recipeController.getRecipeById);
-router.post('/', isAuthenticated, createRecipeSchema, validate, recipeController.createRecipe);
-router.put('/:id', isAuthenticated, updateRecipeSchema, validate, recipeController.updateRecipe);
-router.delete('/:id', isAuthenticated, recipeController.deleteRecipe);
+router.get("/", recipeController.getAllRecipes);
+router.get("/:id", recipeController.getRecipeById);
+router.post("/", recipeController.createRecipe);
+router.put("/:id", recipeController.updateRecipe);
+router.delete("/:id", recipeController.deleteRecipe);
 
 export default router;
-

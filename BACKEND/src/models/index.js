@@ -1,11 +1,11 @@
-import sequelize from "sequelize"; 
-import { DataTypes } from "../database/database.js";
+import { DataTypes } from "sequelize";
+import sequelize from "./database/database.js";
 
-import { CategoryModel } from "../models/category.js";
-import { CommentModel } from "../models/comment.js";
-import { MediaModel } from "../models/media.js";
-import { RecipeModel } from "../models/recipe.js";
-import { UserModel } from "../models/user.js";
+import  CategoryModel  from "./category.js";
+import  CommentModel  from "./comment.js";
+import  MediaModel  from "./media.js";
+import  RecipeModel  from "./recipe.js";
+import  UserModel  from "./user.js";
 
 const Recipe = RecipeModel(sequelize, DataTypes);
 const Category = CategoryModel(sequelize, DataTypes);
