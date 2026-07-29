@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS recipes CASCADE;
+DROP TABLE IF EXISTS media CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 -------------------------------------------------
 --Table : users
 -------------------------------------------------

@@ -8,11 +8,11 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         const hashedPassword = await argon2.hash('password2026');
 
-        await queryInterface.bulkInsert('user', [
+        await queryInterface.bulkInsert('users', [
             {
                 username: 'admin',
                 email: 'admin@cinedelices.com',
-                password_hash: 'hashedPassword',
+                password_hash: hashedPassword,
                 role: 'admin',
                 birth_date: new Date(),
                 date_created: new Date()
@@ -27,7 +27,11 @@ module.exports = {
             }
         ]);
 
-        await queryInterface.bulkInsert('category', [
+        await queryInterface.bulkInsert('admin', [
+
+        ]);
+
+        await queryInterface.bulkInsert('categories', [
             {
                 name: 'Entrer',
                 created_at: new Date(),
@@ -47,24 +51,6 @@ module.exports = {
                 name: 'Boissons',
                 created_at: new Date(),
                 updated_at: new Date()
-            }
-        ]);
-
-        const comments = await Comment.bulkCreate([
-            {
-                content: "Cette recette est vraiment excellente !",
-                user_id: users[0].id,
-                recipe_id: recipes[0].id
-            },
-            {
-                content: "Je vais essayer cette recette ce week-end.",
-                user_id: users[1].id,
-                recipe_id: recipes[0].id
-            },
-            {
-                content: "Les instructions sont très faciles à suivre.",
-                user_id: users[0].id,
-                recipe_id: recipes[1].id
             }
         ]);
 
@@ -417,20 +403,24 @@ module.exports = {
             `SELECT id, email FROM users ORDER BY id`
         );
 
+        const adminUser = users.find(
+            user => user.email === 'admin@cinedelices.com'
+        );
+
         const [categories] = await queryInterface.sequelize.query(
             `SELECT id, name FROM categories ORDER BY id`
         );
 
-        const [media] = await queryInterface / sequelize.query(
+        const [media] = await queryInterface.sequelize.query(
             `SELECT id, title FROM media ORDER BY id`
         );
 
         // Récupère la catégorie par l'IDs 
 
-        const entrer = users.find(u => u.name === 'Entrer');
-        const platPrincipale = users.find(u => u.name === 'Plat principale');
-        const dessert = users.find(u => u.name === 'Dessert');
-        const boissons = users.find(u => u.name === 'Boissons');
+        const entrer = categories.find(u => u.name === 'Entrer');
+        const platPrincipale = categories.find(u => u.name === 'Plat principale');
+        const dessert = categories.find(u => u.name === 'Dessert');
+        const boissons = categories.find(u => u.name === 'Boissons');
 
         // Récupère le média par l'IDs
 
@@ -438,7 +428,7 @@ module.exports = {
         const superMarioBrosMedia = media.find(m => m.title === 'Super Mario Bros');
         const laSoupeAuxChouxMedia = media.find(m => m.title === 'La soupe aux choux');
         const doctorWhoMedia = media.find(m => m.title === 'Doctor Who');
-        const charlieEtLaChocolaterieMedia = media.find(m => m.tile === 'Charlie et la chocolaterie');
+        const charlieEtLaChocolaterieMedia = media.find(m => m.title === 'Charlie et la chocolaterie');
         const viceVersaMedia = media.find(m => m.title === 'Vice Versa');
         const neQuelquePartMedia = media.find(m => m.title === 'Né quelque part');
         const lodysseeDePiMdedia = media.find(m => m.title === 'L\'Odyssée de pi');
@@ -470,8 +460,8 @@ module.exports = {
         const harryPotterEtLesReliquesDeLaMort1erePartieMedia = media.find(m => m.title === 'Harry Potter et les reliques de la mort - 1 ère partie');
         const harryPotterEtLesReliquesDeLaMort2emePartieMedia = media.find(m => m.title === 'Harry Potter et les reliques de la mort - 2 ère partie');
         const leGrinchMedia = media.find(m => m.title === 'Le Grinch');
-        const lokiSaison1Media = media.fnd(m => m.title === 'Loki - saison 1');
-        const lokiSaison2Media = media.fnd(m => m.title === 'Loki - saison 2');
+        const lokiSaison1Media = media.find(m => m.title === 'Loki - saison 1');
+        const lokiSaison2Media = media.find(m => m.title === 'Loki - saison 2');
 
         await queryInterface.bulkInsert('recipes', [
             {
@@ -499,7 +489,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/poisson.jpg',
                 user_id: adminUser.id,
-                category_id: platPrincipale.id,
+                categories_id: platPrincipale.id,
                 media_id: laPetitSireneMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -529,7 +519,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/choux.png',
                 user_id: '',
-                category_id: platPrincipale.id,
+                categories_id: platPrincipale.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -544,7 +534,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/moelleux.jpg',
                 user_id: '',
-                category_id: dessert.id,
+                categories_id: dessert.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -559,7 +549,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rizCurry.jpeg',
                 user_id: '',
-                category_id: platPrincipale.id,
+                categories_id: platPrincipale.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -574,7 +564,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/emotion.jpg',
                 user_id: '',
-                category_id: dessert.id,
+                categories_id: dessert.id,
                 media_id: viceVersaMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -589,7 +579,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-home/who.webp',
                 user_id: '',
-                category_id: platPrincipale.id,
+                categories_id: platPrincipale.id,
                 media_id: doctorWhoMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -604,7 +594,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-home/n%C3%A9.jpg',
                 user_id: '',
-                category_id: dessert.id,
+                categories_id: dessert.id,
                 media_id: neQuelquePartMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -619,7 +609,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman1.webp',
                 user_id: '',
-                category_id: platPrincipale.id,
+                categories_id: platPrincipale.id,
                 media_id: aquamanMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -634,7 +624,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman2.webp',
                 user_id: '',
-                category_id: ,
+                categories_id: ,
                 media_id: aquaman2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -649,7 +639,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/alice.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: aliceAuPaysDesMerveillesMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -664,7 +654,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/simpson.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: lesSimpsonsLeFilmMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -679,7 +669,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: vaianaMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -694,7 +684,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana2.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: vaiana2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -709,7 +699,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/toysStory.jpg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: toysStoryMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -724,7 +714,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc1.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: piratesDesCaraïbeMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -739,7 +729,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc2.jpeg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: piratesDesCaraïbe2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -754,7 +744,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc3.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: piratesDesCaraïbe3Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -769,7 +759,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc4.webp',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: piratesDesCaraïbe4Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -784,7 +774,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/raiponce.jpg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: raiponceMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -799,7 +789,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rio1.jpg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: rioMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -814,7 +804,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rio2.jpg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: rio2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -829,7 +819,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/epic.jpg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: epicMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -844,7 +834,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/lmdr.jpg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: leMondeDeRalphMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -859,7 +849,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/coco.jpeg',
                 user_id: '',
-                category_id: '',
+                categories_id: '',
                 media_id: cocoMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -1046,6 +1036,25 @@ module.exports = {
                 updated_at: new Date()
             },
         ]);
+
+        const comments = await Comment.bulkCreate([
+            {
+                content: "Cette recette est vraiment excellente !",
+                user_id: users[0].id,
+                recipe_id: recipes[0].id
+            },
+            {
+                content: "Je vais essayer cette recette ce week-end.",
+                user_id: users[1].id,
+                recipe_id: recipes[0].id
+            },
+            {
+                content: "Les instructions sont très faciles à suivre.",
+                user_id: users[0].id,
+                recipe_id: recipes[1].id
+            }
+        ]);
+
     },
 
     async down(queryInterface, Sequelize) {
@@ -1054,7 +1063,7 @@ module.exports = {
             queryInterface.bulkInsert('categories', null, {});
         queryInterface.bulkInsert('comment', null, {});
         queryInterface.bulkInsert('media', null, {});
-        queryInterface.bulkInsert('usees', null, {});
+        queryInterface.bulkInsert('users', null, {});
         queryInterface.bulkInsert('recipes', null, {});
     }
 };
