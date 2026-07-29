@@ -10,12 +10,20 @@ module.exports = {
 
         await queryInterface.bulkInsert('user', [
             {
-                username: 'user',
-                email: 'user@cinedelices.com',
+                username: 'admin',
+                email: 'admin@cinedelices.com',
                 password_hash: 'hashedPassword',
-                role: 'user',
+                role: 'admin',
                 birth_date: new Date(),
                 date_created: new Date()
+            },
+            {
+                email: 'user@cinedelices.com',
+                password_hash: hashedPassword,
+                username: 'ChefCinema',
+                role: 'user',
+                created_at: new Date(),
+                updated_at: new Date()
             }
         ]);
 
@@ -66,6 +74,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/sir%C3%A8ne.jpg',
                 release_year: '2026',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -74,6 +83,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/Mario.jpg',
                 release_year: '2022',
+                description: '',
                 created_at: new Date(),
                 update_at: new Date()
             },
@@ -82,6 +92,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/La_Soupe_aux_choux.jpg',
                 release_year: '2023',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -90,6 +101,7 @@ module.exports = {
                 type: 'serie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/who.webp',
                 release_year: '2018',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -98,6 +110,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/chocolat.webp',
                 release_year: '2005',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -106,6 +119,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/vice%20versa.jpg',
                 release_year: '2015',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -114,6 +128,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/n%C3%A9.jpg',
                 release_year: '2018',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -122,6 +137,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/odyss%C3%A9.webp',
                 release_year: '2012',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -130,6 +146,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/ratatouille.webp',
                 release_year: '2014',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -138,6 +155,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman1.webp',
                 release_year: '2018',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -146,6 +164,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman2.webp',
                 release_year: '2023',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -154,6 +173,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/alice.webp',
                 release_year: '2010',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -162,6 +182,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/simpson.webp',
                 release_year: '2007',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -170,6 +191,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana.webp',
                 release_year: '2016',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -178,6 +200,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana2.webp',
                 release_year: '2024',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -186,6 +209,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/toysStory.jpg',
                 release_year: '1995',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -194,6 +218,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc1.webp',
                 release_year: '2003',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -202,6 +227,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc2.jpeg',
                 release_year: '2006',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -210,6 +236,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc3.webp',
                 release_year: '2007',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -218,6 +245,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc4.webp',
                 release_year: '2011',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -226,6 +254,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/raiponce.jpg',
                 release_year: '2010',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -234,6 +263,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rio1.jpg',
                 release_year: '2011',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -242,6 +272,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rio2.jpg',
                 release_year: '2014',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -250,6 +281,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/epic.jpg',
                 release_year: '2013',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -258,6 +290,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/lmdr.jpg',
                 release_year: '2012',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -266,6 +299,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/coco.jpeg',
                 release_year: '2017',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -274,6 +308,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/soul.jpeg',
                 release_year: '2020',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -282,6 +317,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry1.jpg',
                 release_year: '2001',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -290,6 +326,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry2.jpg',
                 release_year: '2002',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -298,6 +335,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry3.webp',
                 release_year: '2004',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -306,6 +344,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry4.webp',
                 release_year: '2005',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -314,6 +353,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry5.jpg',
                 release_year: '2007',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -322,6 +362,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry6.jpg',
                 release_year: '2009',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -330,6 +371,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry7.1.avif',
                 release_year: '2010',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -338,6 +380,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry7.2.webp',
                 release_year: '2011',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -346,6 +389,7 @@ module.exports = {
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/grinch.jpg',
                 release_year: '2000',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -354,6 +398,7 @@ module.exports = {
                 type: 'serie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/loki1.jpg',
                 release_year: '2021',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -362,6 +407,7 @@ module.exports = {
                 type: 'serie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/loki2.jpg',
                 release_year: '2021',
+                description: '',
                 created_at: new Date(),
                 updated_at: new Date()
             }
@@ -434,12 +480,12 @@ module.exports = {
                 ingredients: '500g de tagliatelles fraîches - 500g de champignons de Paris, nettoyés et tranchés - 250g de lardons fumés - 2 échalotes, finement hachées - 2 gousses d’ail, pressées - 200ml de crème fraîche épaisse - 50g de parmesan râpé, plus un peu pour servir - 2 cuillères à soupe d\'huile d\'olive - 1 cuillère à soupe de beurre - Persil frais haché, pour la garniture -Sel et poivre noir - Une pincée de noix de muscade (facultatif)',
                 instructions: '1. Préparation des champignons: Commencez par bien nettoyer vos champignons. Je préfère les essuyer délicatement avec un chiffon humide plutôt que de les laver sous l’eau, car ils absorbent l’eau et peuvent devenir spongieux. Une fois nettoyés, tranchez-les en lamelles d’environ 5mm d’épaisseur. N’hésitez pas à utiliser un couteau bien aiguisé pour une coupe nette. 2.Cuisson des lardons: Dans une grande poêle, faites revenir les lardons à feu moyen. L’objectif est de les rendre croustillants et de libérer leur graisse. Remuez régulièrement pour éviter qu’ils ne brûlent. Une fois qu’ils sont bien dorés et croustillants, retirez-les de la poêle et réservez-les sur une assiette recouverte de papier absorbant pour éliminer l’excès de graisse. Gardez la graisse de cuisson dans la poêle, elle servira à cuire les champignons et apportera une saveur incroyable. 3. Cuisson des échalotes et de l’ail: Dans la même poêle (avec la graisse des lardons), ajoutez l’huile d’olive et le beurre. Faites chauffer à feu moyen. Ajoutez ensuite les échalotes hachées et faites-les revenir jusqu’à ce qu’elles soient translucides et légèrement dorées, environ 3 à 5 minutes. Ajoutez ensuite l’ail pressé et faites cuire pendant une minute supplémentaire, en remuant constamment, jusqu’à ce qu’il soit parfumé. Attention à ne pas brûler l’ail, car il deviendrait amer.`4. Cuisson des champignons: Ajoutez les champignons tranchés dans la poêle avec les échalotes et l’ail. Faites cuire à feu moyen-vif, en remuant régulièrement, jusqu’à ce qu’ils aient rendu leur eau et qu’ils soient dorés et tendres. Cela prendra environ 8 à 10 minutes. N’hésitez pas à augmenter le feu si nécessaire pour que l’eau s’évapore rapidement. Une fois que les champignons sont bien cuits, déglacez la poêle avec le vin blanc (si vous en utilisez). Laissez le vin s’évaporer pendant quelques minutes, en grattant le fond de la poêle pour décoller les sucs de cuisson.',
                 difficulte: 'Simple',
-                prep_time: '10 minutes',
-                prep_cook: '15 minutes',
+                prep_time: 10,
+                prep_cook: 15,
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/champignon.jpg',
-                user_id: '',
-                category_id: '',
-                media_id: '',
+                user_id: adminUser.id,
+                category_id: platPrincipale,
+                media_id: superMarioBrosMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -452,9 +498,9 @@ module.exports = {
                 prep_time: '',
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/poisson.jpg',
-                user_id: '',
-                category_id: '',
-                media_id: '',
+                user_id: adminUser.id,
+                category_id: platPrincipale.id,
+                media_id: laPetitSireneMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -468,7 +514,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/ratatouille.webp',
                 user_id: '',
-                category_id: '',
+                category_id: platPrincipale.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -483,7 +529,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/choux.png',
                 user_id: '',
-                category_id: '',
+                category_id: platPrincipale.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -498,7 +544,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/moelleux.jpg',
                 user_id: '',
-                category_id: '',
+                category_id: dessert.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -513,7 +559,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rizCurry.jpeg',
                 user_id: '',
-                category_id: '',
+                category_id: platPrincipale.id,
                 media_id: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -528,8 +574,8 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/emotion.jpg',
                 user_id: '',
-                category_id: '',
-                media_id: '',
+                category_id: dessert.id,
+                media_id: viceVersaMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -543,8 +589,8 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-home/who.webp',
                 user_id: '',
-                category_id: '',
-                media_id: '',
+                category_id: platPrincipale.id,
+                media_id: doctorWhoMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -558,8 +604,8 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-home/n%C3%A9.jpg',
                 user_id: '',
-                category_id: '',
-                media_id: '',
+                category_id: dessert.id,
+                media_id: neQuelquePartMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -573,8 +619,8 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman1.webp',
                 user_id: '',
-                category_id: '',
-                media_id: '',
+                category_id: platPrincipale.id,
+                media_id: aquamanMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -588,8 +634,8 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman2.webp',
                 user_id: '',
-                category_id: '',
-                media_id: '',
+                category_id: ,
+                media_id: aquaman2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -604,7 +650,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/alice.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: aliceAuPaysDesMerveillesMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -619,7 +665,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/simpson.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: lesSimpsonsLeFilmMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -634,7 +680,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: vaianaMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -649,7 +695,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana2.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: vaiana2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -664,7 +710,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/toysStory.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: toysStoryMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -679,7 +725,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc1.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: piratesDesCaraïbeMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -694,7 +740,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc2.jpeg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: piratesDesCaraïbe2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -709,7 +755,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc3.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: piratesDesCaraïbe3Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -724,7 +770,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc4.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: piratesDesCaraïbe4Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -739,7 +785,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/raiponce.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: raiponceMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -754,7 +800,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rio1.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: rioMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -769,7 +815,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/rio2.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: rio2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -784,7 +830,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/epic.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: epicMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -799,7 +845,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/lmdr.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: leMondeDeRalphMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -814,7 +860,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/coco.jpeg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: cocoMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -829,7 +875,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/soul.jpeg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: soulMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -844,7 +890,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry1.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterALecoleDesSorciersMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -859,7 +905,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry2.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLaChambreDesSecretsMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -874,7 +920,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry3.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLePrisonnierDazkabanMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -889,7 +935,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry4.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLaCoupeDeFeuMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -904,7 +950,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry5.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLordreDuPhenixMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -920,7 +966,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry6.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLePrinceDeSangMeleMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -935,7 +981,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry7.1.avif',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLesReliquesDeLaMort1erePartieMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -950,7 +996,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/harry7.2.webp',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: harryPotterEtLesReliquesDeLaMort2emePartieMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -965,7 +1011,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/grinch.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: leGrinchMedia.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -980,7 +1026,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/loki1.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: lokiSaison1Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },
@@ -995,7 +1041,7 @@ module.exports = {
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/loki2.jpg',
                 user_id: '',
                 category_id: '',
-                media_id: '',
+                media_id: lokiSaison2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
             },

@@ -30,10 +30,12 @@ CREATE TABLE categories (
 CREATE TABLE media (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
     type VARCHAR(50) NOT NULL
         CHECK (type IN ('film', 'serie')),
     description TEXT,
-    release_date DATE
+    release_year DATE,
+
 );
 
 -------------------------------------------------
@@ -46,11 +48,11 @@ CREATE TABLE recipes (
     description TEXT,
     ingredients TEXT NOT NULL,
     instructions TEXT NOT NULL,
+    difficulte TEXT,
     image_url VARCHAR(255),
     prep_time INTEGER,
     cook_time INTEGER,
-    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
+    
     user_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
     media_id INTEGER NOT NULL,
