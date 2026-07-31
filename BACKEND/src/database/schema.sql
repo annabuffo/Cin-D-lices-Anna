@@ -58,6 +58,7 @@ CREATE TABLE recipes (
     image_url VARCHAR(255),
     prep_time INTEGER,
     cook_time INTEGER,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
     
     user_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,

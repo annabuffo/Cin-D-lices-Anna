@@ -2,7 +2,10 @@ import { Category, Media, Recipe, User } from "../models/index.js";
 
 export const createRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.create(req.body);
+        const recipe = await Recipe.create({
+            ...req.body,
+            user_id: req.user.id
+        });
 
         res.status(201).json(recipe);
     } catch (error) {

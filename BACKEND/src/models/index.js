@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "./database/database.js";
+import sequelize from "../database/database.js";
 
 import  CategoryModel  from "./category.js";
 import  CommentModel  from "./comment.js";

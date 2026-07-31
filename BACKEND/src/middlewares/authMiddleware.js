@@ -1,7 +1,5 @@
-import db from '../models/index.js';
+import { Recipe } from '../models/index.js';
 import jwt from 'jsonwebtoken';
-
-const { Recipe } = db;
 
 export const authMiddleware = (req, res, next) => {
     try {
@@ -40,16 +38,16 @@ export const isRecipeAuthor = async (req, res, next) => {
         const recipe = await Recipe.findByPk(req.params.id);
 
         if (!recipe) {
-            return res.status(404).json({ message: 'Recette non trouvé' });
+            return res.status(404).json({ message: 'Recette non trouvée' });
         }
 
         if (recipe.user_id !== req.user.id && req.user.role !== 'admin') {
-            return res.status(403).json({ message: 'Non authorisé' });
+            return res.status(403).json({ message: 'Non autorisé' });
         }
 
         req.recipe = recipe;
         next();
     } catch {
-        return res.status(500).json({ message: 'Erreur Serveur' });
+        return res.status(500).json({ message: 'Erreur serveur' });
     }
 };
