@@ -40,7 +40,7 @@ CREATE TABLE media (
     type VARCHAR(50) NOT NULL
         CHECK (type IN ('film', 'serie')),
     description TEXT,
-    release_year DATE,
+    release_date DATE,
 
 );
 

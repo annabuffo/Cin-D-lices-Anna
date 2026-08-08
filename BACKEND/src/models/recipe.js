@@ -90,7 +90,6 @@ export default (sequelize, DataTypes) => {
             category_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                defaultValue: DataTypes.NOW
             },
 
             media_id: {
@@ -111,3 +110,16 @@ export default (sequelize, DataTypes) => {
 
     return Recipe;
 };
+
+/*{
+  "title": "Bièraubeurre",
+  "description": "Boisson inspirée de Harry Potter",
+  "ingredients": "Lait, caramel, vanille",
+  "instructions": "Faire chauffer le lait, ajouter le caramel et la vanille.",
+  "image_url": "https://example.com/bieraubeurre.jpg",
+  "prep_time": 10,
+  "cook_time": 5,
+  "category_id": 1,
+  "media_id": 1
+}
+*/

@@ -58,8 +58,8 @@ module.exports = {
             {
                 title: 'La petite sirène',
                 type: 'movie',
-                image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/sir%C3%A8ne.jpg',
-                release_year: '2026',
+                image_url: 'http://public/img-card-sct-1/sir%C3%A8ne.jpg',
+                release_date: '2026-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -68,7 +68,7 @@ module.exports = {
                 title: 'Super Mario Bros',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/Mario.jpg',
-                release_year: '2022',
+                release_date: '2022-01-01',
                 description: '',
                 created_at: new Date(),
                 update_at: new Date()
@@ -77,7 +77,7 @@ module.exports = {
                 title: 'La soupe aux choux',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/La_Soupe_aux_choux.jpg',
-                release_year: '2023',
+                release_date: '2023-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -86,7 +86,7 @@ module.exports = {
                 title: 'Doctor Who',
                 type: 'serie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/who.webp',
-                release_year: '2018',
+                release_date: '2018-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -95,7 +95,7 @@ module.exports = {
                 title: 'Charlie et la chocolaterie',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/chocolat.webp',
-                release_year: '2005',
+                release_date: '2005-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -104,7 +104,7 @@ module.exports = {
                 title: 'Vice-Versa',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/vice%20versa.jpg',
-                release_year: '2015',
+                release_date: '2015-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -113,7 +113,7 @@ module.exports = {
                 title: 'Né quelque part',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/n%C3%A9.jpg',
-                release_year: '2018',
+                release_date: '2018-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -122,7 +122,7 @@ module.exports = {
                 title: 'L\'odyssée de Pi',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-home/odyss%C3%A9.webp',
-                release_year: '2012',
+                release_date: '2012-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -131,7 +131,7 @@ module.exports = {
                 title: 'Ratatouille',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/ratatouille.webp',
-                release_year: '2014',
+                release_date: '2014-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -140,7 +140,7 @@ module.exports = {
                 title: 'Aquaman',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman1.webp',
-                release_year: '2018',
+                release_date: '2018-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -149,7 +149,7 @@ module.exports = {
                 title: 'Aquaman 2',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman2.webp',
-                release_year: '2023',
+                release_date: '2023-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -158,7 +158,7 @@ module.exports = {
                 title: 'Alice au pays des merveilles',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/alice.webp',
-                release_year: '2010',
+                release_date: '2010-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -167,7 +167,7 @@ module.exports = {
                 title: 'Les Simpsons le film',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/simpson.webp',
-                release_year: '2007',
+                release_date: '2007-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -176,7 +176,7 @@ module.exports = {
                 title: 'Vaiana',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana.webp',
-                release_year: '2016',
+                release_date: '2016-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -185,7 +185,7 @@ module.exports = {
                 title: 'Vaiana 2',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/vaiana2.webp',
-                release_year: '2024',
+                release_date: '2024-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -194,7 +194,7 @@ module.exports = {
                 title: ' Toys Story',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/toysStory.jpg',
-                release_year: '1995',
+                release_date: '1995-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()
@@ -203,7 +203,7 @@ module.exports = {
                 title: 'Pirates des caraïbe',
                 type: 'movie',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/pdc1.webp',
-                release_year: '2003',
+                release_date: '2003-01-01',
                 description: '',
                 created_at: new Date(),
                 updated_at: new Date()

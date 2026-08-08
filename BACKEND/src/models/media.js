@@ -24,6 +24,12 @@ export default (sequelize, DataTypes) => {
                 allowNull: false
             },
 
+            
+            image_url: {
+                type: DataTypes.STRING(255),
+                allowNull: true
+            },
+
             type: {
                 type: DataTypes.STRING(50),
                 allowNull: false,
