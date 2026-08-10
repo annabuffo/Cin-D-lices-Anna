@@ -1,5 +1,3 @@
-<script>
-</script>
 
 <main class="contact-page">
     <h1 class="title-contact">📬 CONTACTEZ-NOUS</h1>
@@ -145,11 +143,6 @@
 
 <style>
     /*PARTIE MAIN*/
-    * {
-        background-color: black;
-        box-sizing: border-box;
-    }
-
     h1,
     h2 {
         font-family: "Bebas Neue", sans-serif;

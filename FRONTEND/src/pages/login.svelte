@@ -1,92 +1,88 @@
 <script>
 </script>
 
-<main>
+<main class="login-page">
     <div class="container-login">
         <h2 class="title-login">CONNEXION</h2>
-        <form action="connexion">
-            <label for="email">email</label>
-            <input type="text" placeholder="" required />
-            <label for="mot_de_passe">mot de passe</label>
-            <input type="text" placeholder="" required />
-            <button class="button-login" type="button"
-                ><a href="./profileUser.html">Connexion</a></button
-            >
+
+        <form>
+            <label for="email">Email</label>
+
+            <input id="email" type="email" required />
+
+            <label for="password">Mot de passe</label>
+
+            <input id="password" type="password" required />
+
+            <button class="button-login" type="submit"> Connexion </button>
+
             <p class="redirection-register">
-                Vous n'avez pas de compte ? <a href="./register.html"
-                    >Inscrivez-vous</a
-                >
+                Vous n'avez pas de compte ?
+                <a href="#/register">Inscrivez-vous</a>
             </p>
         </form>
     </div>
 </main>
 
 <style>
-    /*PARTIE MAIN*/
-
-    * {
-        background-color: black;
-        box-sizing: border-box;
-    }
-    
-    h2 {
-        font-family: "Bebas Neue", sans-serif;
-        color: #d4af37;
-        letter-spacing: 1px;
-    }
-
-    .title-login {
-        color: #d4af37;
-        text-align: center;
-    }
-
-    nav a,
-    button {
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        text-transform: uppercase;
+    .login-page {
+        min-height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
     }
 
     .container-login {
         background-color: rgb(6, 6, 48);
-        width: 50%;
-        padding: 20px;
+        width: 100%;
         max-width: 500px;
+        padding: 25px;
         border-radius: 8px;
-        margin: 60px auto;
         border: 2px solid #d4af37;
     }
 
-    .container-login label {
+    .title-login {
         text-align: center;
+    }
+
+    .container-login form {
+        display: flex;
         flex-direction: column;
+    }
+
+    .container-login label {
         color: white;
+        margin-top: 15px;
     }
 
     .container-login input {
         background-color: rgb(12, 12, 78);
-        border-radius: 2%;
         width: 100%;
         padding: 10px;
-        margin: 20px 0 20px;
+        margin-top: 5px;
         border: 1px solid gray;
+        border-radius: 4px;
         color: white;
     }
 
     .button-login {
         background-color: #e24d4d;
+        color: white;
         width: 100%;
-        padding: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px;
+        padding: 12px;
+        margin-top: 25px;
+        border: none;
+        cursor: pointer;
     }
 
     .redirection-register {
         text-align: center;
         color: white;
+        margin-top: 20px;
     }
 
-    p {
-        color: gray;
+    .redirection-register a {
+        color: #d4af37;
     }
 </style>

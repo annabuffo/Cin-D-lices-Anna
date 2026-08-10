@@ -12,7 +12,9 @@ body {
 }
 
 body {
-    background-color: #000;
+    background-color: #0d0d0d;
+    color: white;
+    font-family: "Poppins", sans-serif;
 }
 
 #app {
@@ -20,16 +22,18 @@ body {
     min-height: 100vh;
 }
 
-body {
-    margin: 0;
-    background-color: #0d0d0d;
-    font-family: 'Poppins', sans-serif;
-}
-
 h1,
 h2,
 h3 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: "Bebas Neue", sans-serif;
     color: #d4af37;
     letter-spacing: 1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
 }

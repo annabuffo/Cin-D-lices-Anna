@@ -31,16 +31,6 @@
 
 <Header />
 
-<main>
-    <Router {routes} />
-</main>
+<Router {routes} />
 
 <Footer />
-
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-</style>

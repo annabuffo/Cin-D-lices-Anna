@@ -95,7 +95,7 @@
         color: white;
     }
 
-    .nav-footer {
+    .nav-barre-from-the-bottom {
         color: white;
         text-align: center;
     }

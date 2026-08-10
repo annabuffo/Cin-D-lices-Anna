@@ -15,48 +15,54 @@
 </header>
 
 <style>
+    .logo {
+        background-color: black;
+        border-bottom: 2px solid #d4af37;
+        text-align: left;
+    }
 
-* {
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-    /*PARTIE HEADER*/
+    .nav-header {
+        background-color: black;
 
-.logo {
-    border-bottom: 2px solid #d4af37;
-}
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
 
-.nav-header {
-    text-align: center;
-    
-}
+        list-style: none;
+        margin: 0;
+        padding: 12px 25px;
 
-.nav-header {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: right;
-    border-bottom: 2px solid #d4af37;
-}
+        border-bottom: 2px solid #d4af37;
+    }
 
-.nav-header li {
-    color: white;
-    display: inline-flex;
-    text-align: right;
-    padding: 0%;
-    /*padding 0% + margin 0% + list style none : permet de supprimer les puces*/
-    margin-left: 20px;
-    list-style: none;
-    margin-bottom: 10px;
-}
+    .nav-header li {
+        list-style: none;
+    }
 
-.register {
-    border: 2px solid #d4af37;
-    padding: 10px 30px;
-    border-radius: 6px;
-}
+    .nav-header a {
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+    }
 
-/*FIN HEADER*/
+    .register {
+        display: inline-block;
+        border: 2px solid #d4af37;
+        padding: 10px 25px;
+        border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+        .nav-header {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px;
+        }
+
+        .register {
+            padding: 8px 15px;
+        }
+    }
 </style>
