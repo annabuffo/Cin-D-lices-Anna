@@ -1,4 +1,5 @@
 <script>
+    import Cookies from "../components/cookies.svelte";
 </script>
 
 <main>
@@ -291,3 +292,5 @@
     }
 
 </style>
+
+<Cookies />

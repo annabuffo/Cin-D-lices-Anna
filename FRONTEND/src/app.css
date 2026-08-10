@@ -19,3 +19,17 @@ body {
     width: 100%;
     min-height: 100vh;
 }
+
+body {
+    margin: 0;
+    background-color: #0d0d0d;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #d4af37;
+    letter-spacing: 1px;
+}
