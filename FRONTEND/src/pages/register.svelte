@@ -1,4 +1,10 @@
 <script>
+let email = "";
+let password = "";
+
+async function register() {
+    
+}
 </script>
 
 <main>

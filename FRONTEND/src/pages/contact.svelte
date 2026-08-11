@@ -1,4 +1,3 @@
-
 <main class="contact-page">
     <h1 class="title-contact">📬 CONTACTEZ-NOUS</h1>
 
@@ -333,8 +332,8 @@
         width: 100%;
         margin-top: 0;
         padding: 12px;
-        background-color: #dfb92f;
-        color: black;
+        background-color: #e24d4d;
+        color: white;
         border: none;
         border-radius: 5px;
         font: inherit;
@@ -344,6 +343,46 @@
     }
 
     .contact-page .submit:hover {
-        background-color: #edc83c;
+        background-color: #e24d4d;
+    }
+
+    @media (max-width: 768px) {
+        .contact-page {
+            width: 92%;
+            margin: 20px auto 30px;
+        }
+
+        .contact-page .contact-layout {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .contact-page .contact-left {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .contact-page .container-email,
+        .contact-page .container-social-media,
+        .contact-page .container-feedback,
+        .contact-page .container-form-contact {
+            width: 100%;
+        }
+
+        .contact-page .title-contact {
+            font-size: 1.8rem;
+        }
+
+        .contact-page .subtitle-contact {
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+        }
+
+        .contact-page .contact-form input,
+        .contact-page .contact-form select,
+        .contact-page .contact-form textarea {
+            font-size: 0.85rem;
+        }
     }
 </style>

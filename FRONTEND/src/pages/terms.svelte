@@ -43,51 +43,116 @@
         <div class="inline"></div>
         <p>
             Le traitements de vos données personnelles est régi par notre <a
-                href="./privacy.html">Politique de Confidentialité</a
+                href="#/privacy">Politique de Confidentialité</a
             >, disponible dans la section "Politique de onfidentialité".
         </p>
     </section>
 </main>
 
 <style>
+    h1,
+    h2 {
+        font-family: "Bebas Neue", sans-serif;
+        color: #d4af37;
+        letter-spacing: 1px;
+    }
 
-h1,
-h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    color: #d4af37;
-    letter-spacing: 1px;
-}
+    a {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
 
-a {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-}
+    h1 {
+        text-align: center;
+        color: #d4af37;
+        margin-top: 40px;
+    }
 
-h1 {
-    text-align: center;
-    color: #d4af37;
-}
+    .editeur-section,
+    .animation-section,
+    .directeur-section,
+    .contact-section,
+    .donnees-section {
+        color: white;
+        background-color: rgb(6, 6, 48);
 
-.editeur-section,
-.animation-section,
-.directeur-section,
-.contact-section,
-.donnees-section {
-    color: white;
-    margin-bottom: 20px;
-    padding: 40px;
-    background-color: rgb(6, 6, 48);
-    width: 90%;
-    padding: 20px;
-    max-width: 600px;
-    border-radius: 8px;
-    margin: 60px auto;
-    border: 1px solid #d4af37;
-}
+        width: 90%;
+        max-width: 600px;
 
-.contact-section,
-.donnees-section a {
-    color: #d4af37;
-}
+        padding: 20px;
+        margin: 40px auto;
+
+        border: 1px solid #d4af37;
+        border-radius: 8px;
+    }
+
+    .editeur-section h2,
+    .animation-section h2,
+    .directeur-section h2,
+    .contact-section h2,
+    .donnees-section h2 {
+        margin-top: 0;
+    }
+
+    .inline {
+        border-bottom: 1px solid #d4af37;
+        margin-bottom: 15px;
+    }
+
+    .contact-section a,
+    .donnees-section a {
+        color: #d4af37;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+            padding: 0 15px;
+        }
+
+        .editeur-section,
+        .animation-section,
+        .directeur-section,
+        .contact-section,
+        .donnees-section {
+            width: 94%;
+            padding: 18px;
+            margin: 25px auto;
+        }
+
+        .editeur-section h2,
+        .animation-section h2,
+        .directeur-section h2,
+        .contact-section h2,
+        .donnees-section h2 {
+            font-size: 1.4rem;
+        }
+
+        .editeur-section p,
+        .animation-section p,
+        .directeur-section p,
+        .contact-section p,
+        .donnees-section p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    }
+
+    /*ajout pour les très petits écrans*/
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.6rem;
+        }
+
+        .editeur-section,
+        .animation-section,
+        .directeur-section,
+        .contact-section,
+        .donnees-section {
+            width: 95%;
+            padding: 15px;
+        }
+    }
 </style>

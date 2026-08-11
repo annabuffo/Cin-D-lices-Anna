@@ -130,6 +130,8 @@
     </section>
 </main>
 
+<Cookies />
+
 <style>
     main {
         background-color: black;
@@ -291,6 +293,96 @@
         );
     }
 
-</style>
+    /* TABLETTE */
+    @media (max-width: 1000px) {
+        .banner {
+            height: auto;
+            min-height: 350px;
+            background-position: center;
+            background-size: cover;
+        }
 
-<Cookies />
+        .banner-content {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .banner-content h2 {
+            font-size: 32px;
+        }
+
+        .container-card-one,
+        .container-card {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* MOBILE */
+    @media (max-width: 650px) {
+        .banner {
+            min-height: 500px;
+
+            justify-content: flex-end;
+            align-items: flex-end;
+
+            background-position: center;
+            background-size: cover;
+        }
+
+        .banner-content {
+            width: 100%;
+            padding: 20px;
+
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+
+        .banner-content h2 {
+            font-size: 30px;
+        }
+
+        .banner-content h3 {
+            font-size: 20px;
+        }
+
+        .banner-content p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .banner-button {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .title-sct-two,
+        .title-card {
+            font-size: 28px;
+            padding: 20px 10px;
+        }
+
+        .container-card-one {
+            width: 95%;
+            grid-template-columns: 1fr;
+            padding: 10px;
+        }
+
+        .container-card {
+            grid-template-columns: 1fr;
+            padding: 30px 20px;
+        }
+
+        .card img {
+            height: auto;
+            max-height: 260px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+        }
+    }
+</style>

@@ -4,9 +4,9 @@
 <main>
     <div class="privacy-container">
         <h1>
-            <img class="lock" src="./public/security.png" alt="lock-icon" />
+            <img class="lock" src="/security.png" alt="lock-icon" />
             POLITIQUE DE CONFIDENTIALITÉ
-            <img class="lock" src="./public/security.png" alt="lock-icon" />
+            <img class="lock" src="/security.png" alt="lock-icon" />
         </h1>
 
         <h2>1. COLLECTE DE DONNÉES</h2>
@@ -71,7 +71,7 @@
         <p>
             Pour exercer ces droits, vous pouvez nous contacter à l'adresse
             suivante:
-            <a href="contact">privacy@cinédélices.com</a> ou supprimer votre compte
+            <a href="#/contact">privacy@cinédélices.com</a> ou supprimer votre compte
             directement depuis votre espace personnel.
         </p>
     </div>
@@ -80,68 +80,76 @@
 <style>
     /*PARTIE MAIN*/
 
-    *{
-        background-color: black;
-        box-sizing: border-box;
-    }
-
-    h1,
-    h2 {
-        font-family: "Bebas Neue", sans-serif;
-        color: #d4af37;
-        letter-spacing: 1px;
-    }
-
-    nav a,
-    button {
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
     .privacy-container {
         border: 2px solid #d4af37;
         border-radius: 6px;
-        margin-bottom: 20px;
-        margin-top: 50px;
-        margin-bottom: 60px;
-        background-color: transparent;
+
+        background-color: rgb(6, 6, 48);
+
         width: 90%;
-        padding: 10px;
         max-width: 800px;
-        margin-left: 50%;
-        transform: translateX(-50%);
+
+        padding: 20px;
+        margin: 50px auto 60px;
     }
 
-    h1 {
+    .privacy-container h1 {
         color: #d4af37;
         text-align: center;
         margin-top: 20px;
     }
 
     .lock {
-        border: 1px solid transparent;
-        width: 60px;
+        width: 50px;
+        vertical-align: middle;
     }
 
-    h2 {
+    .privacy-container h2 {
         color: #d4af37;
         text-align: left;
-        margin-top: 50px;
+        margin-top: 40px;
     }
 
     .inline {
         border-bottom: 1px solid #d4af37;
     }
 
-    p,
-    ul {
+    .privacy-container p,
+    .privacy-container ul {
         color: white;
         text-align: justify;
+        line-height: 1.6;
     }
 
-    a {
+    .privacy-container a {
         color: #d4af37;
         text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .privacy-container {
+            width: 94%;
+            padding: 15px;
+            margin: 30px auto 40px;
+        }
+
+        .privacy-container h1 {
+            font-size: 2rem;
+        }
+
+        .privacy-container h2 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+        }
+
+        .lock {
+            width: 35px;
+        }
+
+        .privacy-container p,
+        .privacy-container ul {
+            font-size: 0.9rem;
+            text-align: left;
+        }
     }
 </style>

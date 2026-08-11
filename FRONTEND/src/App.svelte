@@ -15,6 +15,13 @@
     import About from "./pages/about.svelte";
     import NotFound from "./pages/NotFound.svelte";
 
+    import AdminDashboard from "./pages/admin/Dashboard.svelte";
+    import AdminUsers from "./pages/admin/Users.svelte";
+    import AdminRecipes from "./pages/admin/Recipes.svelte";
+    import AdminCategories from "./pages/admin/Categories.svelte";
+    import AdminMedia from "./pages/admin/Media.svelte";
+    import AdminComments from "./pages/admin/Comments.svelte";
+
     const routes = {
         "/": Home,
         "/movies": Movies,
@@ -25,7 +32,14 @@
         "/terms": Terms,
         "/privacy": Privacy,
         "/about": About,
-        "*": NotFound
+        "/admin": AdminDashboard,
+        "/admin/users": AdminUsers,
+        "/admin/recipes": AdminRecipes,
+        "/admin/categories": AdminCategories,
+        "/admin/media": AdminMedia,
+        "/admin/comments": AdminComments,
+        
+        "*": NotFound,
     };
 </script>
 
