@@ -19,9 +19,14 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        console.log("EMAIL REÇU :", email);
+        console.log("PASSWORD REÇU :", password);
+
         const user = await User.findOne({
             where: { email }
         });
+
+        console.log("UTILISATEUR TROUVÉ :", user ? true : false);
 
         if (!user) {
             return res.status(401).json({
@@ -33,6 +38,8 @@ export const login = async (req, res) => {
             user.password_hash,
             password
         );
+
+        console.log("MOT DE PASSE VALIDE :", isPasswordValid);
 
         if (!isPasswordValid) {
             return res.status(401).json({
@@ -49,7 +56,10 @@ export const login = async (req, res) => {
             user: userResponse,
             token
         });
+
     } catch (error) {
+        console.log("ERREUR LOGIN :", error);
+
         return res.status(500).json({
             error: error.message
         });
@@ -61,7 +71,7 @@ export const register = async (req, res) => {
         const {
             username,
             email,
-            password,
+            password_hash,
             birth_date
         } = req.body;
 

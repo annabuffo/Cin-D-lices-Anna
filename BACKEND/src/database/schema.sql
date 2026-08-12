@@ -40,8 +40,7 @@ CREATE TABLE media (
     type VARCHAR(50) NOT NULL
         CHECK (type IN ('film', 'serie')),
     description TEXT,
-    release_date DATE,
-
+    release_date DATE
 );
 
 -------------------------------------------------
@@ -58,7 +57,7 @@ CREATE TABLE recipes (
     image_url VARCHAR(255),
     prep_time INTEGER,
     cook_time INTEGER,
-    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     
     user_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,

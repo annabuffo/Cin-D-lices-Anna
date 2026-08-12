@@ -1,7 +1,6 @@
 'use strict';
 
 const argon2 = require('argon2');
-const { sequelize } = require('../models');
 
 /** @type {import('sequelize_cli').Migration}*/
 module.exports = {
@@ -17,18 +16,14 @@ module.exports = {
                 birth_date: new Date(),
                 date_created: new Date()
             },
-            {
+            {                
+                username: 'ChefCinema',
                 email: 'user@cinedelices.com',
                 password_hash: hashedPassword,
-                username: 'ChefCinema',
                 role: 'user',
-                created_at: new Date(),
-                updated_at: new Date()
+                birth_date: new Date(),
+                date_created: new Date()
             }
-        ]);
-
-        await queryInterface.bulkInsert('admin', [
-
         ]);
 
         await queryInterface.bulkInsert('categories', [

@@ -1,21 +1,59 @@
 <script>
+    let email = "";
+    let password = "";
+    let message = "";
+
+    async function login() {
+        const response = await fetch("http://localhost:3000/api/auth/login", {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("role", data.user.role);
+
+            message = "Connexion réussie";
+
+            if (data.user.role === "admin") {
+                window.location.hash = "#/admin";
+            } else {
+                window.location.hash = "#/";
+            }
+        } else {
+            message = "Email ou mot de passe incorrect";
+        }
+    }
 </script>
 
 <main class="login-page">
     <div class="container-login">
         <h2 class="title-login">CONNEXION</h2>
 
-        <form>
+        <form on:submit|preventDefault={login}>
             <label for="email">Email</label>
 
-            <input id="email" type="email" required />
+            <input id="email" type="email" bind:value={email} required />
 
             <label for="password">Mot de passe</label>
 
-            <input id="password" type="password" required />
+            <input id="password" type="password" bind:value={password} required />
 
-            <button class="button-login" type="submit"> Connexion </button>
+            <button class="button-login" type="submit">Connexion</button>
 
+            {#if message}
+                <p class="message">{message}</p>
+            {/if}
             <p class="redirection-register">
                 Vous n'avez pas de compte ?
                 <a href="#/register">Inscrivez-vous</a>

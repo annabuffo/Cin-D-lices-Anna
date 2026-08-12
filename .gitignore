@@ -1,7 +1,0 @@
-.env
-node_modules
-*.log
-dist/
-build/
-.vscode/
-.DS_Store
