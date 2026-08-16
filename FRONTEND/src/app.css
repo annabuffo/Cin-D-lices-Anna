@@ -36,18 +36,16 @@ a {
 
 img {
     max-width: 100%;
+    display: block;
 }
 
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
+button,
+input,
+select,
+textarea {
+    font-family: "Poppins", sans-serif;
+}
 
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
+main {
+    width: 100%;
 }

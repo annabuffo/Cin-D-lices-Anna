@@ -1,9 +1,9 @@
-'use strict';
+/*'use strict';
 
-const argon2 = require('argon2');
+const argon2 = require('argon2');*/
 
-/** @type {import('sequelize_cli').Migration}*/
-module.exports = {
+// /** @type {import('sequelize_cli').Migration}*/
+/*module.exports = {
     async up(queryInterface, Sequelize) {
         const hashedPassword = await argon2.hash('password2026');
 
@@ -619,7 +619,7 @@ module.exports = {
                 prep_cook: '',
                 image_url: 'http://127.0.0.1:5501/public/img-card-sct-1/aquaman2.webp',
                 user_id: '',
-                categories_id: ,
+                categories_id: '',
                 media_id: aquaman2Media.id,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -1060,5 +1060,35 @@ module.exports = {
         queryInterface.bulkInsert('media', null, {});
         queryInterface.bulkInsert('users', null, {});
         queryInterface.bulkInsert('recipes', null, {});
+    }
+};
+*/
+
+"use strict";
+
+module.exports = {
+    async up(queryInterface) {
+        await queryInterface.bulkInsert("categories", [
+            {
+                name: "Entrée",
+                description: "Recettes servies en entrée."
+            },
+            {
+                name: "Plat principal",
+                description: "Recettes de plats principaux."
+            },
+            {
+                name: "Dessert",
+                description: "Recettes sucrées."
+            },
+            {
+                name: "Boisson",
+                description: "Boissons inspirées du cinéma."
+            }
+        ]);
+    },
+
+    async down(queryInterface) {
+        await queryInterface.bulkDelete("categories", null, {});
     }
 };

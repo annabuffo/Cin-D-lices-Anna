@@ -71,9 +71,12 @@ export const register = async (req, res) => {
         const {
             username,
             email,
-            password_hash,
+            password,
             birth_date
         } = req.body;
+
+        
+        const hashedPassword = await argon2.hash(password);
 
         const existingUser = await User.findOne({
             where: { email }
@@ -84,8 +87,6 @@ export const register = async (req, res) => {
                 message: "Un utilisateur avec cette adresse e-mail existe déjà."
             });
         }
-
-        const hashedPassword = await argon2.hash(password);
 
         const user = await User.create({
             username,
