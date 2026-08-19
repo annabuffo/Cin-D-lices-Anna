@@ -1,98 +1,107 @@
-<script>
-</script>
-
-<main>
+<main class="terms-page">
     <h1>CONDITIONS D'UTILISATION</h1>
 
-    <section class="editeur-section">
-        <h2>1. Editeur du site</h2>
+    <section class="terms-section">
+        <h2>1. Éditeur du site</h2>
+
         <div class="inline"></div>
-        <p>Ce site web, accessible à www.cinedelices.com, est publié par :</p>
+
         <p>
-            <strong>Anna Ciné Délices</strong>, élève de l'école O'clock, Situé
-            au 10, rue cinéma, 75000, Paris, France.
+            Ce site web, accessible à www.cinedelices.com, est publié par :
+        </p>
+
+        <p>
+            <strong>Anna Ciné Délices</strong>, élève de l'école O'clock,
+            située au 10, rue Cinéma, 75000 Paris, France.
         </p>
     </section>
 
-    <section class="animation-section">
-        <h2>2. Animation</h2>
+    <section class="terms-section">
+        <h2>2. Hébergement</h2>
+
         <div class="inline"></div>
+
         <p>
-            Le site est hébergé par <strong>"..."</strong> situé au "...."."
+            Le site sera hébergé par un prestataire qui sera renseigné
+            lors du déploiement du projet.
         </p>
     </section>
 
-    <section class="directeur-section">
+    <section class="terms-section">
         <h2>3. Directeur de publication</h2>
-        <div class="inline"></div>
-        <p>Le directeur de publication du site est Anna Ciné Déciles</p>
-    </section>
 
-    <section class="contact-section">
-        <h2>4. Contactez-nous</h2>
         <div class="inline"></div>
-        <p class="email">
-            Par courriel : <a href="mailto:contact@cinedelices.com"
-                >contact@cinedelices.com</a
-            >
+
+        <p>
+            Le directeur de publication du site est Anna Ciné Délices.
         </p>
     </section>
 
-    <section class="donnees-section">
-        <h2>5. Données personnelles</h2>
+    <section class="terms-section">
+        <h2>4. Contactez-nous</h2>
+
         <div class="inline"></div>
+
+        <p class="email">
+            Par courriel :
+            <a href="mailto:contact@cinedelices.com">
+                contact@cinedelices.com
+            </a>
+        </p>
+    </section>
+
+    <section class="terms-section">
+        <h2>5. Données personnelles</h2>
+
+        <div class="inline"></div>
+
         <p>
-            Le traitements de vos données personnelles est régi par notre <a
-                href="#/privacy">Politique de Confidentialité</a
-            >, disponible dans la section "Politique de onfidentialité".
+            Le traitement de vos données personnelles est régi par notre
+            <a href="#/privacy">
+                Politique de confidentialité
+            </a>,
+            disponible dans la section dédiée.
         </p>
     </section>
 </main>
 
 <style>
-    h1,
-    h2 {
-        font-family: "Bebas Neue", sans-serif;
-        color: #d4af37;
-        letter-spacing: 1px;
+    .terms-page {
+        width: 100%;
+        padding-bottom: 40px;
     }
 
-    a {
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-    h1 {
+    .terms-page h1 {
         text-align: center;
         color: #d4af37;
+
         margin-top: 40px;
+        margin-bottom: 30px;
     }
 
-    .editeur-section,
-    .animation-section,
-    .directeur-section,
-    .contact-section,
-    .donnees-section {
-        color: white;
-        background-color: rgb(6, 6, 48);
-
+    .terms-section {
         width: 90%;
         max-width: 600px;
 
+        margin: 30px auto;
         padding: 20px;
-        margin: 40px auto;
+
+        color: white;
+        background-color: rgb(6, 6, 48);
 
         border: 1px solid #d4af37;
         border-radius: 8px;
     }
 
-    .editeur-section h2,
-    .animation-section h2,
-    .directeur-section h2,
-    .contact-section h2,
-    .donnees-section h2 {
+    .terms-section h2 {
+        color: #d4af37;
+
         margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .terms-section p {
+        line-height: 1.6;
     }
 
     .inline {
@@ -100,59 +109,54 @@
         margin-bottom: 15px;
     }
 
-    .contact-section a,
-    .donnees-section a {
+    .terms-section a {
         color: #d4af37;
+        text-decoration: underline;
     }
 
+    /* TABLETTE */
+
     @media (max-width: 768px) {
-        h1 {
-            font-size: 2rem;
+        .terms-page h1 {
+            font-size: 30px;
             padding: 0 15px;
         }
 
-        .editeur-section,
-        .animation-section,
-        .directeur-section,
-        .contact-section,
-        .donnees-section {
+        .terms-section {
             width: 94%;
             padding: 18px;
             margin: 25px auto;
         }
 
-        .editeur-section h2,
-        .animation-section h2,
-        .directeur-section h2,
-        .contact-section h2,
-        .donnees-section h2 {
-            font-size: 1.4rem;
+        .terms-section h2 {
+            font-size: 22px;
         }
 
-        .editeur-section p,
-        .animation-section p,
-        .directeur-section p,
-        .contact-section p,
-        .donnees-section p {
-            font-size: 0.9rem;
-            line-height: 1.6;
+        .terms-section p {
+            font-size: 15px;
         }
     }
 
-    /*ajout pour les très petits écrans*/
+    /* MOBILE */
 
     @media (max-width: 480px) {
-        h1 {
-            font-size: 1.6rem;
+        .terms-page h1 {
+            font-size: 26px;
+            margin-top: 25px;
         }
 
-        .editeur-section,
-        .animation-section,
-        .directeur-section,
-        .contact-section,
-        .donnees-section {
+        .terms-section {
             width: 95%;
             padding: 15px;
+            margin: 20px auto;
+        }
+
+        .terms-section h2 {
+            font-size: 20px;
+        }
+
+        .terms-section p {
+            font-size: 14px;
         }
     }
 </style>

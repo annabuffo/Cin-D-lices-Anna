@@ -5,163 +5,290 @@
 
     <div class="footer">
         <div class="social-icons">
-            <a href="https://www.facebook.com/"
-                ><img src="/icons-footer/facebook (1).png" alt="facebook" /></a
-            >
-            <a href="https://www.instagram.com/"
-                ><img
+            <a href="https://www.facebook.com/">
+                <img
+                    src="/icons-footer/facebook (1).png"
+                    alt="Facebook"
+                />
+            </a>
+
+            <a href="https://www.instagram.com/">
+                <img
                     src="/icons-footer/instagram (1).png"
-                    alt="instagram"
-                /></a
-            >
-            <a href="https://x.com/"
-                ><img src="/icons-footer/twitter.png" alt="twitter" /></a
-            >
-            <a href="https://www.youtube.com/"
-                ><img src="/icons-footer/youtube (1).png" alt="youtube" /></a
-            >
+                    alt="Instagram"
+                />
+            </a>
+
+            <a href="https://x.com/">
+                <img
+                    src="/icons-footer/twitter.png"
+                    alt="X"
+                />
+            </a>
+
+            <a href="https://www.youtube.com/">
+                <img
+                    src="/icons-footer/youtube (1).png"
+                    alt="YouTube"
+                />
+            </a>
         </div>
     </div>
 
     <h2 class="news">Newsletter</h2>
 
     <form class="newsletter">
-        <input type="email" placeholder="ton@email.com" required />
-        <button class="newsletter-submit" type="submit">SUBSCRIBE</button>
+        <input
+            type="email"
+            placeholder="ton@email.com"
+            required
+        />
+
+        <button class="newsletter-submit" type="submit">
+            SUBSCRIBE
+        </button>
     </form>
 
     <nav class="nav-footer">
         <ul>
-            <li><a href="#/about">A propos</a></li>
-            <li><a href="#/contact">Contact</a></li>
             <li>
-                <a href="#/privacy">Politiques de confidentialité</a>
+                <a href="#/about">A propos</a>
             </li>
+
             <li>
-                <a href="#/terms">Condition d'utilisation</a>
+                <a href="#/contact">Contact</a>
+            </li>
+
+            <li>
+                <a href="#/privacy">
+                    Politique de confidentialité
+                </a>
+            </li>
+
+            <li>
+                <a href="#/terms">
+                    Conditions d'utilisation
+                </a>
             </li>
         </ul>
     </nav>
 
-    <div class="mention-légal">
+    <div class="mention-legal">
         <p>
-            © Ciné Délices. Tous droits réservés. Expériences culinaires
-            cinématographique.
+            © Ciné Délices. Tous droits réservés.
+            Expériences culinaires cinématographiques.
         </p>
     </div>
 </footer>
 
 <style>
-*{
-    background-color: black;
-    box-sizing: border-box;
-}
-    /*PARTIE FOOTER*/
+    footer {
+        width: 100%;
+        background-color: black;
+    }
+
+    /* BARRE STYLE PELLICULE */
 
     .footer-film-strip {
-        box-sizing: border-box;
-        height: 30px;
-        /*hauteur de la ligne*/
-        background-color: #d4af37;
         width: 100%;
-        /*prend 100% de la largeur*/
+        height: 30px;
+
+        background-color: #d4af37;
 
         display: flex;
-        /*sert à conternir les carrer noir à l'intérieur de la barre jaune*/
-        justify-content: center;
         align-items: center;
     }
 
     .barre {
         width: 100%;
         height: 14px;
+
         background: repeating-linear-gradient(
-            /*sert à répéter les couleur des carrer noir*/ 90deg,
+            90deg,
             #000 0 16px,
-            #d4b000 4px 20px
+            #d4af37 16px 20px
         );
     }
 
-    nav ul li {
-        display: inline;
-        /* Affiche les éléments sur une seule ligne */
-        margin-right: 20px;
-        /* Espacement entre les liens */
-    }
-
-    nav ul li a {
-        text-decoration: none;
-        /* Supprime le soulignement */
-        color: white;
-    }
-
-    .nav-barre-from-the-bottom {
-        color: white;
-        text-align: center;
-    }
+    /* RESEAUX SOCIAUX */
 
     .footer {
-        padding: 40px;
+        padding: 30px 20px 10px;
         text-align: center;
-        color: white;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
     }
 
     .social-icons a {
         width: 50px;
         height: 50px;
-        border: 2px solid gold;
+
+        border: 2px solid #d4af37;
         border-radius: 50%;
-        display: inline-flex;
+
+        display: flex;
         align-items: center;
         justify-content: center;
-        margin: 10px;
     }
 
     .social-icons img {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         object-fit: contain;
     }
+
+    /* NEWSLETTER */
 
     .news {
         color: white;
         text-align: center;
+        margin: 20px 0 10px;
     }
 
     .newsletter {
         display: flex;
         justify-content: center;
+
+        margin: 20px auto;
+        padding: 0 20px;
     }
 
     .newsletter input {
-        padding: 16px;
         width: 260px;
-        border: 2px solid #d4af37;
-        background: transparent;
+        padding: 14px;
+
+        background-color: transparent;
         color: white;
+
+        border: 2px solid #d4af37;
         outline: none;
     }
 
     .newsletter-submit {
+        padding: 14px 20px;
+
         background-color: #d4af37;
-        padding: 18px;
+        color: black;
+
         border: none;
+
         font-weight: bold;
+        cursor: pointer;
     }
+
+    .newsletter-submit:hover {
+        background-color: #f0c94d;
+    }
+
+    /* NAVIGATION FOOTER */
 
     .nav-footer {
+        margin-top: 25px;
+        padding: 0 20px;
         text-align: center;
     }
 
-    .mention-légal {
+    .nav-footer ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-footer a {
         color: white;
-        margin-top: 30px;
-        text-align: center;
-        border-top: 2px solid #d4af37;
-        width: 100%;
-        padding-top: 30px;
-        padding-bottom: 30px;
+        text-decoration: none;
     }
 
-    /*FIN FOOOTER*/
+    .nav-footer a:hover {
+        color: #d4af37;
+    }
+
+    /* MENTIONS LEGALES */
+
+    .mention-legal {
+        width: 100%;
+
+        margin-top: 30px;
+        padding: 25px 20px;
+
+        color: white;
+        text-align: center;
+
+        border-top: 2px solid #d4af37;
+    }
+
+    .mention-legal p {
+        margin: 0;
+    }
+
+    /* TABLETTE */
+
+    @media (max-width: 768px) {
+        .footer {
+            padding-top: 25px;
+        }
+
+        .nav-footer ul {
+            gap: 15px;
+        }
+
+        .newsletter {
+            width: 100%;
+        }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 480px) {
+        .social-icons {
+            gap: 10px;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .newsletter {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .newsletter input,
+        .newsletter-submit {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .nav-footer ul {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mention-legal {
+            padding: 20px 15px;
+        }
+
+        .mention-legal p {
+            font-size: 14px;
+        }
+    }
 </style>

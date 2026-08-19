@@ -6,14 +6,18 @@ html,
 body {
     margin: 0;
     padding: 0;
+
     width: 100%;
     min-width: 320px;
     min-height: 100%;
+
+    overflow-x: hidden;
 }
 
 body {
     background-color: #0d0d0d;
     color: white;
+
     font-family: "Poppins", sans-serif;
 }
 
@@ -21,6 +25,12 @@ body {
     width: 100%;
     min-height: 100vh;
 }
+
+main {
+    width: 100%;
+}
+
+/* TITRES */
 
 h1,
 h2,
@@ -30,14 +40,21 @@ h3 {
     letter-spacing: 1px;
 }
 
+/* LIENS */
+
 a {
     text-decoration: none;
 }
 
+/* IMAGES */
+
 img {
     max-width: 100%;
+    height: auto;
     display: block;
 }
+
+/* FORMULAIRES */
 
 button,
 input,
@@ -46,6 +63,37 @@ textarea {
     font-family: "Poppins", sans-serif;
 }
 
-main {
-    width: 100%;
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+/* TABLETTE */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    body {
+        font-size: 14px;
+    }
 }

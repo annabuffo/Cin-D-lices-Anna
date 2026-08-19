@@ -1,9 +1,11 @@
 <script>
+    import Router from "svelte-spa-router";
+
+    /* COMPONENTS */
     import Header from "./components/Header.svelte";
     import Footer from "./components/Footer.svelte";
 
-    import Router from "svelte-spa-router";
-
+    /* PAGES */
     import Home from "./pages/home.svelte";
     import Movies from "./pages/movies.svelte";
     import Recipes from "./pages/recipes.svelte";
@@ -15,17 +17,36 @@
     import About from "./pages/about.svelte";
     import NotFound from "./pages/NotFound.svelte";
 
+    /* PAGES ADMIN */
+    import Admin from "./pages/admin/Dashboard.svelte";
+    import AdminUsers from "./pages/admin/Users.svelte";
+    import AdminRecipes from "./pages/admin/Recipes.svelte";
+    import AdminCategories from "./pages/admin/Categories.svelte";
+    import AdminMedia from "./pages/admin/Media.svelte";
+    import AdminComments from "./pages/admin/Comments.svelte";
+
     const routes = {
         "/": Home,
+
         "/movies": Movies,
         "/recipes": Recipes,
+
         "/login": Login,
         "/register": Register,
-        "/contact": Contact,
-        "/terms": Terms,
-        "/privacy": Privacy,
+
         "/about": About,
-        "*": NotFound
+        "/contact": Contact,
+        "/privacy": Privacy,
+        "/terms": Terms,
+
+        "/admin": Admin,
+        "/admin/users": AdminUsers,
+        "/admin/recipes": AdminRecipes,
+        "/admin/categories": AdminCategories,
+        "/admin/media": AdminMedia,
+        "/admin/comments": AdminComments,
+
+        "*": NotFound,
     };
 </script>
 

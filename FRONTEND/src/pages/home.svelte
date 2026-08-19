@@ -25,7 +25,7 @@
 
     <section class="container-card-one">
         <article class="card">
-            <img src="./public/img-card-sct-1/poisson.jpg" alt="" />
+            <img src="/img-card-sct-1/poisson.jpg" alt="" />
             <h3><em>La Petite Siréne :</em></h3>
             <h2>Poisson Rôti et Légumes au Four</h2>
             <a href="./cardRecipe.html">VOIR LA RECETTE</a>
@@ -33,7 +33,7 @@
 
         <article class="card">
             <img
-                src="./public/img-card-sct-1/champignon.jpg"
+                src="/img-card-sct-1/champignon.jpg"
                 alt="plat de pâtes au champignons"
             />
             <h3><em>Super Mario Bros :</em></h3>
@@ -43,7 +43,7 @@
 
         <article class="card">
             <img
-                src="./public/img-card-sct-1/ratatouille.jpg"
+                src="/img-card-sct-1/ratatouille.jpg"
                 alt="ratatouille"
             />
             <h3><em>Ratatouille :</em></h3>
@@ -52,7 +52,7 @@
         </article>
 
         <article class="card">
-            <img src="./public/img-card-sct-1/choux.png" alt="soupe au choux" />
+            <img src="/img-card-sct-1/choux.png" alt="soupe au choux" />
             <h3><em>La Soupe Aux Choux :</em></h3>
             <h2>Soupe aux choux traditionnelle</h2>
             <a href="./cardRecipe.html">VOIR LA RECETTE</a>

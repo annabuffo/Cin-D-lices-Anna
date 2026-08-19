@@ -1,13 +1,14 @@
-<script>
-</script>
-
 <main class="admin-page">
     <h1>GESTION DES CATÉGORIES</h1>
 
-    <a class="back" href="#/admin"> ← Retour au tableau de bord </a>
+    <a class="back" href="#/admin">
+        ← Retour au tableau de bord
+    </a>
 
     <section class="admin-container">
-        <button class="add">AJOUTER UNE CATÉGORIE</button>
+        <button class="add" type="button">
+            AJOUTER UNE CATÉGORIE
+        </button>
 
         <div class="item-card">
             <div>
@@ -16,10 +17,9 @@
             </div>
 
             <div class="actions">
-                <button class="edit">MODIFIER</button>
-                <button class="delete">SUPPRIMER</button>
+                <button class="edit" type="button">MODIFIER</button>
+                <button class="delete" type="button">SUPPRIMER</button>
             </div>
-
         </div>
 
         <div class="item-card">
@@ -29,8 +29,8 @@
             </div>
 
             <div class="actions">
-                <button class="edit">MODIFIER</button>
-                <button class="delete">SUPPRIMER</button>
+                <button class="edit" type="button">MODIFIER</button>
+                <button class="delete" type="button">SUPPRIMER</button>
             </div>
         </div>
 
@@ -41,11 +41,11 @@
             </div>
 
             <div class="actions">
-                <button class="edit">MODIFIER</button>
-                <button class="delete">SUPPRIMER</button>
+                <button class="edit" type="button">MODIFIER</button>
+                <button class="delete" type="button">SUPPRIMER</button>
             </div>
         </div>
-        
+
         <div class="item-card">
             <div>
                 <h2>Boisson</h2>
@@ -53,14 +53,12 @@
             </div>
 
             <div class="actions">
-                <button class="edit">MODIFIER</button>
-                <button class="delete">SUPPRIMER</button>
+                <button class="edit" type="button">MODIFIER</button>
+                <button class="delete" type="button">SUPPRIMER</button>
             </div>
         </div>
     </section>
 </main>
-
-<Footer />
 
 <style>
     .admin-page {
@@ -72,12 +70,18 @@
     .admin-page h1 {
         text-align: center;
         color: #d4af37;
+        margin-bottom: 25px;
     }
 
     .back {
         display: inline-block;
         color: #d4af37;
         margin-bottom: 25px;
+        text-decoration: none;
+    }
+
+    .back:hover {
+        text-decoration: underline;
     }
 
     .admin-container {
@@ -90,16 +94,23 @@
     .add {
         background-color: #d4af37;
         color: black;
+
         border: none;
+        border-radius: 4px;
+
         padding: 10px 15px;
         margin-bottom: 20px;
+
         cursor: pointer;
+        font-weight: bold;
     }
 
     .item-card {
         background-color: #111526;
+
         padding: 15px;
         margin-bottom: 15px;
+
         border-radius: 6px;
 
         display: flex;
@@ -108,17 +119,34 @@
         gap: 20px;
     }
 
+    .item-card:last-child {
+        margin-bottom: 0;
+    }
+
     .item-card h2 {
         color: #d4af37;
+        margin: 0 0 8px;
     }
 
     .item-card p {
         color: white;
+        margin: 0;
     }
 
     .actions {
         display: flex;
         gap: 10px;
+    }
+
+    .edit,
+    .delete {
+        border: none;
+        border-radius: 4px;
+
+        padding: 10px 15px;
+
+        cursor: pointer;
+        font-weight: bold;
     }
 
     .edit {
@@ -131,17 +159,45 @@
         color: white;
     }
 
-    .edit,
-    .delete {
-        border: none;
-        padding: 10px 15px;
-        cursor: pointer;
+    /* TABLETTE */
+
+    @media (max-width: 768px) {
+        .admin-page {
+            width: 94%;
+        }
+
+        .item-card {
+            align-items: flex-start;
+        }
+
+        .actions {
+            flex-direction: column;
+        }
     }
 
-    @media (max-width: 650px) {
+    /* MOBILE */
+
+    @media (max-width: 480px) {
+        .admin-page {
+            width: 95%;
+            margin: 25px auto;
+        }
+
+        .admin-page h1 {
+            font-size: 28px;
+        }
+
+        .admin-container {
+            padding: 15px;
+        }
+
+        .add {
+            width: 100%;
+        }
+
         .item-card {
             flex-direction: column;
-            align-items: flex-start;
+            align-items: stretch;
         }
 
         .actions {

@@ -1,41 +1,48 @@
 <main class="contact-page">
     <h1 class="title-contact">📬 CONTACTEZ-NOUS</h1>
 
-    <p class="subtitle-contact">Nous serions ravis d'avoir de vos nouvelles</p>
+    <p class="subtitle-contact">
+        Nous serions ravis d'avoir de vos nouvelles
+    </p>
 
     <section class="contact-layout">
+
         <!-- PARTIE GAUCHE -->
 
         <div class="contact-left">
-            <!-- CARTE EMAIL -->
+
+            <!-- EMAIL -->
 
             <div class="container-email">
                 <img
-                    class="img-email"
-                    src="./public/p/email.png"
+                    class="contact-icon"
+                    src="/p/email.png"
                     alt="Icône email"
                 />
 
-                <h2 class="title-email">EMAIL</h2>
+                <h2>EMAIL</h2>
 
                 <p>hello@cinedelices.com</p>
             </div>
 
-            <!-- CARTE RÉSEAUX SOCIAUX -->
+            <!-- RÉSEAUX SOCIAUX -->
 
             <div class="container-social-media">
                 <img
-                    class="img-inteface-reseaux"
-                    src="./public/p/cercle.png"
+                    class="contact-icon"
+                    src="/p/cercle.png"
                     alt="Icône réseaux sociaux"
                 />
 
-                <h2 class="title-reseaux-sociaux">RÉSEAUX SOCIAUX</h2>
+                <h2>RÉSEAUX SOCIAUX</h2>
 
                 <ul class="social-icons-container">
                     <li>
-                        <a href="https://www.x.com/">
-                            <img src="./public/p/twitter.png" alt="Twitter" />
+                        <a href="https://x.com/">
+                            <img
+                                src="/p/twitter.png"
+                                alt="Twitter"
+                            />
                             X
                         </a>
                     </li>
@@ -43,7 +50,7 @@
                     <li>
                         <a href="https://www.instagram.com/">
                             <img
-                                src="./public/p/instagram (1).png"
+                                src="/p/instagram (1).png"
                                 alt="Instagram"
                             />
                             Instagram
@@ -53,7 +60,7 @@
                     <li>
                         <a href="https://www.facebook.com/">
                             <img
-                                src="./public/p/facebook (1).png"
+                                src="/p/facebook (1).png"
                                 alt="Facebook"
                             />
                             Facebook
@@ -62,16 +69,16 @@
                 </ul>
             </div>
 
-            <!-- CARTE FEEDBACK -->
+            <!-- FEEDBACK -->
 
             <div class="container-feedback">
                 <img
-                    class="img-feedback"
-                    src="./public/p/ampoule.png"
+                    class="contact-icon"
+                    src="/p/ampoule.png"
                     alt="Icône ampoule"
                 />
 
-                <h2 class="title-feedback">FEEDBACK</h2>
+                <h2>FEEDBACK</h2>
 
                 <p>
                     Vous avez une suggestion de recette ou trouvé un bug ?
@@ -80,10 +87,11 @@
             </div>
         </div>
 
-        <!-- PARTIE DROITE : FORMULAIRE -->
+        <!-- FORMULAIRE -->
 
         <div class="container-form-contact">
             <form class="contact-form">
+
                 <label for="nom">Ton nom</label>
 
                 <input
@@ -106,20 +114,35 @@
 
                 <label for="sujet">Sujet</label>
 
-                <select class="option-sujet" name="sujet" id="sujet" required>
+                <select
+                    class="option-sujet"
+                    name="sujet"
+                    id="sujet"
+                    required
+                >
                     <option value="" disabled selected>
                         Choisis un sujet...
                     </option>
 
-                    <option value="question"> Enquête générale </option>
+                    <option value="question">
+                        Enquête générale
+                    </option>
 
-                    <option value="retour"> Retour d'information </option>
+                    <option value="retour">
+                        Retour d'information
+                    </option>
 
-                    <option value="bug"> Rapport de bug </option>
+                    <option value="bug">
+                        Rapport de bug
+                    </option>
 
-                    <option value="recette"> Suggestion de recette </option>
+                    <option value="recette">
+                        Suggestion de recette
+                    </option>
 
-                    <option value="partenariat"> Partenariat </option>
+                    <option value="partenariat">
+                        Partenariat
+                    </option>
                 </select>
 
                 <label for="message">Ton message</label>
@@ -141,130 +164,111 @@
 </main>
 
 <style>
-    /*PARTIE MAIN*/
-    h1,
-    h2 {
-        font-family: "Bebas Neue", sans-serif;
-        color: #d4af37;
-        letter-spacing: 1px;
-    }
-
     .contact-page {
-        width: min(100% - 32px, 800px);
-        margin: 20px auto 40px;
+        width: 90%;
+        max-width: 800px;
+        margin: 40px auto;
         color: white;
     }
 
     /* TITRE */
 
-    .contact-page .title-contact {
+    .title-contact {
         margin: 0;
         text-align: center;
         color: #d4af37;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2rem;
-        letter-spacing: 1px;
+        font-size: 32px;
     }
 
-    .contact-page .subtitle-contact {
+    .subtitle-contact {
         margin: 10px 0 35px;
         color: white;
         text-align: center;
-        font-family: serif;
         font-style: italic;
-        font-size: 0.9rem;
     }
 
-    /* DISPOSITION GÉNÉRALE */
+    /* DISPOSITION */
 
-    .contact-page .contact-layout {
+    .contact-layout {
         display: grid;
-        grid-template-columns: 200px minmax(0, 1fr);
+        grid-template-columns: 200px 1fr;
         gap: 20px;
-        align-items: start;
     }
 
-    /* COLONNE GAUCHE */
+    /* PARTIE GAUCHE */
 
-    .contact-page .contact-left {
+    .contact-left {
         display: flex;
         flex-direction: column;
         gap: 16px;
     }
 
-    /* CARTES */
-
-    .contact-page .container-email,
-    .contact-page .container-social-media,
-    .contact-page .container-feedback {
+    .container-email,
+    .container-social-media,
+    .container-feedback {
         padding: 20px 15px;
-        box-sizing: border-box;
+
         background-color: #1c2039;
+
         border: 1px solid #3d3d48;
         border-radius: 8px;
+
         text-align: center;
     }
 
-    /* Empêche les titres de récupérer
-   les styles globaux avec fond ou padding */
-
-    .contact-page .container-email h2,
-    .contact-page .container-social-media h2,
-    .contact-page .container-feedback h2 {
-        margin: 10px 0;
-        padding: 0;
-        background: transparent;
+    .container-email h2,
+    .container-social-media h2,
+    .container-feedback h2 {
         color: #d4af37;
-        font-size: 1rem;
-        line-height: 1.2;
+        margin: 10px 0;
+        font-size: 18px;
     }
 
-    .contact-page .container-email p,
-    .contact-page .container-feedback p {
-        margin: 8px 0 0;
+    .container-email p,
+    .container-feedback p {
         color: white;
-        font-size: 0.72rem;
-        line-height: 1.6;
+        font-size: 13px;
+        line-height: 1.5;
     }
 
-    /* ICÔNES DES CARTES */
+    /* ICONES */
 
-    .contact-page .img-email,
-    .contact-page .img-inteface-reseaux,
-    .contact-page .img-feedback {
+    .contact-icon {
         display: block;
-        width: 24px;
-        height: 24px;
+
+        width: 30px;
+        height: 30px;
+
         margin: 0 auto 8px;
+
         object-fit: contain;
     }
 
     /* RÉSEAUX SOCIAUX */
 
-    .contact-page .social-icons-container {
+    .social-icons-container {
         display: flex;
         flex-direction: column;
-        gap: 7px;
-        margin: 10px 0 0;
-        padding: 0;
+        gap: 8px;
+
         list-style: none;
+
+        padding: 0;
+        margin: 10px 0 0;
     }
 
-    .contact-page .social-icons-container li {
-        margin: 0;
-    }
-
-    .contact-page .social-icons-container a {
-        display: inline-flex;
-        align-items: center;
+    .social-icons-container a {
+        display: flex;
         justify-content: center;
+        align-items: center;
         gap: 6px;
+
         color: #d4af37;
-        font-size: 0.75rem;
+
         text-decoration: none;
     }
 
-    .contact-page .social-icons-container img {
+    .social-icons-container img {
         width: 18px;
         height: 18px;
         object-fit: contain;
@@ -272,117 +276,121 @@
 
     /* FORMULAIRE */
 
-    .contact-page .container-form-contact {
-        height: auto;
+    .container-form-contact {
         padding: 20px;
-        box-sizing: border-box;
+
         background-color: #1c2039;
+
         border: 1px solid #3d3d48;
         border-radius: 8px;
     }
 
-    .contact-page .contact-form {
+    .contact-form {
         display: flex;
         flex-direction: column;
     }
 
-    .contact-page .contact-form label {
-        margin: 0 0 7px;
-        padding: 0;
-        background: transparent;
+    .contact-form label {
         color: white;
-        font-size: 0.75rem;
+        margin-bottom: 7px;
     }
 
-    .contact-page .contact-form input,
-    .contact-page .contact-form select,
-    .contact-page .contact-form textarea {
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
         width: 100%;
-        margin: 0 0 15px;
+
+        margin-bottom: 15px;
         padding: 11px;
-        box-sizing: border-box;
+
         background-color: #111526;
         color: white;
-        font: inherit;
-        font-size: 0.75rem;
+
         border: 1px solid #3d3d48;
         border-radius: 6px;
+
         outline: none;
     }
 
-    .contact-page .contact-form input:focus,
-    .contact-page .contact-form select:focus,
-    .contact-page .contact-form textarea:focus {
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
         border-color: #d4af37;
     }
 
-    .contact-page .contact-form input::placeholder,
-    .contact-page .contact-form textarea::placeholder {
-        color: #818395;
-    }
-
-    .contact-page .container-message {
+    .container-message {
         min-height: 120px;
         resize: vertical;
     }
 
     /* BOUTON */
 
-    .contact-page .submit {
+    .submit {
         width: 100%;
-        margin-top: 0;
+
         padding: 12px;
+
         background-color: #e24d4d;
         color: white;
+
         border: none;
         border-radius: 5px;
-        font: inherit;
-        font-size: 0.75rem;
-        font-weight: 700;
+
+        font-weight: bold;
+
         cursor: pointer;
     }
 
-    .contact-page .submit:hover {
-        background-color: #e24d4d;
-    }
+    /* TABLETTE */
 
     @media (max-width: 768px) {
         .contact-page {
-            width: 92%;
-            margin: 20px auto 30px;
+            width: 94%;
+            margin: 30px auto;
         }
 
-        .contact-page .contact-layout {
+        .contact-layout {
             grid-template-columns: 1fr;
-            gap: 20px;
         }
 
-        .contact-page .contact-left {
+        .contact-left {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 480px) {
+        .contact-page {
+            width: 95%;
+            margin: 25px auto;
         }
 
-        .contact-page .container-email,
-        .contact-page .container-social-media,
-        .contact-page .container-feedback,
-        .contact-page .container-form-contact {
-            width: 100%;
+        .title-contact {
+            font-size: 28px;
         }
 
-        .contact-page .title-contact {
-            font-size: 1.8rem;
-        }
-
-        .contact-page .subtitle-contact {
-            font-size: 0.85rem;
+        .subtitle-contact {
+            font-size: 14px;
             margin-bottom: 25px;
         }
 
-        .contact-page .contact-form input,
-        .contact-page .contact-form select,
-        .contact-page .contact-form textarea {
-            font-size: 0.85rem;
+        .contact-left {
+            grid-template-columns: 1fr;
+        }
+
+        .container-email,
+        .container-social-media,
+        .container-feedback,
+        .container-form-contact {
+            padding: 15px;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            font-size: 16px;
         }
     }
 </style>
