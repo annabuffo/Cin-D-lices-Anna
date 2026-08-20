@@ -18,12 +18,12 @@
     import NotFound from "./pages/NotFound.svelte";
 
     /* PAGES ADMIN */
-    import Admin from "./pages/admin/Dashboard.svelte";
-    import AdminUsers from "./pages/admin/Users.svelte";
-    import AdminRecipes from "./pages/admin/Recipes.svelte";
-    import AdminCategories from "./pages/admin/Categories.svelte";
-    import AdminMedia from "./pages/admin/Media.svelte";
-    import AdminComments from "./pages/admin/Comments.svelte";
+    import Admin from "./pages/admin/dashboard.svelte";
+    import AdminUsers from "./pages/admin/users.svelte";
+    import AdminRecipes from "./pages/admin/recipes.svelte";
+    import AdminCategories from "./pages/admin/categories.svelte";
+    import AdminMedia from "./pages/admin/media.svelte";
+    import AdminComments from "./pages/admin/comments.svelte";
 
     const routes = {
         "/": Home,
@@ -55,3 +55,4 @@
 <Router {routes} />
 
 <Footer />
+ok 
