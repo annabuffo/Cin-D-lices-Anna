@@ -139,6 +139,7 @@
         text-decoration: none;
 
         border-radius: 4px;
+        text-align: center;
     }
 
     .start {
@@ -203,6 +204,7 @@
         .browse {
             width: 100%;
             padding: 12px 10px;
+            box-sizing: border-box;
         }
     }
 </style>

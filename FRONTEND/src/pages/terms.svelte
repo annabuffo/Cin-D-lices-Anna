@@ -6,13 +6,11 @@
 
         <div class="inline"></div>
 
-        <p>
-            Ce site web, accessible à www.cinedelices.com, est publié par :
-        </p>
+        <p>Ce site web, accessible à www.cinedelices.com, est publié par :</p>
 
         <p>
-            <strong>Anna Ciné Délices</strong>, élève de l'école O'clock,
-            située au 10, rue Cinéma, 75000 Paris, France.
+            <strong>Ciné Délices</strong>, projet réalisé dans le cadre de la
+            formation Développeur Web et Web Mobile.
         </p>
     </section>
 
@@ -22,8 +20,8 @@
         <div class="inline"></div>
 
         <p>
-            Le site sera hébergé par un prestataire qui sera renseigné
-            lors du déploiement du projet.
+            Le site sera hébergé par un prestataire qui sera renseigné lors du
+            déploiement du projet.
         </p>
     </section>
 
@@ -31,9 +29,9 @@
         <h2>3. Directeur de publication</h2>
 
         <div class="inline"></div>
-
         <p>
-            Le directeur de publication du site est Anna Ciné Délices.
+            Le directeur de publication du site est la créatrice de Ciné
+            Délices.
         </p>
     </section>
 
@@ -57,10 +55,8 @@
 
         <p>
             Le traitement de vos données personnelles est régi par notre
-            <a href="#/privacy">
-                Politique de confidentialité
-            </a>,
-            disponible dans la section dédiée.
+            <a href="#/privacy"> Politique de confidentialité </a>, disponible
+            dans la section dédiée.
         </p>
     </section>
 </main>

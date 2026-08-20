@@ -1,3 +1,17 @@
+<script>
+    let search = "";
+    let selectedType = "movie";
+
+    function handleSearch() {
+        if (!search.trim()) {
+            return;
+        }
+
+        console.log("Recherche :", search);
+        console.log("Type :", selectedType);
+    }
+</script>
+
 <main class="movies-page">
     <h1>🎬 DÉCOUVREZ DES FILMS ET SÉRIES TÉLÉVISÉES</h1>
 
@@ -12,6 +26,8 @@
                 type="text"
                 placeholder="Commence à taper pour chercher..."
                 id="searchInput"
+                bind:value={search}
+                on:input={handleSearch}
             />
         </div>
 
@@ -21,7 +37,7 @@
                     type="radio"
                     name="type"
                     value="movie"
-                    checked
+                    bind:group={selectedType}
                 />
                 Films
             </label>
@@ -31,6 +47,7 @@
                     type="radio"
                     name="type"
                     value="tv"
+                    bind:group={selectedType}
                 />
                 Séries télévisées
             </label>

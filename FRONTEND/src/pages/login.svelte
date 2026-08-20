@@ -24,12 +24,17 @@
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("role", data.user.role);
+                if (data.token) {
+                    localStorage.setItem("token", data.token);
+                }
+
+                if (data.user && data.user.role) {
+                    localStorage.setItem("role", data.user.role);
+                }
 
                 message = "Connexion réussie";
 
-                if (data.user.role === "admin") {
+                if (data.user && data.user.role === "admin") {
                     window.location.hash = "#/admin";
                 } else {
                     window.location.hash = "#/";
@@ -59,6 +64,7 @@
                 type="email"
                 bind:value={email}
                 placeholder="ton@email.com"
+                autocomplete="email"
                 required
             />
 
@@ -71,6 +77,7 @@
                 type="password"
                 bind:value={password}
                 placeholder="Ton mot de passe"
+                autocomplete="current-password"
                 required
             />
 

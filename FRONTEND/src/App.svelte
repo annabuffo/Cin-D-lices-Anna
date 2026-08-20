@@ -25,6 +25,14 @@
     import AdminMedia from "./pages/admin/media.svelte";
     import AdminComments from "./pages/admin/comments.svelte";
 
+    /* PAGES USER */
+    import Favorite from "./pages/user/favorite.svelte";
+    import MovieDetail from "./pages/user/movieDetail.svelte";
+    import Profile from "./pages/user/profile.svelte";
+    import RecipeDetail from "./pages/user/recipeDetail.svelte";
+    import AddRecipe from "./pages/user/addRecipe.svelte";
+    import EditRecipe from "./pages/user/editRecipe.svelte";
+
     const routes = {
         "/": Home,
 
@@ -39,12 +47,23 @@
         "/privacy": Privacy,
         "/terms": Terms,
 
+        /* ADMIN */
+
         "/admin": Admin,
         "/admin/users": AdminUsers,
         "/admin/recipes": AdminRecipes,
         "/admin/categories": AdminCategories,
         "/admin/media": AdminMedia,
         "/admin/comments": AdminComments,
+
+        /* USER */
+
+        "/user/profile": Profile,
+        "/user/favorite": Favorite,
+        "/user/movie": MovieDetail,
+        "/user/recipe": RecipeDetail,
+        "/user/addRecipe": AddRecipe,
+        "/user/editRecipe": EditRecipe,
 
         "*": NotFound,
     };
@@ -55,4 +74,3 @@
 <Router {routes} />
 
 <Footer />
-ok 

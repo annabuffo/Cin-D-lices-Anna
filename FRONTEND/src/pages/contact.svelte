@@ -90,7 +90,7 @@
         <!-- FORMULAIRE -->
 
         <div class="container-form-contact">
-            <form class="contact-form">
+            <form class="contact-form" on:submit|preventDefault>
 
                 <label for="nom">Ton nom</label>
 

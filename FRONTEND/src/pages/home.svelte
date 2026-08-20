@@ -11,51 +11,81 @@
             <h3>Tagliatelles crémeuses aux champignons</h3>
 
             <p>
-                Une offre que vous ne pourrez pas refuser. Récreer le plat
-                emblématique du chef-d'oeuvre cinématographique.
+                Une offre que vous ne pourrez pas refuser. Recréer le plat
+                emblématique du chef-d'œuvre cinématographique.
             </p>
 
-            <a href="./cardRecipe.html" class="banner-button">
+            <a href="#/recipes" class="banner-button">
                 VOIR L'ASSOCIATION RECETTE ET FILM
             </a>
         </div>
     </section>
 
-    <h1 class="title-sct-two">EN ATTENTE : FONCTIONNALITéS CULINAIRES</h1>
+    <h1 class="title-sct-two">
+        EN ATTENTE : FONCTIONNALITÉS CULINAIRES
+    </h1>
 
     <section class="container-card-one">
         <article class="card">
-            <img src="/img-card-sct-1/poisson.jpg" alt="" />
-            <h3><em>La Petite Siréne :</em></h3>
+            <img
+                src="/img-card-sct-1/poisson.jpg"
+                alt="Poisson rôti et légumes au four"
+            />
+
+            <h3><em>La Petite Sirène :</em></h3>
+
             <h2>Poisson Rôti et Légumes au Four</h2>
-            <a href="./cardRecipe.html">VOIR LA RECETTE</a>
+
+            <a href="#/recipes">
+                VOIR LA RECETTE
+            </a>
         </article>
 
         <article class="card">
             <img
                 src="/img-card-sct-1/champignon.jpg"
-                alt="plat de pâtes au champignons"
+                alt="Plat de pâtes aux champignons"
             />
+
             <h3><em>Super Mario Bros :</em></h3>
-            <h2>Tagliatelles crémeuses aux champignons</h2>
-            <a href="./cardRecipe.html">VOIR LA RECETTE</a>
+
+            <h2>
+                Tagliatelles crémeuses aux champignons
+            </h2>
+
+            <a href="#/recipes">
+                VOIR LA RECETTE
+            </a>
         </article>
 
         <article class="card">
             <img
                 src="/img-card-sct-1/ratatouille.jpg"
-                alt="ratatouille"
+                alt="Ratatouille aux légumes"
             />
+
             <h3><em>Ratatouille :</em></h3>
+
             <h2>Ratatouille aux légumes</h2>
-            <a href="./cardRecipe.html">VOIR LA RECETTE</a>
+
+            <a href="#/recipes">
+                VOIR LA RECETTE
+            </a>
         </article>
 
         <article class="card">
-            <img src="/img-card-sct-1/choux.png" alt="soupe au choux" />
+            <img
+                src="/img-card-sct-1/choux.png"
+                alt="Soupe aux choux"
+            />
+
             <h3><em>La Soupe Aux Choux :</em></h3>
+
             <h2>Soupe aux choux traditionnelle</h2>
-            <a href="./cardRecipe.html">VOIR LA RECETTE</a>
+
+            <a href="#/recipes">
+                VOIR LA RECETTE
+            </a>
         </article>
     </section>
 
@@ -63,69 +93,145 @@
         <div class="barre"></div>
     </div>
 
-    <h1 class="title-card">PLUS D'AVENTURES CULINAIRES</h1>
+    <h1 class="title-card">
+        PLUS D'AVENTURES CULINAIRES
+    </h1>
 
     <section class="container-card">
         <article class="card">
             <img
-                src="./public/img-card-sct-1/sirène.jpg"
-                alt="La petite sirène"
+                src="/img-card-sct-1/sirène.jpg"
+                alt="La Petite Sirène"
             />
-            <h2>La petite sirène</h2>
-            <p>Poisson Rôti et Légumes au Four</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
-        </article>
 
-        <article class="card">
-            <img src="./public/img-home/La_Soupe_aux_choux.jpg" alt="" />
-            <h2>La soupe aux choux</h2>
-            <p>Soupe aux choux traditionnelle</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
-        </article>
+            <h2>La Petite Sirène</h2>
 
-        <article class="card">
-            <img src="./public/img-home/who.webp" alt="doctor who" />
-            <h2>Doctor who</h2>
-            <p>Tourte du Tardis</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
+            <p>
+                Poisson Rôti et Légumes au Four
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
         </article>
 
         <article class="card">
             <img
-                src="./public/img-home/chocolat.webp"
+                src="/img-home/La_Soupe_aux_choux.jpg"
+                alt="La Soupe aux Choux"
+            />
+
+            <h2>La soupe aux choux</h2>
+
+            <p>
+                Soupe aux choux traditionnelle
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
+        </article>
+
+        <article class="card">
+            <img
+                src="/img-home/who.webp"
+                alt="Doctor Who"
+            />
+
+            <h2>Doctor Who</h2>
+
+            <p>
+                Tourte du Tardis
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
+        </article>
+
+        <article class="card">
+            <img
+                src="/img-home/chocolat.webp"
                 alt="Charlie et la chocolaterie"
             />
+
             <h2>Charlie et la chocolaterie</h2>
-            <p>Moêlleux au chocolat et caramel</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
+
+            <p>
+                Moelleux au chocolat et caramel
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
         </article>
 
         <article class="card">
-            <img src="./public/img-home/vice versa.jpg" alt="vice versa" />
-            <h2>Vice versa</h2>
-            <p>Cupcakes des émotions</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
+            <img
+                src="/img-home/vice versa.jpg"
+                alt="Vice Versa"
+            />
+
+            <h2>Vice Versa</h2>
+
+            <p>
+                Cupcakes des émotions
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
         </article>
 
         <article class="card">
-            <img src="./public/img-home/né.jpg" alt="né quelque part" />
+            <img
+                src="/img-home/né.jpg"
+                alt="Né quelque part"
+            />
+
             <h2>Né quelque part</h2>
-            <p>Makrout aux Dattes</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
+
+            <p>
+                Makrout aux dattes
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
         </article>
 
         <article class="card">
-            <img src="./public/img-home/odyssé.webp" alt="l'odyssée de pi" />
-            <h2>L'odyssée de pi</h2>
-            <p>Riz au curry et lait de coco</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
+            <img
+                src="/img-home/odyssé.webp"
+                alt="L'Odyssée de Pi"
+            />
+
+            <h2>L'Odyssée de Pi</h2>
+
+            <p>
+                Riz au curry et lait de coco
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
         </article>
 
         <article class="card">
-            <img src="./public/img-home/Mario.jpg" alt="super mario bros" />
-            <h2>Super mario bros</h2>
-            <p>Tagliatelles crémeuses aux champignons</p>
-            <a href="./cardRecipe.html">Voir la recette</a>
+            <img
+                src="/img-home/Mario.jpg"
+                alt="Super Mario Bros"
+            />
+
+            <h2>Super Mario Bros</h2>
+
+            <p>
+                Tagliatelles crémeuses aux champignons
+            </p>
+
+            <a href="#/recipes">
+                Voir la recette
+            </a>
         </article>
     </section>
 </main>
@@ -155,7 +261,10 @@
 
     .banner {
         height: 400px;
-        background-image: url("./public/img-home/Mario.jpg");
+
+        background-image: url("/img-home/Mario.jpg");
+        background-position: center;
+        background-size: cover;
 
         display: flex;
         justify-content: flex-end;
@@ -168,6 +277,7 @@
     .banner-content {
         width: 35%;
         padding: 30px;
+
         background-color: rgba(0, 0, 0, 0.7);
     }
 
@@ -187,10 +297,14 @@
 
     .banner-button {
         display: inline-block;
+
         padding: 10px;
+
         background-color: darkred;
         color: #d4af37;
+
         border: 2px solid #d4af37;
+
         text-decoration: none;
     }
 
@@ -203,8 +317,10 @@
 
     .title-card {
         text-align: center;
+
         color: black;
         background-color: #d4af37;
+
         margin: 0;
         padding: 30px;
     }
@@ -213,11 +329,13 @@
 
     .container-card-one {
         width: 90%;
+
         margin: 0 auto 40px;
         padding: 15px;
 
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+
         gap: 15px;
 
         border: 2px solid #d4af37;
@@ -230,6 +348,7 @@
 
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+
         gap: 15px;
 
         background-color: #d4af37;
@@ -239,7 +358,9 @@
 
     .card {
         background-color: rgb(6, 6, 48);
+
         padding: 10px;
+
         display: flex;
         flex-direction: column;
     }
@@ -247,7 +368,9 @@
     .card img {
         width: 100%;
         height: 180px;
+
         object-fit: cover;
+
         border: 2px solid #d4af37;
     }
 
@@ -259,7 +382,9 @@
     .card h2 {
         color: black;
         background-color: #d4af37;
+
         text-align: center;
+
         padding: 8px;
     }
 
@@ -270,7 +395,9 @@
 
     .card a {
         color: #d4af37;
+
         margin-top: auto;
+
         background-color: rgb(6, 6, 48);
     }
 
@@ -278,6 +405,7 @@
 
     .footer-film-strip {
         background-color: #d4af37;
+
         padding: 8px 0;
     }
 
@@ -294,16 +422,19 @@
     }
 
     /* TABLETTE */
+
     @media (max-width: 1000px) {
         .banner {
             height: auto;
             min-height: 350px;
+
             background-position: center;
             background-size: cover;
         }
 
         .banner-content {
             width: 50%;
+
             padding: 20px;
         }
 
@@ -318,6 +449,7 @@
     }
 
     /* MOBILE */
+
     @media (max-width: 650px) {
         .banner {
             min-height: 500px;
@@ -331,6 +463,7 @@
 
         .banner-content {
             width: 100%;
+
             padding: 20px;
 
             background-color: rgba(0, 0, 0, 0.75);
@@ -351,24 +484,30 @@
 
         .banner-button {
             display: block;
+
             text-align: center;
+
             font-size: 14px;
         }
 
         .title-sct-two,
         .title-card {
             font-size: 28px;
+
             padding: 20px 10px;
         }
 
         .container-card-one {
             width: 95%;
+
             grid-template-columns: 1fr;
+
             padding: 10px;
         }
 
         .container-card {
             grid-template-columns: 1fr;
+
             padding: 30px 20px;
         }
 
