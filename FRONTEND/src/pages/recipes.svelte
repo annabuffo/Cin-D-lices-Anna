@@ -933,7 +933,7 @@
 
     /* TABLETTE */
 
-    @media (max-width: 1000px) {
+    @media (max-width: 768px) {
         .recipes-page {
             width: 94%;
         }
@@ -945,7 +945,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 650px) {
+    @media (max-width: 480px) {
         .recipes-page {
             width: 95%;
 

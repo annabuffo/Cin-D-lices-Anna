@@ -245,12 +245,6 @@
 
     /* BANNIÈRE */
 
-    body {
-        margin: 0;
-        background-color: #0d0d0d;
-        font-family: "Poppins", sans-serif;
-    }
-
     h1,
     h2,
     h3 {
@@ -423,7 +417,7 @@
 
     /* TABLETTE */
 
-    @media (max-width: 1000px) {
+    @media (max-width: 768px) {
         .banner {
             height: auto;
             min-height: 350px;
@@ -450,7 +444,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 650px) {
+    @media (max-width: 480px) {
         .banner {
             min-height: 500px;
 

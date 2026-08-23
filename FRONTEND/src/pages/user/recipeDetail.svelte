@@ -95,7 +95,7 @@
         </section>
 
         <div class="buttons">
-            <a class="back" href="#/recipes">
+            <a class="back" href="#/recipeDetail">
                 ← RETOUR AUX RECETTES
             </a>
 

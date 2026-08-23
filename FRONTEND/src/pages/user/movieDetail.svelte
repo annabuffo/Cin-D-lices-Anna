@@ -74,7 +74,7 @@
                         de l'univers de Super Mario Bros.
                     </p>
 
-                    <a href="#/recipe">
+                    <a href="#/user/recipeDetail">
                         VOIR LA RECETTE
                     </a>
 
@@ -86,7 +86,7 @@
 
         <div class="buttons">
 
-            <a class="back" href="#/movies">
+            <a class="back" href="#/user/movieDetail">
                 ← RETOUR AUX FILMS
             </a>
 

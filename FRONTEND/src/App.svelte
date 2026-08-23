@@ -36,8 +36,8 @@
     const routes = {
         "/": Home,
 
-        "/movies": Movies,
-        "/recipes": Recipes,
+        "/user/movieDetail": MovieDetail,
+        "/user/recipeDetail": RecipeDetail,
 
         "/login": Login,
         "/register": Register,
@@ -54,6 +54,7 @@
         "/admin/recipes": AdminRecipes,
         "/admin/categories": AdminCategories,
         "/admin/media": AdminMedia,
+        
         "/admin/comments": AdminComments,
 
         /* USER */

@@ -49,7 +49,7 @@
                     <p>Inspirée de Super Mario Bros</p>
 
                     <div class="recipe-actions">
-                        <a href="#/recipe"> VOIR </a>
+                        <a href="#/user/recipe"> VOIR </a>
 
                         <button class="edit" type="button"> MODIFIER </button>
 
@@ -63,8 +63,7 @@
             <article class="recipe-card">
                 <img
                     src="/img-card-sct-1/ratatouille.jpg"
-                    alt="Ratatouille aux légumes"
-                />
+                    alt="Ratatouille aux légumes"/>
 
                 <div class="recipe-content">
                     <h3>Ratatouille aux légumes</h3>
@@ -72,7 +71,7 @@
                     <p>Inspirée du film Ratatouille</p>
 
                     <div class="recipe-actions">
-                        <a href="#/recipe"> VOIR </a>
+                        <a href="#/user/recipe"> VOIR </a>
 
                         <button class="edit" type="button"> MODIFIER </button>
 
@@ -106,10 +105,10 @@
                 <p>Inspirée de La Petite Sirène</p>
             </div>
 
-            <a href="#/recipe"> VOIR LA RECETTE </a>
+            <a href="#/user/recipe"> VOIR LA RECETTE </a>
         </div>
 
-        <a class="all-favorites" href="#/favorites"> VOIR TOUS MES FAVORIS </a>
+        <a class="all-favorites" href="#/user/favorite"> VOIR TOUS MES FAVORIS </a>
     </section>
 </main>
 
