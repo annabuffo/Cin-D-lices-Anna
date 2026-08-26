@@ -6,11 +6,14 @@
 
         <div class="inline"></div>
 
-        <p>Ce site web, accessible à www.cinedelices.com, est publié par :</p>
+        <p>
+            Le site Ciné Délices est un projet réalisé dans le cadre de la
+            formation Développeur Web et Web Mobile.
+        </p>
 
         <p>
-            <strong>Ciné Délices</strong>, projet réalisé dans le cadre de la
-            formation Développeur Web et Web Mobile.
+            <strong>Ciné Délices</strong> est une plateforme dédiée aux recettes
+            inspirées de films et séries.
         </p>
     </section>
 
@@ -29,6 +32,7 @@
         <h2>3. Directeur de publication</h2>
 
         <div class="inline"></div>
+
         <p>
             Le directeur de publication du site est la créatrice de Ciné
             Délices.
@@ -46,6 +50,11 @@
                 contact@cinedelices.com
             </a>
         </p>
+
+        <p>
+            Vous pouvez également utiliser notre
+            <a href="#/contact">page de contact</a>.
+        </p>
     </section>
 
     <section class="terms-section">
@@ -54,9 +63,11 @@
         <div class="inline"></div>
 
         <p>
-            Le traitement de vos données personnelles est régi par notre
-            <a href="#/privacy"> Politique de confidentialité </a>, disponible
-            dans la section dédiée.
+            Le traitement de vos données personnelles est présenté dans notre
+            <a href="#/privacy">
+                Politique de confidentialité
+            </a>,
+            disponible dans la section dédiée.
         </p>
     </section>
 </main>
@@ -135,7 +146,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .terms-page h1 {
             font-size: 26px;
             margin-top: 25px;

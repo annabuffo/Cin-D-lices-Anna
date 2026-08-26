@@ -1,3 +1,36 @@
+<script>
+    let recipes = [
+        {
+            id: "super-mario",
+            title: "Tagliatelles crémeuses aux champignons",
+            movie: "Super Mario Bros",
+            category: "Plat principal",
+            author: "Anna",
+            image: "/img-card-sct-1/champignon.jpg",
+        },
+        {
+            id: "ratatouille",
+            title: "Ratatouille aux légumes",
+            movie: "Ratatouille",
+            category: "Plat principal",
+            author: "Admin",
+            image: "/img-card-sct-1/ratatouille.jpg",
+        },
+    ];
+
+    function deleteRecipe(id = "") {
+        const confirmation = window.confirm(
+            "Voulez-vous vraiment supprimer cette recette ?"
+        );
+
+        if (confirmation) {
+            recipes = recipes.filter(
+                (recipe) => recipe.id !== id
+            );
+        }
+    }
+</script>
+
 <main class="admin-page">
     <h1>GESTION DES RECETTES</h1>
 
@@ -6,59 +39,81 @@
     </a>
 
     <section class="admin-container">
-        <button class="add" type="button">
+
+        <a
+            class="add"
+            href="#/user/addRecipe"
+        >
             AJOUTER UNE RECETTE
-        </button>
+        </a>
 
-        <div class="item-card">
-            <img
-                src="/img-card-sct-1/champignon.jpg"
-                alt="Tagliatelles aux champignons"
-            />
+        {#if recipes.length === 0}
 
-            <div class="info">
-                <h2>Tagliatelles crémeuses aux champignons</h2>
+            <p class="empty-message">
+                Aucune recette disponible.
+            </p>
 
-                <p>Film : Super Mario Bros</p>
-                <p>Catégorie : Plat principal</p>
-                <p>Auteur : Anna</p>
-            </div>
+        {:else}
 
-            <div class="actions">
-                <button class="edit" type="button">
-                    MODIFIER
-                </button>
+            {#each recipes as recipe}
 
-                <button class="delete" type="button">
-                    SUPPRIMER
-                </button>
-            </div>
-        </div>
+                <div class="item-card">
 
-        <div class="item-card">
-            <img
-                src="/img-card-sct-1/ratatouille.jpg"
-                alt="Ratatouille"
-            />
+                    <img
+                        src={recipe.image}
+                        alt={recipe.title}
+                    />
 
-            <div class="info">
-                <h2>Ratatouille aux légumes</h2>
+                    <div class="info">
+                        <h2>
+                            {recipe.title}
+                        </h2>
 
-                <p>Film : Ratatouille</p>
-                <p>Catégorie : Plat principal</p>
-                <p>Auteur : Admin</p>
-            </div>
+                        <p>
+                            Film : {recipe.movie}
+                        </p>
 
-            <div class="actions">
-                <button class="edit" type="button">
-                    MODIFIER
-                </button>
+                        <p>
+                            Catégorie : {recipe.category}
+                        </p>
 
-                <button class="delete" type="button">
-                    SUPPRIMER
-                </button>
-            </div>
-        </div>
+                        <p>
+                            Auteur : {recipe.author}
+                        </p>
+                    </div>
+
+                    <div class="actions">
+
+                        <a
+                            class="view"
+                            href={`#/user/recipe/${recipe.id}`}
+                        >
+                            VOIR
+                        </a>
+
+                        <a
+                            class="edit"
+                            href={`#/user/editRecipe/${recipe.id}`}
+                        >
+                            MODIFIER
+                        </a>
+
+                        <button
+                            class="delete"
+                            type="button"
+                            onclick={() => deleteRecipe(recipe.id)}
+                        >
+                            SUPPRIMER
+                        </button>
+
+                    </div>
+
+                </div>
+
+            {/each}
+
+        {/if}
+
     </section>
 </main>
 
@@ -66,14 +121,19 @@
     .admin-page {
         width: 90%;
         max-width: 1000px;
+
         margin: 40px auto;
     }
 
     .admin-page h1 {
         text-align: center;
+
         color: #d4af37;
+
         margin-bottom: 25px;
     }
+
+    /* RETOUR */
 
     .back {
         display: inline-block;
@@ -89,6 +149,8 @@
         text-decoration: underline;
     }
 
+    /* CONTENEUR */
+
     .admin-container {
         background-color: rgb(6, 6, 48);
 
@@ -98,19 +160,28 @@
         padding: 20px;
     }
 
+    /* AJOUT */
+
     .add {
+        display: inline-block;
+
         background-color: #d4af37;
         color: black;
 
-        border: none;
         border-radius: 4px;
 
         padding: 10px 15px;
         margin-bottom: 20px;
 
-        cursor: pointer;
+        text-decoration: none;
         font-weight: bold;
     }
+
+    .add:hover {
+        background-color: #f0c94d;
+    }
+
+    /* CARTE */
 
     .item-card {
         background-color: #111526;
@@ -122,6 +193,7 @@
 
         display: flex;
         align-items: center;
+
         gap: 20px;
     }
 
@@ -139,34 +211,52 @@
         border-radius: 4px;
     }
 
+    /* INFORMATIONS */
+
     .info {
         flex: 1;
     }
 
     .info h2 {
         color: #d4af37;
+
         margin: 0 0 10px;
     }
 
     .info p {
         color: white;
+
         margin: 5px 0;
     }
 
+    /* ACTIONS */
+
     .actions {
         display: flex;
+
         gap: 10px;
     }
 
+    .view,
     .edit,
     .delete {
+        padding: 10px 15px;
+
         border: none;
         border-radius: 4px;
 
-        padding: 10px 15px;
+        font-weight: bold;
 
         cursor: pointer;
-        font-weight: bold;
+
+        text-decoration: none;
+
+        text-align: center;
+    }
+
+    .view {
+        background-color: #07558d;
+        color: white;
     }
 
     .edit {
@@ -177,6 +267,24 @@
     .delete {
         background-color: #e24d4d;
         color: white;
+    }
+
+    .delete:hover {
+        background-color: #d13f3f;
+    }
+
+    /* LISTE VIDE */
+
+    .empty-message {
+        color: white;
+
+        text-align: center;
+
+        padding: 25px 15px;
+
+        background-color: #111526;
+
+        border-radius: 6px;
     }
 
     /* TABLETTE */
@@ -200,6 +308,7 @@
     @media (max-width: 480px) {
         .admin-page {
             width: 95%;
+
             margin: 25px auto;
         }
 
@@ -213,6 +322,10 @@
 
         .add {
             width: 100%;
+
+            text-align: center;
+
+            box-sizing: border-box;
         }
 
         .item-card {
@@ -235,12 +348,16 @@
 
         .actions {
             width: 100%;
+
             flex-direction: column;
         }
 
+        .view,
         .edit,
         .delete {
             width: 100%;
+
+            box-sizing: border-box;
         }
     }
 </style>

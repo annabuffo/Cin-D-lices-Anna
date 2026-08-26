@@ -1,3 +1,40 @@
+<script>
+    let title = "";
+    let movie = "";
+    let category = "";
+    let preparation = "";
+    let cooking = "";
+    let servings = "";
+    let ingredients = "";
+    let instructions = "";
+    let description = "";
+    let message = "";
+
+    function addRecipe() {
+        message = "";
+
+        if (
+            !title.trim() ||
+            !movie.trim() ||
+            !category ||
+            !preparation ||
+            !cooking ||
+            !servings ||
+            !ingredients.trim() ||
+            !instructions.trim()
+        ) {
+            message = "Veuillez remplir tous les champs obligatoires.";
+            return;
+        }
+
+        message = "Recette ajoutée avec succès.";
+
+        setTimeout(() => {
+            window.location.hash = "#/user/profile";
+        }, 800);
+    }
+</script>
+
 <main class="add-recipe-page">
 
     <h1>🍽️ AJOUTER UNE RECETTE</h1>
@@ -8,7 +45,10 @@
 
     <section class="recipe-container">
 
-        <form class="recipe-form">
+        <form
+            class="recipe-form"
+            on:submit|preventDefault={addRecipe}
+        >
 
             <!-- TITRE -->
 
@@ -20,6 +60,7 @@
                 type="text"
                 id="title"
                 name="title"
+                bind:value={title}
                 placeholder="Ex : Tagliatelles crémeuses aux champignons"
                 required
             />
@@ -34,6 +75,7 @@
                 type="text"
                 id="movie"
                 name="movie"
+                bind:value={movie}
                 placeholder="Ex : Super Mario Bros"
                 required
             />
@@ -47,25 +89,26 @@
             <select
                 id="category"
                 name="category"
+                bind:value={category}
                 required
             >
-                <option value="" disabled selected>
+                <option value="" disabled>
                     Choisissez une catégorie
                 </option>
 
-                <option value="entree">
+                <option value="Entrée">
                     Entrée
                 </option>
 
-                <option value="plat">
+                <option value="Plat principal">
                     Plat principal
                 </option>
 
-                <option value="dessert">
+                <option value="Dessert">
                     Dessert
                 </option>
 
-                <option value="boisson">
+                <option value="Boisson">
                     Boisson
                 </option>
             </select>
@@ -96,6 +139,7 @@
                         type="number"
                         id="preparation"
                         name="preparation"
+                        bind:value={preparation}
                         placeholder="Minutes"
                         min="1"
                         required
@@ -111,6 +155,7 @@
                         type="number"
                         id="cooking"
                         name="cooking"
+                        bind:value={cooking}
                         placeholder="Minutes"
                         min="0"
                         required
@@ -129,6 +174,7 @@
                 type="number"
                 id="servings"
                 name="servings"
+                bind:value={servings}
                 placeholder="Ex : 4"
                 min="1"
                 required
@@ -143,6 +189,7 @@
             <textarea
                 id="ingredients"
                 name="ingredients"
+                bind:value={ingredients}
                 placeholder="Ex :
 400 g de tagliatelles
 250 g de champignons
@@ -159,6 +206,7 @@
             <textarea
                 id="instructions"
                 name="instructions"
+                bind:value={instructions}
                 placeholder="Décrivez les différentes étapes de votre recette..."
                 required
             ></textarea>
@@ -172,8 +220,17 @@
             <textarea
                 id="description"
                 name="description"
+                bind:value={description}
                 placeholder="Présentez votre recette et son lien avec le film ou la série..."
             ></textarea>
+
+            <!-- MESSAGE -->
+
+            {#if message}
+                <p class="message">
+                    {message}
+                </p>
+            {/if}
 
             <!-- BOUTONS -->
 
@@ -267,6 +324,8 @@
         border-radius: 5px;
 
         outline: none;
+
+        box-sizing: border-box;
     }
 
     .recipe-form input:focus,
@@ -298,6 +357,17 @@
         flex-direction: column;
     }
 
+    /* MESSAGE */
+
+    .message {
+        margin: 20px 0 0;
+
+        color: #d4af37;
+
+        text-align: center;
+        font-weight: bold;
+    }
+
     /* BOUTONS */
 
     .buttons {
@@ -317,6 +387,8 @@
         font-weight: bold;
 
         text-align: center;
+
+        box-sizing: border-box;
     }
 
     .submit {
@@ -328,11 +400,19 @@
         cursor: pointer;
     }
 
+    .submit:hover {
+        background-color: #f0c94d;
+    }
+
     .cancel {
         background-color: #e24d4d;
         color: white;
 
         text-decoration: none;
+    }
+
+    .cancel:hover {
+        background-color: #d13f3f;
     }
 
     /* TABLETTE */
@@ -351,7 +431,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
 
         .add-recipe-page {
             width: 95%;

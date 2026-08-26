@@ -1,3 +1,29 @@
+<script>
+    import { onMount } from "svelte";
+
+    let isLoggedIn = false;
+    let role = "";
+
+    onMount(() => {
+        const token = localStorage.getItem("token");
+
+        isLoggedIn = Boolean(token);
+        role = localStorage.getItem("role") || "";
+    });
+
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("user");
+
+        isLoggedIn = false;
+        role = "";
+
+        window.location.hash = "#/";
+        window.location.reload();
+    }
+</script>
+
 <header>
     <nav>
         <div class="logo">
@@ -19,13 +45,46 @@
                 <a href="#/recipes">Recettes</a>
             </li>
 
-            <li>
-                <a href="#/login">Connexion</a>
-            </li>
+            {#if !isLoggedIn}
+                <li>
+                    <a href="#/login">Connexion</a>
+                </li>
 
-            <li>
-                <a class="register" href="#/register">Inscription</a>
-            </li>
+                <li>
+                    <a class="register" href="#/register">
+                        Inscription
+                    </a>
+                </li>
+            {:else}
+                {#if role === "admin"}
+                    <li>
+                        <a href="#/admin">
+                            Administration
+                        </a>
+                    </li>
+                {:else}
+                    <li>
+                        <a href="#/user/profile">
+                            Profil
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#/user/favorite">
+                            Favoris
+                        </a>
+                    </li>
+                {/if}
+
+                <li>
+                    <button
+                        class="logout"
+                        onclick={logout}
+                    >
+                        Déconnexion
+                    </button>
+                </li>
+            {/if}
         </ul>
     </nav>
 </header>
@@ -84,7 +143,6 @@
 
     .nav-header .register {
         display: inline-block;
-
         padding: 10px 25px;
 
         border: 2px solid #d4af37;
@@ -92,6 +150,26 @@
     }
 
     .nav-header .register:hover {
+        background-color: #d4af37;
+        color: black;
+    }
+
+    /* BOUTON DECONNEXION */
+
+    .logout {
+        padding: 10px 18px;
+
+        border: 2px solid #d4af37;
+        border-radius: 6px;
+
+        background-color: transparent;
+        color: white;
+
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .logout:hover {
         background-color: #d4af37;
         color: black;
     }
@@ -116,7 +194,8 @@
             padding: 12px 15px;
         }
 
-        .nav-header a {
+        .nav-header a,
+        .logout {
             font-size: 17px;
         }
 
@@ -144,7 +223,8 @@
             text-align: center;
         }
 
-        .nav-header a {
+        .nav-header a,
+        .logout {
             display: block;
             width: 100%;
 

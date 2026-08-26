@@ -1,3 +1,105 @@
+<script>
+    let categories = [
+        {
+            id: "entree",
+            name: "Entrée",
+            description: "Catégorie utilisée pour les entrées.",
+        },
+        {
+            id: "plat-principal",
+            name: "Plat principal",
+            description: "Catégorie utilisée pour les plats principaux.",
+        },
+        {
+            id: "dessert",
+            name: "Dessert",
+            description: "Catégorie utilisée pour les desserts.",
+        },
+        {
+            id: "boisson",
+            name: "Boisson",
+            description: "Catégorie utilisée pour les boissons.",
+        },
+    ];
+
+    function addCategory() {
+        const name = window.prompt(
+            "Nom de la nouvelle catégorie :"
+        );
+
+        if (!name || !name.trim()) {
+            return;
+        }
+
+        const description = window.prompt(
+            "Description de la catégorie :"
+        );
+
+        const newCategory = {
+            id: Date.now().toString(),
+            name: name.trim(),
+            description:
+                description?.trim() ||
+                "Nouvelle catégorie.",
+        };
+
+        categories = [
+            ...categories,
+            newCategory,
+        ];
+    }
+
+    function editCategory(id = "") {
+        const category = categories.find(
+            (item) => item.id === id
+        );
+
+        if (!category) {
+            return;
+        }
+
+        const newName = window.prompt(
+            "Modifier le nom de la catégorie :",
+            category.name
+        );
+
+        if (!newName || !newName.trim()) {
+            return;
+        }
+
+        const newDescription = window.prompt(
+            "Modifier la description :",
+            category.description
+        );
+
+        categories = categories.map((item) => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    name: newName.trim(),
+                    description:
+                        newDescription?.trim() ||
+                        item.description,
+                };
+            }
+
+            return item;
+        });
+    }
+
+    function deleteCategory(id = "") {
+        const confirmation = window.confirm(
+            "Voulez-vous vraiment supprimer cette catégorie ?"
+        );
+
+        if (confirmation) {
+            categories = categories.filter(
+                (category) => category.id !== id
+            );
+        }
+    }
+</script>
+
 <main class="admin-page">
     <h1>GESTION DES CATÉGORIES</h1>
 
@@ -6,57 +108,53 @@
     </a>
 
     <section class="admin-container">
-        <button class="add" type="button">
+        <button
+            class="add"
+            type="button"
+            onclick={addCategory}
+        >
             AJOUTER UNE CATÉGORIE
         </button>
 
-        <div class="item-card">
-            <div>
-                <h2>Entrée</h2>
-                <p>Catégorie utilisée pour les entrées.</p>
-            </div>
+        {#if categories.length === 0}
+            <p class="empty-message">
+                Aucune catégorie disponible.
+            </p>
+        {:else}
+            {#each categories as category}
+                <div class="item-card">
+                    <div>
+                        <h2>
+                            {category.name}
+                        </h2>
 
-            <div class="actions">
-                <button class="edit" type="button">MODIFIER</button>
-                <button class="delete" type="button">SUPPRIMER</button>
-            </div>
-        </div>
+                        <p>
+                            {category.description}
+                        </p>
+                    </div>
 
-        <div class="item-card">
-            <div>
-                <h2>Plat principal</h2>
-                <p>Catégorie utilisée pour les plats principaux.</p>
-            </div>
+                    <div class="actions">
+                        <button
+                            class="edit"
+                            type="button"
+                            onclick={() =>
+                                editCategory(category.id)}
+                        >
+                            MODIFIER
+                        </button>
 
-            <div class="actions">
-                <button class="edit" type="button">MODIFIER</button>
-                <button class="delete" type="button">SUPPRIMER</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <div>
-                <h2>Dessert</h2>
-                <p>Catégorie utilisée pour les desserts.</p>
-            </div>
-
-            <div class="actions">
-                <button class="edit" type="button">MODIFIER</button>
-                <button class="delete" type="button">SUPPRIMER</button>
-            </div>
-        </div>
-
-        <div class="item-card">
-            <div>
-                <h2>Boisson</h2>
-                <p>Catégorie utilisée pour les boissons.</p>
-            </div>
-
-            <div class="actions">
-                <button class="edit" type="button">MODIFIER</button>
-                <button class="delete" type="button">SUPPRIMER</button>
-            </div>
-        </div>
+                        <button
+                            class="delete"
+                            type="button"
+                            onclick={() =>
+                                deleteCategory(category.id)}
+                        >
+                            SUPPRIMER
+                        </button>
+                    </div>
+                </div>
+            {/each}
+        {/if}
     </section>
 </main>
 
@@ -64,19 +162,27 @@
     .admin-page {
         width: 90%;
         max-width: 1000px;
+
         margin: 40px auto;
     }
 
     .admin-page h1 {
         text-align: center;
+
         color: #d4af37;
+
         margin-bottom: 25px;
     }
 
+    /* RETOUR */
+
     .back {
         display: inline-block;
+
         color: #d4af37;
+
         margin-bottom: 25px;
+
         text-decoration: none;
     }
 
@@ -84,12 +190,18 @@
         text-decoration: underline;
     }
 
+    /* CONTENEUR */
+
     .admin-container {
         background-color: rgb(6, 6, 48);
+
         border: 1px solid #d4af37;
         border-radius: 8px;
+
         padding: 20px;
     }
+
+    /* AJOUT */
 
     .add {
         background-color: #d4af37;
@@ -105,6 +217,12 @@
         font-weight: bold;
     }
 
+    .add:hover {
+        background-color: #f0c94d;
+    }
+
+    /* CARTE */
+
     .item-card {
         background-color: #111526;
 
@@ -116,6 +234,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         gap: 20px;
     }
 
@@ -125,16 +244,21 @@
 
     .item-card h2 {
         color: #d4af37;
+
         margin: 0 0 8px;
     }
 
     .item-card p {
         color: white;
+
         margin: 0;
     }
 
+    /* ACTIONS */
+
     .actions {
         display: flex;
+
         gap: 10px;
     }
 
@@ -159,6 +283,24 @@
         color: white;
     }
 
+    .delete:hover {
+        background-color: #d13f3f;
+    }
+
+    /* LISTE VIDE */
+
+    .empty-message {
+        color: white;
+
+        text-align: center;
+
+        padding: 25px 15px;
+
+        background-color: #111526;
+
+        border-radius: 6px;
+    }
+
     /* TABLETTE */
 
     @media (max-width: 768px) {
@@ -180,6 +322,7 @@
     @media (max-width: 480px) {
         .admin-page {
             width: 95%;
+
             margin: 25px auto;
         }
 
@@ -200,8 +343,13 @@
             align-items: stretch;
         }
 
+        .item-card div:first-child {
+            text-align: center;
+        }
+
         .actions {
             width: 100%;
+
             flex-direction: column;
         }
 

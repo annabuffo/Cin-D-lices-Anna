@@ -72,24 +72,31 @@
     .admin-page {
         width: 90%;
         max-width: 1000px;
+
         margin: 40px auto;
     }
 
     .admin-page h1 {
         text-align: center;
+
         color: #d4af37;
+
         margin-bottom: 10px;
     }
 
     .subtitle {
         color: white;
+
         text-align: center;
+
         margin-bottom: 40px;
     }
 
     .admin-grid {
         display: grid;
+
         grid-template-columns: repeat(2, 1fr);
+
         gap: 20px;
     }
 
@@ -106,12 +113,15 @@
 
     .admin-card h2 {
         color: #d4af37;
+
         margin-top: 0;
     }
 
     .admin-card p {
         color: white;
+
         margin-bottom: 25px;
+
         line-height: 1.5;
     }
 
@@ -155,6 +165,7 @@
     @media (max-width: 480px) {
         .admin-page {
             width: 95%;
+
             margin: 25px auto;
         }
 
@@ -164,6 +175,7 @@
 
         .subtitle {
             font-size: 14px;
+
             margin-bottom: 25px;
         }
 
@@ -177,7 +189,10 @@
 
         .admin-card a {
             width: 100%;
+
             padding: 12px 10px;
+
+            box-sizing: border-box;
         }
     }
 </style>

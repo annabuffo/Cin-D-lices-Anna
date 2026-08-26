@@ -4,6 +4,8 @@
     let message = "";
 
     async function login() {
+        message = "";
+
         try {
             const response = await fetch(
                 "http://localhost:3000/api/auth/login",
@@ -24,25 +26,40 @@
             const data = await response.json();
 
             if (response.ok) {
-                if (data.token) {
-                    localStorage.setItem("token", data.token);
-                }
+                // Enregistrement des informations de connexion
+                localStorage.setItem("token", data.token);
 
-                if (data.user && data.user.role) {
-                    localStorage.setItem("role", data.user.role);
+                if (data.user) {
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+                    localStorage.setItem(
+                        "role",
+                        data.user.role
+                    );
                 }
 
                 message = "Connexion réussie";
 
-                if (data.user && data.user.role === "admin") {
+                // Redirection selon le rôle
+                if (data.user?.role === "admin") {
                     window.location.hash = "#/admin";
                 } else {
                     window.location.hash = "#/";
                 }
+
+                // Actualisation pour mettre à jour le Header
+                window.location.reload();
             } else {
-                message = data.message || "Email ou mot de passe incorrect";
+                message =
+                    data.message ||
+                    "Email ou mot de passe incorrect";
             }
         } catch (error) {
+            console.error(error);
+
             message = "Impossible de contacter le serveur";
         }
     }
@@ -81,7 +98,10 @@
                 required
             />
 
-            <button class="button-login" type="submit">
+            <button
+                class="button-login"
+                type="submit"
+            >
                 CONNEXION
             </button>
 
@@ -215,7 +235,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .login-page {
             min-height: 50vh;
             padding: 25px 15px;

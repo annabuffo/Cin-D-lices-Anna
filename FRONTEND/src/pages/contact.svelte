@@ -1,3 +1,20 @@
+<script>
+    let name = "";
+    let email = "";
+    let subject = "";
+    let message = "";
+    let confirmation = "";
+
+    function sendMessage() {
+        confirmation = "Votre message a bien été envoyé.";
+
+        name = "";
+        email = "";
+        subject = "";
+        message = "";
+    }
+</script>
+
 <main class="contact-page">
     <h1 class="title-contact">📬 CONTACTEZ-NOUS</h1>
 
@@ -38,7 +55,11 @@
 
                 <ul class="social-icons-container">
                     <li>
-                        <a href="https://x.com/">
+                        <a
+                            href="https://x.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <img
                                 src="/p/twitter.png"
                                 alt="Twitter"
@@ -48,7 +69,11 @@
                     </li>
 
                     <li>
-                        <a href="https://www.instagram.com/">
+                        <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <img
                                 src="/p/instagram (1).png"
                                 alt="Instagram"
@@ -58,7 +83,11 @@
                     </li>
 
                     <li>
-                        <a href="https://www.facebook.com/">
+                        <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <img
                                 src="/p/facebook (1).png"
                                 alt="Facebook"
@@ -90,42 +119,55 @@
         <!-- FORMULAIRE -->
 
         <div class="container-form-contact">
-            <form class="contact-form" on:submit|preventDefault>
-
-                <label for="nom">Ton nom</label>
+            <form
+                class="contact-form"
+                on:submit|preventDefault={sendMessage}
+            >
+                <label for="nom">
+                    Ton nom
+                </label>
 
                 <input
                     type="text"
                     id="nom"
                     name="nom"
+                    bind:value={name}
                     placeholder="Ton nom"
+                    autocomplete="name"
                     required
                 />
 
-                <label for="email">Ton email</label>
+                <label for="email">
+                    Ton email
+                </label>
 
                 <input
                     type="email"
                     id="email"
                     name="email"
+                    bind:value={email}
                     placeholder="ton@email.com"
+                    autocomplete="email"
                     required
                 />
 
-                <label for="sujet">Sujet</label>
+                <label for="sujet">
+                    Sujet
+                </label>
 
                 <select
                     class="option-sujet"
                     name="sujet"
                     id="sujet"
+                    bind:value={subject}
                     required
                 >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                         Choisis un sujet...
                     </option>
 
                     <option value="question">
-                        Enquête générale
+                        Question générale
                     </option>
 
                     <option value="retour">
@@ -145,12 +187,15 @@
                     </option>
                 </select>
 
-                <label for="message">Ton message</label>
+                <label for="message">
+                    Ton message
+                </label>
 
                 <textarea
                     class="container-message"
                     id="message"
                     name="message"
+                    bind:value={message}
                     placeholder="Écris ton message..."
                     required
                 ></textarea>
@@ -158,6 +203,12 @@
                 <button class="submit" type="submit">
                     ENVOYER UN MESSAGE
                 </button>
+
+                {#if confirmation}
+                    <p class="confirmation">
+                        {confirmation}
+                    </p>
+                {/if}
             </form>
         </div>
     </section>
@@ -341,9 +392,23 @@
         cursor: pointer;
     }
 
+    .submit:hover {
+        background-color: #d13f3f;
+    }
+
+    /* CONFIRMATION */
+
+    .confirmation {
+        margin-top: 15px;
+
+        color: #d4af37;
+
+        text-align: center;
+    }
+
     /* TABLETTE */
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         .contact-page {
             width: 94%;
             margin: 30px auto;

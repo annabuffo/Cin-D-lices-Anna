@@ -1,3 +1,44 @@
+<script>
+    let favorites = [
+        {
+            id: "petite-sirene",
+            title: "Poisson Rôti et Légumes au Four",
+            movie: "La Petite Sirène",
+            description:
+                "Une recette de poisson rôti accompagnée de légumes inspirée de l'univers de La Petite Sirène.",
+            image: "/img-card-sct-1/poisson.jpg",
+        },
+        {
+            id: "super-mario",
+            title: "Tagliatelles crémeuses aux champignons",
+            movie: "Super Mario Bros",
+            description:
+                "Des tagliatelles crémeuses aux champignons inspirées de l'univers de Super Mario Bros.",
+            image: "/img-card-sct-1/champignon.jpg",
+        },
+        {
+            id: "ratatouille",
+            title: "Ratatouille aux légumes",
+            movie: "Ratatouille",
+            description:
+                "Une ratatouille aux légumes inspirée du célèbre film d'animation Ratatouille.",
+            image: "/img-card-sct-1/ratatouille.jpg",
+        },
+    ];
+
+    function removeFavorite(id = "") {
+        const confirmation = window.confirm(
+            "Voulez-vous retirer cette recette de vos favoris ?"
+        );
+
+        if (confirmation) {
+            favorites = favorites.filter(
+                (favorite) => favorite.id !== id
+            );
+        }
+    }
+</script>
+
 <main class="favorites-page">
 
     <h1>⭐ MES FAVORIS</h1>
@@ -8,125 +49,60 @@
 
     <section class="favorites-container">
 
-        <!-- FAVORI 1 -->
+        {#if favorites.length === 0}
 
-        <article class="favorite-card">
+            <p class="empty-message">
+                Vous n'avez aucune recette dans vos favoris.
+            </p>
 
-            <img
-                src="/img-card-sct-1/poisson.jpg"
-                alt="Poisson rôti et légumes au four"
-            />
+        {:else}
 
-            <div class="favorite-info">
+            {#each favorites as favorite}
 
-                <h2>
-                    Poisson Rôti et Légumes au Four
-                </h2>
+                <article class="favorite-card">
 
-                <p class="movie">
-                    🎬 La Petite Sirène
-                </p>
+                    <img
+                        src={favorite.image}
+                        alt={favorite.title}
+                    />
 
-                <p>
-                    Une recette de poisson rôti accompagnée de légumes
-                    inspirée de l'univers de La Petite Sirène.
-                </p>
+                    <div class="favorite-info">
 
-                <div class="actions">
+                        <h2>
+                            {favorite.title}
+                        </h2>
 
-                    <a href="#/user/recipe">
-                        VOIR LA RECETTE
-                    </a>
+                        <p class="movie">
+                            🎬 {favorite.movie}
+                        </p>
 
-                    <button class="remove" type="button">
-                        RETIRER DES FAVORIS
-                    </button>
+                        <p>
+                            {favorite.description}
+                        </p>
 
-                </div>
+                        <div class="actions">
 
-            </div>
+                            <a href={`#/user/recipe/${favorite.id}`}>
+                                VOIR LA RECETTE
+                            </a>
 
-        </article>
+                            <button
+                                class="remove"
+                                type="button"
+                                onclick={() => removeFavorite(favorite.id)}
+                            >
+                                RETIRER DES FAVORIS
+                            </button>
 
-        <!-- FAVORI 2 -->
+                        </div>
 
-        <article class="favorite-card">
+                    </div>
 
-            <img
-                src="/img-card-sct-1/champignon.jpg"
-                alt="Tagliatelles crémeuses aux champignons"
-            />
+                </article>
 
-            <div class="favorite-info">
+            {/each}
 
-                <h2>
-                    Tagliatelles crémeuses aux champignons
-                </h2>
-
-                <p class="movie">
-                    🎬 Super Mario Bros
-                </p>
-
-                <p>
-                    Des tagliatelles crémeuses aux champignons inspirées
-                    de l'univers de Super Mario Bros.
-                </p>
-
-                <div class="actions">
-
-                    <a href="#/user/recipe">
-                        VOIR LA RECETTE
-                    </a>
-
-                    <button class="remove" type="button">
-                        RETIRER DES FAVORIS
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-        <!-- FAVORI 3 -->
-
-        <article class="favorite-card">
-
-            <img
-                src="/img-card-sct-1/ratatouille.jpg"
-                alt="Ratatouille aux légumes"
-            />
-
-            <div class="favorite-info">
-
-                <h2>
-                    Ratatouille aux légumes
-                </h2>
-
-                <p class="movie">
-                    🎬 Ratatouille
-                </p>
-
-                <p>
-                    Une ratatouille aux légumes inspirée du célèbre
-                    film d'animation Ratatouille.
-                </p>
-
-                <div class="actions">
-
-                    <a href="#/user/recipe">
-                        VOIR LA RECETTE
-                    </a>
-
-                    <button class="remove" type="button">
-                        RETIRER DES FAVORIS
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
+        {/if}
 
     </section>
 
@@ -268,6 +244,17 @@
         cursor: pointer;
     }
 
+    /* MESSAGE AUCUN FAVORI */
+
+    .empty-message {
+        color: white;
+
+        text-align: center;
+
+        margin: 0;
+        padding: 30px 15px;
+    }
+
     /* RETOUR PROFIL */
 
     .back-container {
@@ -311,7 +298,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
 
         .favorites-page {
             width: 95%;
@@ -368,6 +355,8 @@
             width: 100%;
 
             text-align: center;
+
+            box-sizing: border-box;
         }
 
         .back {

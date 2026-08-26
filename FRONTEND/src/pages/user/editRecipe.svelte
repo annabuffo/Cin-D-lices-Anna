@@ -1,137 +1,256 @@
+<script>
+    export let params = {
+        id: "",
+    };
+
+    let title = "Tagliatelles crémeuses aux champignons";
+    let movie = "Super Mario Bros";
+    let category = "Plat principal";
+    let preparation = 20;
+    let cooking = 15;
+    let servings = 4;
+
+    let ingredients =
+        "400 g de tagliatelles\n250 g de champignons\n20 cl de crème fraîche\n1 oignon\nSel et poivre";
+
+    let instructions =
+        "1. Faites cuire les tagliatelles.\n2. Coupez les champignons et l'oignon.\n3. Faites revenir les champignons et l'oignon.\n4. Ajoutez la crème fraîche.\n5. Mélangez avec les tagliatelles et servez.";
+
+    let description =
+        "Une recette de tagliatelles crémeuses aux champignons inspirée de l'univers de Super Mario Bros.";
+
+    let message = "";
+
+    function updateRecipe() {
+        message = "";
+
+        if (
+            !title.trim() ||
+            !movie.trim() ||
+            !category ||
+            !preparation ||
+            cooking === "" ||
+            !servings ||
+            !ingredients.trim() ||
+            !instructions.trim()
+        ) {
+            message = "Veuillez remplir tous les champs obligatoires.";
+            return;
+        }
+
+        message = "Recette modifiée avec succès.";
+
+        setTimeout(() => {
+            window.location.hash = "#/user/profile";
+        }, 800);
+    }
+</script>
+
 <main class="edit-recipe-page">
     <h1>✏️ MODIFIER MA RECETTE</h1>
 
-    <p class="subtitle">Modifiez les informations de votre recette</p>
+    <p class="subtitle">
+        Modifiez les informations de votre recette
+    </p>
 
     <section class="recipe-container">
-        <form class="recipe-form">
+
+        <form
+            class="recipe-form"
+            on:submit|preventDefault={updateRecipe}
+        >
+
             <!-- TITRE -->
 
-            <label for="title"> Titre de la recette </label>
+            <label for="title">
+                Titre de la recette
+            </label>
 
             <input
                 type="text"
                 id="title"
                 name="title"
-                value="Tagliatelles crémeuses aux champignons"
+                bind:value={title}
                 required
             />
 
             <!-- FILM OU SERIE -->
 
-            <label for="movie"> Film ou série associé </label>
+            <label for="movie">
+                Film ou série associé
+            </label>
 
             <input
                 type="text"
                 id="movie"
                 name="movie"
-                value="Super Mario Bros"
+                bind:value={movie}
                 required
             />
 
             <!-- CATEGORIE -->
 
-            <label for="category"> Catégorie </label>
+            <label for="category">
+                Catégorie
+            </label>
 
-            <select id="category" name="category" required>
-                <option value="entree"> Entrée </option>
+            <select
+                id="category"
+                name="category"
+                bind:value={category}
+                required
+            >
+                <option value="Entrée">
+                    Entrée
+                </option>
 
-                <option value="plat" selected> Plat principal </option>
+                <option value="Plat principal">
+                    Plat principal
+                </option>
 
-                <option value="dessert"> Dessert </option>
+                <option value="Dessert">
+                    Dessert
+                </option>
 
-                <option value="boisson"> Boisson </option>
+                <option value="Boisson">
+                    Boisson
+                </option>
             </select>
 
             <!-- IMAGE -->
 
-            <label for="image"> Modifier l'image </label>
+            <label for="image">
+                Modifier l'image
+            </label>
 
-            <input type="file" id="image" name="image" accept="image/*" />
+            <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+            />
 
             <!-- TEMPS -->
 
             <div class="time-container">
+
                 <div>
-                    <label for="preparation"> Temps de préparation </label>
+                    <label for="preparation">
+                        Temps de préparation
+                    </label>
 
                     <input
                         type="number"
                         id="preparation"
                         name="preparation"
-                        value="20"
+                        bind:value={preparation}
                         min="1"
                         required
                     />
                 </div>
 
                 <div>
-                    <label for="cooking"> Temps de cuisson </label>
+                    <label for="cooking">
+                        Temps de cuisson
+                    </label>
 
                     <input
                         type="number"
                         id="cooking"
                         name="cooking"
-                        value="15"
+                        bind:value={cooking}
                         min="0"
                         required
                     />
                 </div>
+
             </div>
 
             <!-- PERSONNES -->
 
-            <label for="servings"> Nombre de personnes </label>
+            <label for="servings">
+                Nombre de personnes
+            </label>
 
             <input
                 type="number"
                 id="servings"
                 name="servings"
-                value="4"
+                bind:value={servings}
                 min="1"
                 required
             />
 
             <!-- INGREDIENTS -->
 
-            <label for="ingredients"> Ingrédients </label>
+            <label for="ingredients">
+                Ingrédients
+            </label>
 
-            <textarea id="ingredients" name="ingredients" required
-                >400 g de tagliatelles 250 g de champignons 20 cl de crème
-                fraîche 1 oignon Sel et poivre</textarea
-            >
+            <textarea
+                id="ingredients"
+                name="ingredients"
+                bind:value={ingredients}
+                required
+            ></textarea>
 
             <!-- PREPARATION -->
 
-            <label for="instructions"> Étapes de préparation </label>
+            <label for="instructions">
+                Étapes de préparation
+            </label>
 
-            <textarea id="instructions" name="instructions" required
-                >1. Faites cuire les tagliatelles. 2. Coupez les champignons et
-                l'oignon. 3. Faites revenir les champignons et l'oignon. 4.
-                Ajoutez la crème fraîche. 5. Mélangez avec les tagliatelles et
-                servez.</textarea
-            >
+            <textarea
+                id="instructions"
+                name="instructions"
+                bind:value={instructions}
+                required
+            ></textarea>
 
             <!-- DESCRIPTION -->
 
-            <label for="description"> Description </label>
+            <label for="description">
+                Description
+            </label>
 
-            <textarea id="description" name="description"
-                >Une recette de tagliatelles crémeuses aux champignons inspirée
-                de l'univers de Super Mario Bros.</textarea
-            >
+            <textarea
+                id="description"
+                name="description"
+                bind:value={description}
+            ></textarea>
+
+            <!-- MESSAGE -->
+
+            {#if message}
+                <p class="message">
+                    {message}
+                </p>
+            {/if}
 
             <!-- BOUTONS -->
 
             <div class="buttons">
-                <button class="submit" type="submit">
+
+                <button
+                    class="submit"
+                    type="submit"
+                >
                     ENREGISTRER LES MODIFICATIONS
                 </button>
 
-                <a class="cancel" href="#/user/profile"> ANNULER </a>
+                <a
+                    class="cancel"
+                    href="#/user/profile"
+                >
+                    ANNULER
+                </a>
+
             </div>
+
         </form>
+
     </section>
+
 </main>
 
 <style>
@@ -199,6 +318,8 @@
         border-radius: 5px;
 
         outline: none;
+
+        box-sizing: border-box;
     }
 
     .recipe-form input:focus,
@@ -230,6 +351,17 @@
         flex-direction: column;
     }
 
+    /* MESSAGE */
+
+    .message {
+        margin: 20px 0 0;
+
+        color: #d4af37;
+
+        text-align: center;
+        font-weight: bold;
+    }
+
     /* BOUTONS */
 
     .buttons {
@@ -249,6 +381,8 @@
         font-weight: bold;
 
         text-align: center;
+
+        box-sizing: border-box;
     }
 
     .submit {
@@ -260,11 +394,19 @@
         cursor: pointer;
     }
 
+    .submit:hover {
+        background-color: #f0c94d;
+    }
+
     .cancel {
         background-color: #e24d4d;
         color: white;
 
         text-decoration: none;
+    }
+
+    .cancel:hover {
+        background-color: #d13f3f;
     }
 
     /* TABLETTE */
@@ -281,7 +423,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .edit-recipe-page {
             width: 95%;
 

@@ -45,7 +45,6 @@
             <p>
                 Mario et Luigi sont deux frères plombiers qui se retrouvent
                 transportés dans un univers fantastique.
-
                 Mario devra partir à la recherche de son frère et rencontrer
                 de nombreux personnages au cours de son aventure.
             </p>
@@ -74,7 +73,7 @@
                         de l'univers de Super Mario Bros.
                     </p>
 
-                    <a href="#/user/recipeDetail">
+                    <a href="#/user/recipe/super-mario">
                         VOIR LA RECETTE
                     </a>
 
@@ -86,7 +85,7 @@
 
         <div class="buttons">
 
-            <a class="back" href="#/user/movieDetail">
+            <a class="back" href="#/movies">
                 ← RETOUR AUX FILMS
             </a>
 
@@ -285,7 +284,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
 
         .movie-detail-page {
             width: 95%;
@@ -335,12 +334,16 @@
             width: 100%;
 
             text-align: center;
+
+            box-sizing: border-box;
         }
 
         .back {
             width: 100%;
 
             text-align: center;
+
+            box-sizing: border-box;
         }
 
     }

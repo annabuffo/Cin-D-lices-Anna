@@ -11,8 +11,8 @@
             <h3>Tagliatelles crémeuses aux champignons</h3>
 
             <p>
-                Une offre que vous ne pourrez pas refuser. Recréer le plat
-                emblématique du chef-d'œuvre cinématographique.
+                Plongez dans l'univers de Super Mario Bros avec une recette
+                gourmande inspirée du célèbre champignon.
             </p>
 
             <a href="#/recipes" class="banner-button">
@@ -22,7 +22,7 @@
     </section>
 
     <h1 class="title-sct-two">
-        EN ATTENTE : FONCTIONNALITÉS CULINAIRES
+        À DÉCOUVRIR : AVENTURES CULINAIRES
     </h1>
 
     <section class="container-card-one">
@@ -36,7 +36,7 @@
 
             <h2>Poisson Rôti et Légumes au Four</h2>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/petite-sirene">
                 VOIR LA RECETTE
             </a>
         </article>
@@ -49,11 +49,9 @@
 
             <h3><em>Super Mario Bros :</em></h3>
 
-            <h2>
-                Tagliatelles crémeuses aux champignons
-            </h2>
+            <h2>Tagliatelles crémeuses aux champignons</h2>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/super-mario">
                 VOIR LA RECETTE
             </a>
         </article>
@@ -68,7 +66,7 @@
 
             <h2>Ratatouille aux légumes</h2>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/ratatouille">
                 VOIR LA RECETTE
             </a>
         </article>
@@ -83,7 +81,7 @@
 
             <h2>Soupe aux choux traditionnelle</h2>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/soupe-choux">
                 VOIR LA RECETTE
             </a>
         </article>
@@ -106,11 +104,9 @@
 
             <h2>La Petite Sirène</h2>
 
-            <p>
-                Poisson Rôti et Légumes au Four
-            </p>
+            <p>Poisson Rôti et Légumes au Four</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/petite-sirene">
                 Voir la recette
             </a>
         </article>
@@ -123,11 +119,9 @@
 
             <h2>La soupe aux choux</h2>
 
-            <p>
-                Soupe aux choux traditionnelle
-            </p>
+            <p>Soupe aux choux traditionnelle</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/soupe-choux">
                 Voir la recette
             </a>
         </article>
@@ -140,11 +134,9 @@
 
             <h2>Doctor Who</h2>
 
-            <p>
-                Tourte du Tardis
-            </p>
+            <p>Tourte du Tardis</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/doctor-who">
                 Voir la recette
             </a>
         </article>
@@ -157,11 +149,9 @@
 
             <h2>Charlie et la chocolaterie</h2>
 
-            <p>
-                Moelleux au chocolat et caramel
-            </p>
+            <p>Moelleux au chocolat et caramel</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/charlie-chocolaterie">
                 Voir la recette
             </a>
         </article>
@@ -174,11 +164,9 @@
 
             <h2>Vice Versa</h2>
 
-            <p>
-                Cupcakes des émotions
-            </p>
+            <p>Cupcakes des émotions</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/vice-versa">
                 Voir la recette
             </a>
         </article>
@@ -191,11 +179,9 @@
 
             <h2>Né quelque part</h2>
 
-            <p>
-                Makrout aux dattes
-            </p>
+            <p>Makrout aux dattes</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/ne-quelque-part">
                 Voir la recette
             </a>
         </article>
@@ -208,11 +194,9 @@
 
             <h2>L'Odyssée de Pi</h2>
 
-            <p>
-                Riz au curry et lait de coco
-            </p>
+            <p>Riz au curry et lait de coco</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/odyssee-pi">
                 Voir la recette
             </a>
         </article>
@@ -225,11 +209,9 @@
 
             <h2>Super Mario Bros</h2>
 
-            <p>
-                Tagliatelles crémeuses aux champignons
-            </p>
+            <p>Tagliatelles crémeuses aux champignons</p>
 
-            <a href="#/recipes">
+            <a href="#/user/recipe/super-mario">
                 Voir la recette
             </a>
         </article>
@@ -444,7 +426,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .banner {
             min-height: 500px;
 

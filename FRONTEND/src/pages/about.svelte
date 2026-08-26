@@ -36,7 +36,7 @@
             </p>
 
             <div class="liste-des-fonctionnalites">
-                <p>🎥 Recherche de films et séries sur TMDB.</p>
+                <p>🎥 Découvrez des films et séries.</p>
                 <p>📝 Créez et partagez vos recettes.</p>
                 <p>🍽️ Découvrez des plats inspirés du cinéma.</p>
                 <p>👥 Rejoignez une communauté de passionnés.</p>
@@ -169,7 +169,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .about-page {
             width: 95%;
             margin: 25px auto;

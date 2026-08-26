@@ -34,10 +34,10 @@
     import EditRecipe from "./pages/user/editRecipe.svelte";
 
     const routes = {
+        /* PUBLIC */
         "/": Home,
-
-        "/user/movieDetail": MovieDetail,
-        "/user/recipeDetail": RecipeDetail,
+        "/movies": Movies,
+        "/recipes": Recipes,
 
         "/login": Login,
         "/register": Register,
@@ -47,25 +47,25 @@
         "/privacy": Privacy,
         "/terms": Terms,
 
-        /* ADMIN */
+        /* USER */
+        "/user/profile": Profile,
+        "/user/favorite": Favorite,
 
+        "/user/movie/:id": MovieDetail,
+        "/user/recipe/:id": RecipeDetail,
+
+        "/user/addRecipe": AddRecipe,
+        "/user/editRecipe/:id": EditRecipe,
+
+        /* ADMIN */
         "/admin": Admin,
         "/admin/users": AdminUsers,
         "/admin/recipes": AdminRecipes,
         "/admin/categories": AdminCategories,
         "/admin/media": AdminMedia,
-        
         "/admin/comments": AdminComments,
 
-        /* USER */
-
-        "/user/profile": Profile,
-        "/user/favorite": Favorite,
-        "/user/movie": MovieDetail,
-        "/user/recipe": RecipeDetail,
-        "/user/addRecipe": AddRecipe,
-        "/user/editRecipe": EditRecipe,
-
+        /* 404 */
         "*": NotFound,
     };
 </script>

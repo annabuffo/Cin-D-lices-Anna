@@ -1,3 +1,34 @@
+<script>
+    let username = "Utilisateur";
+    let email = "utilisateur@email.com";
+    let role = "Utilisateur";
+
+    let recipes = [
+        {
+            id: "super-mario",
+            title: "Tagliatelles crémeuses aux champignons",
+            movie: "Super Mario Bros",
+            image: "/img-card-sct-1/champignon.jpg",
+        },
+        {
+            id: "ratatouille",
+            title: "Ratatouille aux légumes",
+            movie: "Ratatouille",
+            image: "/img-card-sct-1/ratatouille.jpg",
+        },
+    ];
+
+    function deleteRecipe(id = "") {
+        const confirmation = window.confirm(
+            "Voulez-vous vraiment supprimer cette recette ?"
+        );
+
+        if (confirmation) {
+            recipes = recipes.filter((recipe) => recipe.id !== id);
+        }
+    }
+</script>
+
 <main class="profile-page">
     <h1>👤 MON PROFIL</h1>
 
@@ -9,89 +40,95 @@
 
     <section class="profile-container">
         <div class="profile-header">
-            <div class="avatar">👤</div>
+            <div class="avatar">
+                👤
+            </div>
 
             <div class="user-info">
-                <h2>Anna</h2>
+                <h2>{username}</h2>
 
                 <p>
                     <strong>Email :</strong>
-                    utilisateur@email.com
+                    {email}
                 </p>
 
                 <p>
                     <strong>Rôle :</strong>
-                    Utilisateur
+                    {role}
                 </p>
             </div>
         </div>
-
-        <button class="edit-profile" type="button">
-            MODIFIER MON PROFIL
-        </button>
     </section>
 
     <!-- MES RECETTES -->
 
     <section class="profile-section">
-        <h2>🍽️ MES RECETTES</h2>
+        <div class="section-header">
+            <h2>🍽️ MES RECETTES</h2>
 
-        <div class="recipe-grid">
-            <article class="recipe-card">
-                <img
-                    src="/img-card-sct-1/champignon.jpg"
-                    alt="Tagliatelles crémeuses aux champignons"
-                />
-
-                <div class="recipe-content">
-                    <h3>Tagliatelles crémeuses aux champignons</h3>
-
-                    <p>Inspirée de Super Mario Bros</p>
-
-                    <div class="recipe-actions">
-                        <a href="#/user/recipe"> VOIR </a>
-
-                        <button class="edit" type="button"> MODIFIER </button>
-
-                        <button class="delete" type="button">
-                            SUPPRIMER
-                        </button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="recipe-card">
-                <img
-                    src="/img-card-sct-1/ratatouille.jpg"
-                    alt="Ratatouille aux légumes"/>
-
-                <div class="recipe-content">
-                    <h3>Ratatouille aux légumes</h3>
-
-                    <p>Inspirée du film Ratatouille</p>
-
-                    <div class="recipe-actions">
-                        <a href="#/user/recipe"> VOIR </a>
-
-                        <button class="edit" type="button"> MODIFIER </button>
-
-                        <button class="delete" type="button">
-                            SUPPRIMER
-                        </button>
-                    </div>
-                </div>
-            </article>
+            <a
+                class="add-recipe"
+                href="#/user/addRecipe"
+            >
+                + AJOUTER UNE RECETTE
+            </a>
         </div>
+
+        {#if recipes.length === 0}
+            <p class="empty-message">
+                Vous n'avez encore créé aucune recette.
+            </p>
+        {:else}
+            <div class="recipe-grid">
+                {#each recipes as recipe}
+                    <article class="recipe-card">
+                        <img
+                            src={recipe.image}
+                            alt={recipe.title}
+                        />
+
+                        <div class="recipe-content">
+                            <h3>
+                                {recipe.title}
+                            </h3>
+
+                            <p>
+                                Inspirée de {recipe.movie}
+                            </p>
+
+                            <div class="recipe-actions">
+                                <a
+                                    href={`#/user/recipe/${recipe.id}`}
+                                >
+                                    VOIR
+                                </a>
+
+                                <a
+                                    class="edit"
+                                    href={`#/user/editRecipe/${recipe.id}`}
+                                >
+                                    MODIFIER
+                                </a>
+
+                                <button
+                                    class="delete"
+                                    type="button"
+                                    onclick={() => deleteRecipe(recipe.id)}
+                                >
+                                    SUPPRIMER
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                {/each}
+            </div>
+        {/if}
     </section>
 
     <!-- FAVORIS -->
 
     <section class="profile-section">
         <h2>⭐ MES FAVORIS</h2>
-
-        <a class="add-recipe" href="#/user/addRecipe">
-            + AJOUTER UNE RECETTE
-        </a>
 
         <div class="favorite-card">
             <img
@@ -100,15 +137,26 @@
             />
 
             <div class="favorite-info">
-                <h3>Poisson Rôti et Légumes au Four</h3>
+                <h3>
+                    Poisson Rôti et Légumes au Four
+                </h3>
 
-                <p>Inspirée de La Petite Sirène</p>
+                <p>
+                    Inspirée de La Petite Sirène
+                </p>
             </div>
 
-            <a href="#/user/recipe"> VOIR LA RECETTE </a>
+            <a href="#/user/recipe/petite-sirene">
+                VOIR LA RECETTE
+            </a>
         </div>
 
-        <a class="all-favorites" href="#/user/favorite"> VOIR TOUS MES FAVORIS </a>
+        <a
+            class="all-favorites"
+            href="#/user/favorite"
+        >
+            VOIR TOUS MES FAVORIS
+        </a>
     </section>
 </main>
 
@@ -194,23 +242,6 @@
         color: #d4af37;
     }
 
-    /* MODIFIER PROFIL */
-
-    .edit-profile {
-        margin-top: 20px;
-
-        padding: 10px 15px;
-
-        background-color: #d4af37;
-        color: black;
-
-        border: none;
-        border-radius: 4px;
-
-        cursor: pointer;
-        font-weight: bold;
-    }
-
     /* SECTIONS */
 
     .profile-section {
@@ -234,6 +265,10 @@
         padding-bottom: 10px;
     }
 
+    .section-header {
+        margin-bottom: 20px;
+    }
+
     /* RECETTES */
 
     .recipe-grid {
@@ -241,8 +276,6 @@
         grid-template-columns: repeat(2, 1fr);
 
         gap: 20px;
-
-        margin-top: 20px;
     }
 
     .recipe-card {
@@ -274,6 +307,8 @@
         color: white;
     }
 
+    /* ACTIONS */
+
     .recipe-actions {
         display: flex;
         gap: 8px;
@@ -300,7 +335,7 @@
         color: white;
     }
 
-    .edit {
+    .recipe-actions .edit {
         background-color: #d4af37;
         color: black;
     }
@@ -308,6 +343,37 @@
     .delete {
         background-color: #e24d4d;
         color: white;
+    }
+
+    /* AJOUTER UNE RECETTE */
+
+    .add-recipe {
+        display: inline-block;
+
+        padding: 10px 15px;
+
+        background-color: #d4af37;
+        color: black;
+
+        border-radius: 4px;
+
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .add-recipe:hover {
+        background-color: #e24d4d;
+        color: white;
+    }
+
+    /* MESSAGE VIDE */
+
+    .empty-message {
+        color: white;
+
+        text-align: center;
+
+        padding: 20px;
     }
 
     /* FAVORIS */
@@ -373,28 +439,6 @@
         text-decoration: underline;
     }
 
-    /* BOUTON AJOUTER UNE RECETTE */
-
-    .add-recipe {
-        display: inline-block;
-
-        margin-top: 20px;
-        padding: 10px 15px;
-
-        background-color: #d4af37;
-        color: black;
-
-        border-radius: 4px;
-
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .add-recipe:hover {
-        background-color: #e24d4d;
-        color: white;
-    }
-
     /* TABLETTE */
 
     @media (max-width: 768px) {
@@ -413,7 +457,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .profile-page {
             width: 95%;
 
@@ -446,10 +490,6 @@
             font-size: 32px;
         }
 
-        .edit-profile {
-            width: 100%;
-        }
-
         .recipe-actions {
             flex-direction: column;
         }
@@ -459,6 +499,8 @@
             width: 100%;
 
             text-align: center;
+
+            box-sizing: border-box;
         }
 
         .favorite-card {
@@ -477,6 +519,8 @@
             width: 100%;
 
             text-align: center;
+
+            box-sizing: border-box;
         }
 
         .profile-section h2 {
@@ -485,9 +529,12 @@
 
         .add-recipe {
             width: 100%;
+
             padding: 12px 10px;
 
             text-align: center;
+
+            box-sizing: border-box;
         }
     }
 </style>

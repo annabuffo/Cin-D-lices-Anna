@@ -2,21 +2,72 @@
     let search = "";
     let selectedType = "movie";
 
-    function handleSearch() {
-        if (!search.trim()) {
-            return;
+    const medias = [
+        {
+            id: "super-mario",
+            title: "Super Mario Bros",
+            type: "movie",
+        },
+        {
+            id: "petite-sirene",
+            title: "La Petite Sirène",
+            type: "movie",
+        },
+        {
+            id: "ratatouille",
+            title: "Ratatouille",
+            type: "movie",
+        },
+        {
+            id: "soupe-choux",
+            title: "La Soupe aux Choux",
+            type: "movie",
+        },
+        {
+            id: "charlie-chocolaterie",
+            title: "Charlie et la Chocolaterie",
+            type: "movie",
+        },
+        {
+            id: "vice-versa",
+            title: "Vice Versa",
+            type: "movie",
+        },
+        {
+            id: "odyssee-pi",
+            title: "L'Odyssée de Pi",
+            type: "movie",
+        },
+        {
+            id: "doctor-who",
+            title: "Doctor Who",
+            type: "tv",
+        },
+    ];
+
+    function getResults() {
+        const searchValue = search.trim().toLowerCase();
+
+        if (!searchValue) {
+            return [];
         }
 
-        console.log("Recherche :", search);
-        console.log("Type :", selectedType);
+        return medias.filter((media) => {
+            return (
+                media.type === selectedType &&
+                media.title.toLowerCase().includes(searchValue)
+            );
+        });
     }
 </script>
 
 <main class="movies-page">
-    <h1>🎬 DÉCOUVREZ DES FILMS ET SÉRIES TÉLÉVISÉES</h1>
+    <h1>
+        🎬 DÉCOUVREZ DES FILMS ET SÉRIES TÉLÉVISÉES
+    </h1>
 
     <p class="subtitle">
-        Cherchez un film ou une série pour créer une recette inspirée
+        Cherchez un film ou une série pour découvrir les recettes inspirées
     </p>
 
     <div class="container-searching">
@@ -27,7 +78,6 @@
                 placeholder="Commence à taper pour chercher..."
                 id="searchInput"
                 bind:value={search}
-                on:input={handleSearch}
             />
         </div>
 
@@ -39,6 +89,7 @@
                     value="movie"
                     bind:group={selectedType}
                 />
+
                 Films
             </label>
 
@@ -49,28 +100,79 @@
                     value="tv"
                     bind:group={selectedType}
                 />
+
                 Séries télévisées
             </label>
         </div>
     </div>
 
     <section class="results-section">
-        <div class="search-results">
-            <h2>🍿 BIENVENUE SUR MOVIE SEARCH 🍿</h2>
+        {#if !search.trim()}
+            <div class="search-results">
+                <h2>
+                    🍿 BIENVENUE SUR MOVIE SEARCH 🍿
+                </h2>
 
-            <p>
-                Utilisez la barre de recherche ci-dessus pour trouver un film
-                ou une série télévisée, puis créez une recette inspirée de votre
-                choix.
-            </p>
+                <p>
+                    Utilisez la barre de recherche ci-dessus pour trouver
+                    un film ou une série télévisée.
+                </p>
 
-            <p>
-                <a href="#/login">Connectez-vous</a>
-                ou
-                <a href="#/register">Inscrivez-vous</a>
-                pour créer vos propres recettes de films et séries.
-            </p>
-        </div>
+                <p>
+                    <a href="#/login">
+                        Connectez-vous
+                    </a>
+
+                    ou
+
+                    <a href="#/register">
+                        Inscrivez-vous
+                    </a>
+
+                    pour créer vos propres recettes inspirées de films
+                    et séries.
+                </p>
+            </div>
+
+        {:else if getResults().length === 0}
+
+            <div class="search-results">
+                <h2>
+                    AUCUN RÉSULTAT
+                </h2>
+
+                <p>
+                    Aucun film ou série ne correspond à votre recherche.
+                </p>
+            </div>
+
+        {:else}
+
+            <div class="results-grid">
+                {#each getResults() as media}
+                    <article class="result-card">
+                        <span class="movie-icon">
+                            {media.type === "movie" ? "🎬" : "📺"}
+                        </span>
+
+                        <h2>
+                            {media.title}
+                        </h2>
+
+                        <p>
+                            {media.type === "movie"
+                                ? "Film"
+                                : "Série télévisée"}
+                        </p>
+
+                        <a href={`#/user/movie/${media.id}`}>
+                            VOIR LE FILM
+                        </a>
+                    </article>
+                {/each}
+            </div>
+
+        {/if}
     </section>
 </main>
 
@@ -78,8 +180,11 @@
     .movies-page {
         width: 100%;
         min-height: 60vh;
+
         padding: 40px 20px 60px;
+
         box-sizing: border-box;
+
         background-color: black;
     }
 
@@ -88,19 +193,24 @@
     .movies-page h1,
     .movies-page h2 {
         font-family: "Bebas Neue", sans-serif;
+
         color: #d4af37;
+
         letter-spacing: 1px;
         text-align: center;
     }
 
     .movies-page h1 {
         margin: 0 auto;
+
         font-size: 36px;
     }
 
     .subtitle {
         color: white;
+
         text-align: center;
+
         margin-top: 15px;
     }
 
@@ -154,11 +264,12 @@
         outline-offset: -2px;
     }
 
-    /* CHOIX FILM / SÉRIE */
+    /* CHOIX FILM / SERIE */
 
     .choix-type {
         display: flex;
         justify-content: center;
+
         gap: 25px;
 
         margin-top: 20px;
@@ -172,6 +283,7 @@
     .choix-type label {
         display: flex;
         align-items: center;
+
         gap: 6px;
 
         cursor: pointer;
@@ -179,10 +291,11 @@
 
     .choix-type input[type="radio"] {
         accent-color: #d4af37;
+
         cursor: pointer;
     }
 
-    /* RÉSULTATS */
+    /* ZONE D'ACCUEIL */
 
     .search-results {
         width: 90%;
@@ -215,7 +328,68 @@
 
     .search-results a {
         color: #d4af37;
+
         text-decoration: underline;
+    }
+
+    /* RESULTATS */
+
+    .results-grid {
+        width: 90%;
+        max-width: 900px;
+
+        margin: 40px auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 20px;
+    }
+
+    .result-card {
+        padding: 25px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background-color: rgb(6, 6, 48);
+
+        border: 2px solid #d4af37;
+        border-radius: 8px;
+
+        text-align: center;
+    }
+
+    .movie-icon {
+        font-size: 40px;
+
+        margin-bottom: 10px;
+    }
+
+    .result-card h2 {
+        margin: 10px 0;
+    }
+
+    .result-card p {
+        color: white;
+    }
+
+    .result-card a {
+        margin-top: 15px;
+        padding: 10px 15px;
+
+        color: black;
+        background-color: #d4af37;
+
+        text-decoration: none;
+        font-weight: bold;
+
+        border-radius: 4px;
+    }
+
+    .result-card a:hover {
+        background-color: #f0c94d;
     }
 
     /* TABLETTE */
@@ -237,11 +411,15 @@
         .search-results {
             padding: 35px 25px;
         }
+
+        .results-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .movies-page {
             padding: 25px 10px 40px;
         }
@@ -258,12 +436,14 @@
 
         .container-searching {
             width: 100%;
+
             margin: 30px auto;
             padding: 15px;
         }
 
         .search-input {
             font-size: 16px;
+
             padding: 12px 10px;
         }
 
@@ -287,6 +467,12 @@
 
         .search-results p {
             font-size: 14px;
+        }
+
+        .results-grid {
+            width: 100%;
+
+            grid-template-columns: 1fr;
         }
     }
 </style>

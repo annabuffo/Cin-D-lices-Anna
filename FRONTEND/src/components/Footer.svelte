@@ -1,3 +1,13 @@
+<script>
+    let newsletterEmail = "";
+    let newsletterMessage = "";
+
+    function subscribeNewsletter() {
+        newsletterMessage = "Merci pour votre inscription !";
+        newsletterEmail = "";
+    }
+</script>
+
 <footer>
     <div class="footer-film-strip">
         <div class="barre"></div>
@@ -5,28 +15,44 @@
 
     <div class="footer">
         <div class="social-icons">
-            <a href="https://www.facebook.com/">
+            <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img
                     src="/icons-footer/facebook (1).png"
                     alt="Facebook"
                 />
             </a>
 
-            <a href="https://www.instagram.com/">
+            <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img
                     src="/icons-footer/instagram (1).png"
                     alt="Instagram"
                 />
             </a>
 
-            <a href="https://x.com/">
+            <a
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img
                     src="/icons-footer/twitter.png"
                     alt="X"
                 />
             </a>
 
-            <a href="https://www.youtube.com/">
+            <a
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img
                     src="/icons-footer/youtube (1).png"
                     alt="YouTube"
@@ -37,26 +63,45 @@
 
     <h2 class="news">Newsletter</h2>
 
-    <form class="newsletter">
+    <form
+        class="newsletter"
+        on:submit|preventDefault={subscribeNewsletter}
+    >
         <input
             type="email"
+            bind:value={newsletterEmail}
             placeholder="ton@email.com"
+            autocomplete="email"
+            aria-label="Adresse email pour la newsletter"
             required
         />
 
-        <button class="newsletter-submit" type="submit">
-            SUBSCRIBE
+        <button
+            class="newsletter-submit"
+            type="submit"
+        >
+            S'INSCRIRE
         </button>
     </form>
+
+    {#if newsletterMessage}
+        <p class="newsletter-message">
+            {newsletterMessage}
+        </p>
+    {/if}
 
     <nav class="nav-footer">
         <ul>
             <li>
-                <a href="#/about">A propos</a>
+                <a href="#/about">
+                    À propos
+                </a>
             </li>
 
             <li>
-                <a href="#/contact">Contact</a>
+                <a href="#/contact">
+                    Contact
+                </a>
             </li>
 
             <li>
@@ -155,7 +200,7 @@
         display: flex;
         justify-content: center;
 
-        margin: 20px auto;
+        margin: 20px auto 10px;
         padding: 0 20px;
     }
 
@@ -168,6 +213,10 @@
 
         border: 2px solid #d4af37;
         outline: none;
+    }
+
+    .newsletter input:focus {
+        border-color: #f0c94d;
     }
 
     .newsletter-submit {
@@ -184,6 +233,13 @@
 
     .newsletter-submit:hover {
         background-color: #f0c94d;
+    }
+
+    .newsletter-message {
+        margin: 10px 0 20px;
+
+        color: #d4af37;
+        text-align: center;
     }
 
     /* NAVIGATION FOOTER */

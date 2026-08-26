@@ -6,6 +6,9 @@
     let message = "";
 
     async function register() {
+        message = "";
+
+        // Vérification des mots de passe
         if (password !== confirmPassword) {
             message = "Les mots de passe ne correspondent pas";
             return;
@@ -22,8 +25,8 @@
                     },
 
                     body: JSON.stringify({
-                        username,
-                        email,
+                        username: username.trim(),
+                        email: email.trim(),
                         password,
                     }),
                 }
@@ -34,12 +37,18 @@
             if (response.ok) {
                 message = "Inscription réussie";
 
+                // Redirection vers la connexion
                 window.location.hash = "#/login";
             } else {
-                message = data.message || "Erreur lors de l'inscription";
+                message =
+                    data.message ||
+                    "Erreur lors de l'inscription";
             }
         } catch (error) {
-            message = "Impossible de contacter le serveur";
+            console.error(error);
+
+            message =
+                "Impossible de contacter le serveur";
         }
     }
 </script>
@@ -60,6 +69,7 @@
                 id="username"
                 bind:value={username}
                 placeholder="Ton nom d'utilisateur"
+                autocomplete="username"
                 required
             />
 
@@ -72,6 +82,7 @@
                 id="email"
                 bind:value={email}
                 placeholder="ton@email.com"
+                autocomplete="email"
                 required
             />
 
@@ -84,6 +95,7 @@
                 id="password"
                 bind:value={password}
                 placeholder="Ton mot de passe"
+                autocomplete="new-password"
                 required
             />
 
@@ -96,10 +108,14 @@
                 id="confirmPassword"
                 bind:value={confirmPassword}
                 placeholder="Confirme ton mot de passe"
+                autocomplete="new-password"
                 required
             />
 
-            <button class="button-register" type="submit">
+            <button
+                class="button-register"
+                type="submit"
+            >
                 INSCRIPTION
             </button>
 
@@ -245,7 +261,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .register-page {
             padding: 25px 15px;
         }

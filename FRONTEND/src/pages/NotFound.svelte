@@ -66,7 +66,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .not-found {
             min-height: 50vh;
             padding: 30px 15px;

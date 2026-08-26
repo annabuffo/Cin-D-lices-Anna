@@ -22,7 +22,7 @@
         <div class="inline"></div>
 
         <p>
-            En utilisant le site Ciné Délices, nous collectons les données
+            En utilisant le site Ciné Délices, nous pouvons collecter les données
             suivantes lorsque vous créez un compte :
         </p>
 
@@ -57,14 +57,14 @@
             </li>
         </ul>
 
-        <h2>3. COOKIES</h2>
+        <h2>3. STOCKAGE LOCAL ET COOKIES</h2>
 
         <div class="inline"></div>
 
         <p>
-            Nous utilisons uniquement les cookies nécessaires au fonctionnement
-            du site, notamment pour la gestion de l'authentification et des
-            sessions utilisateur.
+            Le site peut utiliser le stockage local du navigateur ainsi que
+            des cookies nécessaires à son fonctionnement, notamment pour
+            conserver certaines préférences et informations de connexion.
         </p>
 
         <h2>4. VOS DROITS</h2>
@@ -205,7 +205,7 @@
 
     /* MOBILE */
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         .privacy-container {
             width: 95%;
 

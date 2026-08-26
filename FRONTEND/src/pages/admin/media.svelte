@@ -1,3 +1,113 @@
+<script>
+    let mediaList = [
+        {
+            id: "petite-sirene",
+            title: "La Petite Sirène",
+            type: "Film",
+            image: "/img-home/sirène.jpg",
+        },
+        {
+            id: "super-mario",
+            title: "Super Mario Bros",
+            type: "Film",
+            image: "/img-home/Mario.jpg",
+        },
+        {
+            id: "ratatouille",
+            title: "Ratatouille",
+            type: "Film",
+            image: "/img-card-sct-1/ratatouille.jpg",
+        },
+        {
+            id: "soupe-choux",
+            title: "La Soupe aux Choux",
+            type: "Film",
+            image: "/img-card-sct-1/choux.png",
+        },
+    ];
+
+    function addMedia() {
+        const title = window.prompt(
+            "Nom du film ou de la série :"
+        );
+
+        if (!title || !title.trim()) {
+            return;
+        }
+
+        const type = window.prompt(
+            "Type : Film ou Série ?",
+            "Film"
+        );
+
+        if (!type || !type.trim()) {
+            return;
+        }
+
+        const newMedia = {
+            id: Date.now().toString(),
+            title: title.trim(),
+            type: type.trim(),
+            image: "/img-home/Mario.jpg",
+        };
+
+        mediaList = [
+            ...mediaList,
+            newMedia,
+        ];
+    }
+
+    function editMedia(id = "") {
+        const media = mediaList.find(
+            (item) => item.id === id
+        );
+
+        if (!media) {
+            return;
+        }
+
+        const newTitle = window.prompt(
+            "Modifier le nom :",
+            media.title
+        );
+
+        if (!newTitle || !newTitle.trim()) {
+            return;
+        }
+
+        const newType = window.prompt(
+            "Modifier le type :",
+            media.type
+        );
+
+        mediaList = mediaList.map((item) => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    title: newTitle.trim(),
+                    type:
+                        newType?.trim() ||
+                        item.type,
+                };
+            }
+
+            return item;
+        });
+    }
+
+    function deleteMedia(id = "") {
+        const confirmation = window.confirm(
+            "Voulez-vous vraiment supprimer ce film ou cette série ?"
+        );
+
+        if (confirmation) {
+            mediaList = mediaList.filter(
+                (media) => media.id !== id
+            );
+        }
+    }
+</script>
+
 <main class="admin-page">
     <h1>GESTION DES FILMS ET SÉRIES</h1>
 
@@ -6,105 +116,68 @@
     </a>
 
     <section class="admin-container">
-        <button class="add" type="button">
+
+        <button
+            class="add"
+            type="button"
+            onclick={addMedia}
+        >
             AJOUTER UN FILM OU UNE SÉRIE
         </button>
 
-        <!-- LA PETITE SIRÈNE -->
+        {#if mediaList.length === 0}
 
-        <div class="item-card">
-            <img
-                src="/img-home/sirène.jpg"
-                alt="La petite sirène"
-            />
+            <p class="empty-message">
+                Aucun film ou série disponible.
+            </p>
 
-            <div class="info">
-                <h2>La petite sirène</h2>
-                <p>Type : Film</p>
-            </div>
+        {:else}
 
-            <div class="actions">
-                <button class="edit" type="button">
-                    MODIFIER
-                </button>
+            {#each mediaList as media}
 
-                <button class="delete" type="button">
-                    SUPPRIMER
-                </button>
-            </div>
-        </div>
+                <div class="item-card">
 
-        <!-- SUPER MARIO BROS -->
+                    <img
+                        src={media.image}
+                        alt={media.title}
+                    />
 
-        <div class="item-card">
-            <img
-                src="/img-home/Mario.jpg"
-                alt="Super Mario Bros"
-            />
+                    <div class="info">
+                        <h2>
+                            {media.title}
+                        </h2>
 
-            <div class="info">
-                <h2>Super Mario Bros</h2>
-                <p>Type : Film</p>
-            </div>
+                        <p>
+                            Type : {media.type}
+                        </p>
+                    </div>
 
-            <div class="actions">
-                <button class="edit" type="button">
-                    MODIFIER
-                </button>
+                    <div class="actions">
 
-                <button class="delete" type="button">
-                    SUPPRIMER
-                </button>
-            </div>
-        </div>
+                        <button
+                            class="edit"
+                            type="button"
+                            onclick={() => editMedia(media.id)}
+                        >
+                            MODIFIER
+                        </button>
 
-        <!-- RATATOUILLE -->
+                        <button
+                            class="delete"
+                            type="button"
+                            onclick={() => deleteMedia(media.id)}
+                        >
+                            SUPPRIMER
+                        </button>
 
-        <div class="item-card">
-            <img
-                src="/img-card-sct-1/ratatouille.jpg"
-                alt="Ratatouille"
-            />
+                    </div>
 
-            <div class="info">
-                <h2>Ratatouille</h2>
-                <p>Type : Film</p>
-            </div>
+                </div>
 
-            <div class="actions">
-                <button class="edit" type="button">
-                    MODIFIER
-                </button>
+            {/each}
 
-                <button class="delete" type="button">
-                    SUPPRIMER
-                </button>
-            </div>
-        </div>
+        {/if}
 
-        <!-- LA SOUPE AUX CHOUX -->
-
-        <div class="item-card">
-            <img
-                src="/img-card-sct-1/choux.png"
-                alt="La soupe aux choux"
-            />
-
-            <div class="info">
-                <h2>La soupe aux choux</h2>
-                <p>Type : Film</p>
-            </div>
-
-            <div class="actions">
-                <button class="edit" type="button">
-                    MODIFIER
-                </button>
-
-                <button class="delete" type="button">
-                    SUPPRIMER
-                </button>
-            </div>
-        </div>
     </section>
 </main>
 
@@ -112,12 +185,15 @@
     .admin-page {
         width: 90%;
         max-width: 1000px;
+
         margin: 40px auto;
     }
 
     .admin-page h1 {
         text-align: center;
+
         color: #d4af37;
+
         margin-bottom: 25px;
     }
 
@@ -162,6 +238,10 @@
         font-weight: bold;
     }
 
+    .add:hover {
+        background-color: #f0c94d;
+    }
+
     /* CARTE */
 
     .item-card {
@@ -174,6 +254,7 @@
 
         display: flex;
         align-items: center;
+
         gap: 20px;
     }
 
@@ -199,11 +280,13 @@
 
     .info h2 {
         color: #d4af37;
+
         margin: 0 0 8px;
     }
 
     .info p {
         color: white;
+
         margin: 0;
     }
 
@@ -211,6 +294,7 @@
 
     .actions {
         display: flex;
+
         gap: 10px;
     }
 
@@ -235,6 +319,24 @@
         color: white;
     }
 
+    .delete:hover {
+        background-color: #d13f3f;
+    }
+
+    /* LISTE VIDE */
+
+    .empty-message {
+        color: white;
+
+        text-align: center;
+
+        padding: 25px 15px;
+
+        background-color: #111526;
+
+        border-radius: 6px;
+    }
+
     /* TABLETTE */
 
     @media (max-width: 768px) {
@@ -256,6 +358,7 @@
     @media (max-width: 480px) {
         .admin-page {
             width: 95%;
+
             margin: 25px auto;
         }
 
@@ -287,6 +390,7 @@
 
         .actions {
             width: 100%;
+
             flex-direction: column;
         }
 
