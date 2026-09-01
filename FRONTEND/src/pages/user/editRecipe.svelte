@@ -1,35 +1,114 @@
 <script>
-    export let params = {
-        id: "",
-    };
+    // @ts-nocheck
+    import { onMount } from "svelte";
 
-    let title = "Tagliatelles crémeuses aux champignons";
-    let movie = "Super Mario Bros";
-    let category = "Plat principal";
-    let preparation = 20;
-    let cooking = 15;
-    let servings = 4;
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-    let ingredients =
-        "400 g de tagliatelles\n250 g de champignons\n20 cl de crème fraîche\n1 oignon\nSel et poivre";
-
-    let instructions =
-        "1. Faites cuire les tagliatelles.\n2. Coupez les champignons et l'oignon.\n3. Faites revenir les champignons et l'oignon.\n4. Ajoutez la crème fraîche.\n5. Mélangez avec les tagliatelles et servez.";
-
-    let description =
-        "Une recette de tagliatelles crémeuses aux champignons inspirée de l'univers de Super Mario Bros.";
-
+    // Récupérer l'ID de la recette depuis l'URL
+    let recipeId = null;
+    let title = "";
+    let description = "";
+    let categoryId = "";
+    let preparation = "";
+    let cooking = "";
+    let servings = "";
+    let ingredients = "";
+    let instructions = "";
+    let categories = [];
+    let medias = [];
+    let mediaId = "";
     let message = "";
+    let loading = true;
 
-    function updateRecipe() {
+    onMount(() => {
+        // Extraire l'ID de l'URL
+        const hash = window.location.hash;
+        const match = hash.match(/#\/user\/editRecipe\/(\d+)/);
+        recipeId = match ? match[1] : null;
+
+        if (!recipeId) {
+            message = "ID de recette manquant.";
+            loading = false;
+            return;
+        }
+
+        loadRecipeData();
+        loadSelectData();
+    });
+
+    async function loadRecipeData() {
+        const token = localStorage.getItem("token");
+        if (!token || !recipeId) {
+            loading = false;
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_URL}/api/recipes/${recipeId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (!response.ok) {
+                throw new Error("Recette non trouvée");
+            }
+
+            const recipe = await response.json();
+            title = recipe.title || "";
+            description = recipe.description || "";
+            categoryId = recipe.category_id || "";
+            mediaId = recipe.media_id || "";
+            preparation = recipe.prep_time || "";
+            cooking = recipe.cook_time || "";
+            servings = recipe.servings || "";
+            ingredients = recipe.ingredients || "";
+            instructions = recipe.instructions || "";
+        } catch (error) {
+            console.error(error);
+            message = "Impossible de charger la recette.";
+        } finally {
+            loading = false;
+        }
+    }
+
+    async function loadSelectData() {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        try {
+            const [categoriesResponse, mediaResponse] = await Promise.all([
+                fetch(`${API_URL}/api/categories`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                }),
+                fetch(`${API_URL}/api/media`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                }),
+            ]);
+
+            const categoriesData = await categoriesResponse.json();
+            const mediaData = await mediaResponse.json();
+
+            categories = Array.isArray(categoriesData) ? categoriesData : [];
+            medias = Array.isArray(mediaData) ? mediaData : [];
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function updateRecipe() {
         message = "";
+
+        const token = localStorage.getItem("token");
+        if (!token || !recipeId) {
+            message = "Vous devez être connecté.";
+            return;
+        }
 
         if (
             !title.trim() ||
-            !movie.trim() ||
-            !category ||
+            !categoryId ||
+            !mediaId ||
             !preparation ||
-            cooking === "" ||
+            !cooking ||
             !servings ||
             !ingredients.trim() ||
             !instructions.trim()
@@ -38,11 +117,41 @@
             return;
         }
 
-        message = "Recette modifiée avec succès.";
+        try {
+            const response = await fetch(`${API_URL}/api/recipes/${recipeId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title: title.trim(),
+                    description: description.trim(),
+                    ingredients: ingredients.trim(),
+                    instructions: instructions.trim(),
+                    prep_time: Number(preparation),
+                    cook_time: Number(cooking),
+                    servings: Number(servings),
+                    category_id: Number(categoryId),
+                    media_id: Number(mediaId),
+                }),
+            });
 
-        setTimeout(() => {
-            window.location.hash = "#/user/profile";
-        }, 800);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Erreur lors de la modification.");
+            }
+
+            message = "Recette modifiée avec succès.";
+
+            setTimeout(() => {
+                window.location.hash = "#/user/profile";
+            }, 1500);
+        } catch (error) {
+            console.error(error);
+            message = error.message || "Impossible de modifier la recette.";
+        }
     }
 </script>
 
@@ -76,45 +185,42 @@
 
             <!-- FILM OU SERIE -->
 
-            <label for="movie">
+            <label for="mediaId">
                 Film ou série associé
             </label>
 
-            <input
-                type="text"
-                id="movie"
-                name="movie"
-                bind:value={movie}
+            <select
+                id="mediaId"
+                name="mediaId"
+                bind:value={mediaId}
                 required
-            />
+            >
+                <option value="">-- Sélectionner un film/série --</option>
+                {#each medias as media}
+                    <option value={media.id}>
+                        {media.title}
+                    </option>
+                {/each}
+            </select>
 
             <!-- CATEGORIE -->
 
-            <label for="category">
+            <label for="categoryId">
                 Catégorie
             </label>
 
             <select
-                id="category"
-                name="category"
-                bind:value={category}
+                id="categoryId"
+                name="categoryId"
+                bind:value={categoryId}
                 required
             >
-                <option value="Entrée">
-                    Entrée
-                </option>
-
-                <option value="Plat principal">
-                    Plat principal
-                </option>
-
-                <option value="Dessert">
-                    Dessert
-                </option>
-
-                <option value="Boisson">
-                    Boisson
-                </option>
+                <option value="">-- Sélectionner une catégorie --</option>
+                {#each categories as category}
+                    <option value={category.id}>
+                        {category.name}
+                    </option>
+                {/each}
             </select>
 
             <!-- IMAGE -->

@@ -1,4 +1,5 @@
 <script>
+    // @ts-nocheck
     let categories = [
         {
             id: "entree",
@@ -49,7 +50,7 @@
         ];
     }
 
-    function editCategory(id = "") {
+    function editCategory(id) {
         const category = categories.find(
             (item) => item.id === id
         );
@@ -87,7 +88,7 @@
         });
     }
 
-    function deleteCategory(id = "") {
+    function deleteCategory(id) {
         const confirmation = window.confirm(
             "Voulez-vous vraiment supprimer cette catégorie ?"
         );
@@ -111,7 +112,7 @@
         <button
             class="add"
             type="button"
-            onclick={addCategory}
+            on:click={addCategory}
         >
             AJOUTER UNE CATÉGORIE
         </button>
@@ -137,7 +138,7 @@
                         <button
                             class="edit"
                             type="button"
-                            onclick={() =>
+                            on:click={() =>
                                 editCategory(category.id)}
                         >
                             MODIFIER
@@ -146,7 +147,7 @@
                         <button
                             class="delete"
                             type="button"
-                            onclick={() =>
+                            on:click={() =>
                                 deleteCategory(category.id)}
                         >
                             SUPPRIMER
@@ -278,13 +279,17 @@
         color: black;
     }
 
+    .edit:hover {
+        background-color: #f0c94d;
+    }
+
     .delete {
-        background-color: #e24d4d;
-        color: white;
+        background-color: #d4af37;
+        color: black;
     }
 
     .delete:hover {
-        background-color: #d13f3f;
+        background-color: #f0c94d;
     }
 
     /* LISTE VIDE */

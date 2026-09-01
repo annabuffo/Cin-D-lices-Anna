@@ -1,32 +1,133 @@
 <script>
+    import { onMount } from "svelte";
+
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
     let username = "Utilisateur";
     let email = "utilisateur@email.com";
     let role = "Utilisateur";
+    let recipes = [];
+    let loading = true;
 
-    let recipes = [
-        {
-            id: "super-mario",
-            title: "Tagliatelles crémeuses aux champignons",
-            movie: "Super Mario Bros",
-            image: "/img-card-sct-1/champignon.jpg",
-        },
-        {
-            id: "ratatouille",
-            title: "Ratatouille aux légumes",
-            movie: "Ratatouille",
-            image: "/img-card-sct-1/ratatouille.jpg",
-        },
-    ];
+    function getCurrentUser() {
+        try {
+            const savedUser = JSON.parse(localStorage.getItem("user") || "null");
+            if (savedUser) {
+                username = savedUser.username || "Utilisateur";
+                email = savedUser.email || "";
+                role = savedUser.role || "user";
+            }
+        } catch {
+            username = "Utilisateur";
+            email = "";
+            role = "user";
+        }
+    }
 
-    function deleteRecipe(id = "") {
+    async function loadUserRecipes() {
+        const token = localStorage.getItem("token");
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const userId = user.id;
+
+        if (!token || !userId) {
+            recipes = [];
+            loading = false;
+            return;
+        }
+
+        try {
+            loading = true;
+            // Charger toutes les recettes de l'utilisateur
+            const response = await fetch(`${API_URL}/api/recipes?userId=${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Erreur lors du chargement des recettes.");
+            }
+
+            recipes = Array.isArray(data)
+                ? data.map((recipe) => ({
+                    id: recipe.id,
+                    title: recipe.title,
+                    movie: recipe.media?.title || "Film / Série",
+                    image: recipe.image_url || "/img-card-sct-1/champignon.jpg",
+                }))
+                : [];
+        } catch (error) {
+            console.error(error);
+            // En fallback, charger toutes et filtrer localement
+            try {
+                const response = await fetch(`${API_URL}/api/recipes`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                const data = await response.json();
+                if (response.ok && Array.isArray(data)) {
+                    // Filtrer les recettes où user.id == userId
+                    recipes = data
+                        .filter((r) => r.user?.id === userId)
+                        .map((recipe) => ({
+                            id: recipe.id,
+                            title: recipe.title,
+                            movie: recipe.media?.title || "Film / Série",
+                            image: recipe.image_url || "/img-card-sct-1/champignon.jpg",
+                        }));
+                } else {
+                    recipes = [];
+                }
+            } catch {
+                recipes = [];
+            }
+        } finally {
+            loading = false;
+        }
+    }
+
+    async function deleteRecipe(id) {
         const confirmation = window.confirm(
             "Voulez-vous vraiment supprimer cette recette ?"
         );
 
-        if (confirmation) {
+        if (!confirmation) {
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_URL}/api/recipes/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.message || "Erreur lors de la suppression.");
+            }
+
             recipes = recipes.filter((recipe) => recipe.id !== id);
+        } catch (error) {
+            console.error(error);
+            alert("Impossible de supprimer cette recette pour le moment.");
         }
     }
+
+    onMount(() => {
+        getCurrentUser();
+        loadUserRecipes();
+    });
 </script>
 
 <main class="profile-page">
@@ -74,7 +175,11 @@
             </a>
         </div>
 
-        {#if recipes.length === 0}
+        {#if loading}
+            <p class="empty-message">
+                Chargement de vos recettes...
+            </p>
+        {:else if recipes.length === 0}
             <p class="empty-message">
                 Vous n'avez encore créé aucune recette.
             </p>
@@ -113,7 +218,7 @@
                                 <button
                                     class="delete"
                                     type="button"
-                                    onclick={() => deleteRecipe(recipe.id)}
+                                    on:click={() => deleteRecipe(recipe.id)}
                                 >
                                     SUPPRIMER
                                 </button>

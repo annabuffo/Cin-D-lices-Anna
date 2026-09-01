@@ -1,7 +1,12 @@
 <script>
+    // @ts-nocheck
+    import { onMount } from "svelte";
+
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
     let title = "";
     let movie = "";
-    let category = "";
+    let categoryId = "";
     let preparation = "";
     let cooking = "";
     let servings = "";
@@ -9,14 +14,53 @@
     let instructions = "";
     let description = "";
     let message = "";
+    let categories = [];
+    let medias = [];
+    let mediaId = "";
 
-    function addRecipe() {
+    async function loadSelectData() {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            message = "Vous devez être connecté pour ajouter une recette.";
+            return;
+        }
+
+        try {
+            const [categoriesResponse, mediaResponse] = await Promise.all([
+                fetch(`${API_URL}/api/categories`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                }),
+                fetch(`${API_URL}/api/media`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                }),
+            ]);
+
+            const categoriesData = await categoriesResponse.json();
+            const mediaData = await mediaResponse.json();
+
+            categories = Array.isArray(categoriesData) ? categoriesData : [];
+            medias = Array.isArray(mediaData) ? mediaData : [];
+        } catch (error) {
+            console.error(error);
+            message = "Impossible de charger les catégories et médias.";
+        }
+    }
+
+    async function addRecipe() {
         message = "";
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            message = "Vous devez être connecté pour ajouter une recette.";
+            window.location.hash = "#/login";
+            return;
+        }
 
         if (
             !title.trim() ||
-            !movie.trim() ||
-            !category ||
+            !categoryId ||
+            !mediaId ||
             !preparation ||
             !cooking ||
             !servings ||
@@ -27,12 +71,59 @@
             return;
         }
 
-        message = "Recette ajoutée avec succès.";
+        try {
+            const response = await fetch(`${API_URL}/api/recipes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title: title.trim(),
+                    description: description.trim(),
+                    ingredients: ingredients.trim(),
+                    instructions: instructions.trim(),
+                    image_url: "",
+                    prep_time: Number(preparation),
+                    cook_time: Number(cooking),
+                    servings: Number(servings),
+                    category_id: Number(categoryId),
+                    media_id: Number(mediaId),
+                }),
+            });
 
-        setTimeout(() => {
-            window.location.hash = "#/user/profile";
-        }, 800);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Erreur lors de l'ajout de la recette.");
+            }
+
+            message = "Recette ajoutée avec succès.";
+            
+            // Réinitialiser le formulaire
+            title = "";
+            movie = "";
+            categoryId = "";
+            mediaId = "";
+            preparation = "";
+            cooking = "";
+            servings = "";
+            ingredients = "";
+            instructions = "";
+            description = "";
+
+            setTimeout(() => {
+                window.location.hash = "#/user/profile";
+            }, 1500);
+        } catch (error) {
+            console.error(error);
+            message = error.message || "Impossible d'ajouter la recette.";
+        }
     }
+
+    onMount(() => {
+        loadSelectData();
+    });
 </script>
 
 <main class="add-recipe-page">
@@ -71,14 +162,19 @@
                 Film ou série associé
             </label>
 
-            <input
-                type="text"
+            <select
                 id="movie"
                 name="movie"
-                bind:value={movie}
-                placeholder="Ex : Super Mario Bros"
+                bind:value={mediaId}
                 required
-            />
+            >
+                <option value="" disabled>
+                    Choisissez un film ou une série
+                </option>
+                {#each medias as media}
+                    <option value={media.id}>{media.title}</option>
+                {/each}
+            </select>
 
             <!-- CATEGORIE -->
 
@@ -89,28 +185,15 @@
             <select
                 id="category"
                 name="category"
-                bind:value={category}
+                bind:value={categoryId}
                 required
             >
                 <option value="" disabled>
                     Choisissez une catégorie
                 </option>
-
-                <option value="Entrée">
-                    Entrée
-                </option>
-
-                <option value="Plat principal">
-                    Plat principal
-                </option>
-
-                <option value="Dessert">
-                    Dessert
-                </option>
-
-                <option value="Boisson">
-                    Boisson
-                </option>
+                {#each categories as category}
+                    <option value={category.id}>{category.name}</option>
+                {/each}
             </select>
 
             <!-- IMAGE -->

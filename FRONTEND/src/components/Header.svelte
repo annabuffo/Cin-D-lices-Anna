@@ -79,7 +79,7 @@
                 <li>
                     <button
                         class="logout"
-                        onclick={logout}
+                        on:click={logout}
                     >
                         Déconnexion
                     </button>

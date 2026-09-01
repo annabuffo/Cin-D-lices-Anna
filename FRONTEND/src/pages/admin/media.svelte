@@ -120,7 +120,7 @@
         <button
             class="add"
             type="button"
-            onclick={addMedia}
+            on:click={addMedia}
         >
             AJOUTER UN FILM OU UNE SÉRIE
         </button>
@@ -157,7 +157,7 @@
                         <button
                             class="edit"
                             type="button"
-                            onclick={() => editMedia(media.id)}
+                            on:click={() => editMedia(media.id)}
                         >
                             MODIFIER
                         </button>
@@ -165,7 +165,7 @@
                         <button
                             class="delete"
                             type="button"
-                            onclick={() => deleteMedia(media.id)}
+                            on:click={() => deleteMedia(media.id)}
                         >
                             SUPPRIMER
                         </button>

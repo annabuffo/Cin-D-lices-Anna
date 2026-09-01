@@ -55,7 +55,7 @@
                     <button
                         class="delete"
                         type="button"
-                        onclick={() => deleteUser(user.id)}
+                        on:click={() => deleteUser(user.id)}
                     >
                         SUPPRIMER
                     </button>
@@ -87,7 +87,7 @@
                     <button
                         class="delete"
                         type="button"
-                        onclick={() => deleteUser(user.id)}
+                        on:click={() => deleteUser(user.id)}
                     >
                         SUPPRIMER
                     </button>

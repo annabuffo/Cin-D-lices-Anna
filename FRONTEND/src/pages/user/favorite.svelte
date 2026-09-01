@@ -1,70 +1,63 @@
 <script>
-    const recipeCatalog = [
-        {
-            id: "petite-sirene",
-            title: "Poisson Rôti et Légumes au Four",
-            movie: "La Petite Sirène",
-            description:
-                "Une recette de poisson rôti accompagnée de légumes inspirée de l'univers de La Petite Sirène.",
-            image: "/img-card-sct-1/poisson.jpg",
-        },
-        {
-            id: "super-mario",
-            title: "Tagliatelles crémeuses aux champignons",
-            movie: "Super Mario Bros",
-            description:
-                "Des tagliatelles crémeuses aux champignons inspirées de l'univers de Super Mario Bros.",
-            image: "/img-card-sct-1/champignon.jpg",
-        },
-        {
-            id: "ratatouille",
-            title: "Ratatouille aux légumes",
-            movie: "Ratatouille",
-            description:
-                "Une ratatouille aux légumes inspirée du célèbre film d'animation Ratatouille.",
-            image: "/img-card-sct-1/ratatouille.jpg",
-        },
-        {
-            id: "doctor-who",
-            title: "Tourte du Tardis au poulet",
-            movie: "Doctor Who",
-            description:
-                "Une tourte généreuse et bien épicée inspirée de l'univers du Tardis.",
-            image: "/img-home/who.webp",
-        },
-        {
-            id: "vice-versa",
-            title: "Cupcakes colorés des émotions",
-            movie: "Vice-Versa",
-            description:
-                "Des cupcakes colorés et faciles à partager, parfaits pour une journée joyeuse.",
-            image: "/img-home/vice versa.jpg",
-        },
-    ];
+    // @ts-nocheck
+    import { onMount } from "svelte";
+
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
     let favorites = [];
     let isConnected = false;
+    let loading = true;
 
     function getSavedFavorites() {
         try {
             const saved = JSON.parse(
                 localStorage.getItem("cin_delices_favorites") || "[]"
             );
-
             return Array.isArray(saved) ? saved : [];
         } catch {
             return [];
         }
     }
 
-    function syncFavorites() {
+    async function loadFavoriteRecipes() {
         isConnected = Boolean(localStorage.getItem("token"));
 
-        const ids = getSavedFavorites();
-        favorites = recipeCatalog.filter((recipe) => ids.includes(recipe.id));
+        if (!isConnected) {
+            favorites = [];
+            loading = false;
+            return;
+        }
+
+        try {
+            loading = true;
+            const response = await fetch(`${API_URL}/api/recipes`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Erreur lors du chargement des recettes.");
+            }
+
+            const favoriteIds = getSavedFavorites();
+            favorites = Array.isArray(data)
+                ? data
+                    .filter((recipe) => favoriteIds.includes(String(recipe.id)))
+                    .map((recipe) => ({
+                        id: recipe.id,
+                        title: recipe.title,
+                        movie: recipe.media?.title || "Film / Série",
+                        description: recipe.description || "Recette inspirée de cette œuvre.",
+                        image: recipe.image_url || "/img-card-sct-1/champignon.jpg",
+                    }))
+                : [];
+        } catch (error) {
+            console.error(error);
+            favorites = [];
+        } finally {
+            loading = false;
+        }
     }
 
-    function removeFavorite(id = "") {
+    function removeFavorite(id) {
         const confirmation = window.confirm(
             "Voulez-vous retirer cette recette de vos favoris ?"
         );
@@ -73,17 +66,20 @@
             return;
         }
 
-        const ids = getSavedFavorites().filter((favoriteId) => favoriteId !== id);
-        localStorage.setItem(
-            "cin_delices_favorites",
-            JSON.stringify(ids)
-        );
-
-        syncFavorites();
+        const ids = getSavedFavorites().filter((favoriteId) => String(favoriteId) !== String(id));
+        localStorage.setItem("cin_delices_favorites", JSON.stringify(ids));
+        loadFavoriteRecipes();
     }
 
-    $: {
-        syncFavorites();
+    onMount(() => {
+        loadFavoriteRecipes();
+    });
+
+    $: if (typeof window !== "undefined") {
+        const token = localStorage.getItem("token");
+        if (token !== null && isConnected !== true) {
+            loadFavoriteRecipes();
+        }
     }
 </script>
 
@@ -97,7 +93,13 @@
 
     <section class="favorites-container">
 
-        {#if !isConnected}
+        {#if loading}
+
+            <p class="empty-message">
+                Chargement de vos favoris...
+            </p>
+
+        {:else if !isConnected}
 
             <p class="empty-message">
                 Connectez-vous pour ajouter des recettes à vos favoris.
@@ -143,7 +145,7 @@
                             <button
                                 class="remove"
                                 type="button"
-                                onclick={() => removeFavorite(favorite.id)}
+                                on:click={() => removeFavorite(favorite.id)}
                             >
                                 RETIRER DES FAVORIS
                             </button>

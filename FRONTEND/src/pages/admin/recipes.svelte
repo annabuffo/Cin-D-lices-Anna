@@ -98,13 +98,13 @@
                             MODIFIER
                         </a>
 
-                        <button
-                            class="delete"
-                            type="button"
-                            onclick={() => deleteRecipe(recipe.id)}
-                        >
-                            SUPPRIMER
-                        </button>
+                            <button
+                                class="delete"
+                                type="button"
+                                on:click={() => deleteRecipe(recipe.id)}
+                            >
+                                SUPPRIMER
+                            </button>
 
                     </div>
 

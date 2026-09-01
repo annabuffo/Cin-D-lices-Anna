@@ -79,7 +79,7 @@
                     <button
                         class="delete"
                         type="button"
-                        onclick={() => deleteComment(comment.id)}
+                        on:click={() => deleteComment(comment.id)}
                     >
                         SUPPRIMER
                     </button>

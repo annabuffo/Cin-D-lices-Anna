@@ -1,11 +1,85 @@
 <script>
-    export let params = {
-        id: "",
-    };
+    // @ts-nocheck
+    import { onMount } from "svelte";
 
-    const recipes = [
-        {
-            id: "petite-sirene",
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+    let recipeId = null;
+    let recipe = null;
+    let loading = true;
+    let isFavorite = false;
+
+    onMount(() => {
+        // Récupérer l'ID de la recette depuis l'URL
+        const hash = window.location.hash;
+        const match = hash.match(/#\/user\/recipeDetail\/(\d+)/);
+        recipeId = match ? match[1] : null;
+
+        if (!recipeId) {
+            loading = false;
+            return;
+        }
+
+        loadRecipe();
+        checkFavorite();
+    });
+
+    async function loadRecipe() {
+        const token = localStorage.getItem("token");
+
+        try {
+            loading = true;
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+
+            const response = await fetch(`${API_URL}/api/recipes/${recipeId}`, {
+                headers,
+            });
+
+            if (!response.ok) {
+                throw new Error("Recette non trouvée");
+            }
+
+            recipe = await response.json();
+        } catch (error) {
+            console.error(error);
+            recipe = null;
+        } finally {
+            loading = false;
+        }
+    }
+
+    function checkFavorite() {
+        const favorites = JSON.parse(localStorage.getItem("cin_delices_favorites") || "[]");
+        isFavorite = favorites.includes(Number(recipeId));
+    }
+
+    async function toggleFavorite() {
+        const favorites = JSON.parse(localStorage.getItem("cin_delices_favorites") || "[]");
+        const recipeIdNum = Number(recipeId);
+
+        if (isFavorite) {
+            const index = favorites.indexOf(recipeIdNum);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            }
+        } else {
+            if (!favorites.includes(recipeIdNum)) {
+                favorites.push(recipeIdNum);
+            }
+        }
+
+        localStorage.setItem("cin_delices_favorites", JSON.stringify(favorites));
+        isFavorite = !isFavorite;
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<main class="recipe-detail-page">
 
             title: "POISSON RÔTI ET LÉGUMES AU FOUR",
             movie: "La Petite Sirène",
