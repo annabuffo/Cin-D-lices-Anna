@@ -6,13 +6,13 @@ export default (sequelize, DataTypes) => {
             User.hasMany(models.Recipe, {
                 foreignKey: "user_id",
                 as: "recipes",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
 
             User.hasMany(models.Comment, {
                 foreignKey: "user_id",
                 as: "comments",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
         }
     }
@@ -22,24 +22,27 @@ export default (sequelize, DataTypes) => {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
-                autoIncrement: true
+                autoIncrement: true,
             },
 
             username: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
-                unique: true
+                unique: true,
             },
 
             email: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
-                unique: true
+                unique: true,
+                validate: {
+                    isEmail: true,
+                },
             },
 
             password_hash: {
                 type: DataTypes.STRING(255),
-                allowNull: false
+                allowNull: false,
             },
 
             role: {
@@ -47,29 +50,31 @@ export default (sequelize, DataTypes) => {
                 allowNull: false,
                 defaultValue: "user",
                 validate: {
-                    isIn: [["user", "admin"]]
-                }
+                    isIn: [["user", "admin"]],
+                },
             },
 
             birth_date: {
                 type: DataTypes.DATEONLY,
-                allowNull: false
+                allowNull: true,
             },
 
             date_created: {
                 type: DataTypes.DATE,
                 allowNull: false,
-                defaultValue: DataTypes.NOW
-            }
+                defaultValue: DataTypes.NOW,
+            },
         },
         {
             sequelize,
             modelName: "User",
             tableName: "users",
+
             timestamps: true,
             createdAt: "date_created",
             updatedAt: false,
-            underscored: true
+
+            underscored: true,
         }
     );
 

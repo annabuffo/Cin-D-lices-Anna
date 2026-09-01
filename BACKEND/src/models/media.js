@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
             Media.hasMany(models.Recipe, {
                 foreignKey: "media_id",
                 as: "recipes",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
         }
     }
@@ -16,44 +16,43 @@ export default (sequelize, DataTypes) => {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
-                autoIncrement: true
+                autoIncrement: true,
             },
 
             title: {
                 type: DataTypes.STRING(255),
-                allowNull: false
+                allowNull: false,
             },
 
-            
             image_url: {
                 type: DataTypes.STRING(255),
-                allowNull: true
+                allowNull: true,
             },
 
             type: {
                 type: DataTypes.STRING(50),
                 allowNull: false,
                 validate: {
-                    isIn: [["film", "serie"]]
-                }
+                    isIn: [["film", "serie"]],
+                },
             },
 
             description: {
                 type: DataTypes.TEXT,
-                allowNull: true
+                allowNull: true,
             },
 
             release_date: {
                 type: DataTypes.DATEONLY,
-                allowNull: true
-            }
+                allowNull: true,
+            },
         },
         {
             sequelize,
             modelName: "Media",
             tableName: "media",
             timestamps: false,
-            underscored: true
+            underscored: true,
         }
     );
 

@@ -6,25 +6,25 @@ export default (sequelize, DataTypes) => {
             Recipe.belongsTo(models.User, {
                 foreignKey: "user_id",
                 as: "author",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
 
             Recipe.belongsTo(models.Category, {
                 foreignKey: "category_id",
                 as: "category",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
 
             Recipe.belongsTo(models.Media, {
                 foreignKey: "media_id",
                 as: "media",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
 
             Recipe.hasMany(models.Comment, {
                 foreignKey: "recipe_id",
                 as: "comments",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
         }
 
@@ -38,53 +38,58 @@ export default (sequelize, DataTypes) => {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
 
             title: {
                 type: DataTypes.STRING(255),
-                allowNull: false
+                allowNull: false,
             },
 
             description: {
                 type: DataTypes.TEXT,
-                allowNull: true
+                allowNull: true,
             },
 
             ingredients: {
                 type: DataTypes.TEXT,
-                allowNull: false
+                allowNull: false,
             },
 
             instructions: {
                 type: DataTypes.TEXT,
-                allowNull: false
+                allowNull: false,
+            },
+
+            difficulte: {
+                type: DataTypes.STRING(50),
+                allowNull: true,
             },
 
             image_url: {
                 type: DataTypes.STRING(255),
-                allowNull: true
+                allowNull: true,
             },
 
             prep_time: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: true,
             },
 
             cook_time: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: true,
             },
 
-            created_at: {
+            date_created: {
                 type: DataTypes.DATE,
                 allowNull: false,
-                defaultValue: DataTypes.NOW
+                defaultValue: DataTypes.NOW,
             },
 
             user_id: {
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: false,
             },
 
             category_id: {
@@ -94,32 +99,21 @@ export default (sequelize, DataTypes) => {
 
             media_id: {
                 type: DataTypes.INTEGER,
-                allowNull: false
-            }
+                allowNull: false,
+            },
         },
         {
             sequelize,
             modelName: "Recipe",
             tableName: "recipes",
+
             timestamps: true,
-            createdAt: "created_at",
+            createdAt: "date_created",
             updatedAt: false,
-            underscored: true
+
+            underscored: true,
         }
     );
 
     return Recipe;
 };
-
-/*{
-  "title": "Bièraubeurre",
-  "description": "Boisson inspirée de Harry Potter",
-  "ingredients": "Lait, caramel, vanille",
-  "instructions": "Faire chauffer le lait, ajouter le caramel et la vanille.",
-  "image_url": "https://example.com/bieraubeurre.jpg",
-  "prep_time": 10,
-  "cook_time": 5,
-  "category_id": 1,
-  "media_id": 1
-}
-*/

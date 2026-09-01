@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
             Category.hasMany(models.Recipe, {
                 foreignKey: "category_id",
                 as: "recipes",
-                onDelete: "CASCADE"
+                onDelete: "CASCADE",
             });
         }
     }
@@ -16,26 +16,26 @@ export default (sequelize, DataTypes) => {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
 
             name: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
-                unique: true
+                unique: true,
             },
 
             description: {
                 type: DataTypes.TEXT,
-                allowNull: true
-            }
+                allowNull: true,
+            },
         },
         {
             sequelize,
             modelName: "Category",
             tableName: "categories",
             timestamps: false,
-            underscored: true
+            underscored: true,
         }
     );
 

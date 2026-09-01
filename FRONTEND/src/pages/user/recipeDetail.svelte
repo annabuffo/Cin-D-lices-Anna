@@ -340,6 +340,237 @@
         },
 
         {
+            id: "petite-sirene-entree",
+
+            title: "SALADIER DE CRABE ET MANGUE",
+            movie: "La Petite Sirène",
+
+            image: "/img-card-sct-1/poisson.jpg",
+            movieImage: "/img-card-sct-1/sirène.jpg",
+
+            category: "Entrée",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "0 min",
+            servings: "2",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "1989",
+
+            ingredients: [
+                "200 g de crabes",
+                "1 mangue",
+                "1 citron vert",
+                "1 petite salade",
+                "Huile d'olive",
+                "Sel",
+                "Poivre",
+            ],
+
+            preparation: [
+                "Coupez la mangue en petits morceaux.",
+                "Disposez la salade dans un bol.",
+                "Ajoutez le crabe et la mangue.",
+                "Assaisonnez avec l'huile et le citron.",
+                "Salez, poivrez et servez frais.",
+            ],
+        },
+
+        {
+            id: "super-mario-plat",
+
+            title: "PIZZA TOAD AUX CHAMPIGNONS",
+            movie: "Super Mario Bros",
+
+            image: "/img-card-sct-1/champignon.jpg",
+            movieImage: "/img-home/Mario.jpg",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "20 min",
+            servings: "4",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2023",
+
+            ingredients: [
+                "1 pâte à pizza",
+                "200 g de champignons",
+                "150 g de mozzarella",
+                "1 tomate",
+                "Basilic",
+                "Huile d'olive",
+            ],
+
+            preparation: [
+                "Étalez la pâte à pizza sur une plaque.",
+                "Ajoutez les morceaux de tomate et de champignons.",
+                "Recouvrez de mozzarella.",
+                "Ajoutez un filet d'huile et du basilic.",
+                "Enfournez 20 minutes à 200°C.",
+            ],
+        },
+
+        {
+            id: "vice-versa-dessert",
+
+            title: "GÂTEAU DES ÉMOTIONS COLORÉ",
+            movie: "Vice-Versa",
+
+            image: "/img-home/vice versa.jpg",
+            movieImage: "/img-home/vice versa.jpg",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "25 min",
+            servings: "8",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2015",
+
+            ingredients: [
+                "200 g de farine",
+                "150 g de sucre",
+                "2 œufs",
+                "100 g de beurre",
+                "10 cl de lait",
+                "Colorants alimentaires",
+            ],
+
+            preparation: [
+                "Mélangez la farine, le sucre et les œufs.",
+                "Ajoutez le beurre fondu et le lait.",
+                "Séparez la pâte en plusieurs bols.",
+                "Ajoutez des colorants selon les émotions.",
+                "Faites cuire 25 minutes à 180°C.",
+            ],
+        },
+
+        {
+            id: "doctor-who-entree",
+
+            title: "VELOUTÉ DU TARDIS",
+            movie: "Doctor Who",
+
+            image: "/img-home/who.webp",
+            movieImage: "/img-home/who.webp",
+
+            category: "Entrée",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "25 min",
+            servings: "4",
+            difficulty: "Moyen",
+
+            mediaType: "Série",
+            releaseDate: "1963",
+
+            ingredients: [
+                "500 g de potiron",
+                "1 oignon",
+                "1 litre de bouillon",
+                "20 cl de crème",
+                "Sel",
+                "Poivre",
+                "Curry",
+            ],
+
+            preparation: [
+                "Faites revenir l'oignon dans une casserole.",
+                "Ajoutez le potiron coupé en morceaux.",
+                "Versez le bouillon et laissez mijoter.",
+                "Mixez le tout jusqu'à obtenir un velouté lisse.",
+                "Ajoutez la crème et les épices avant de servir.",
+            ],
+        },
+
+        {
+            id: "pirates-caraibes-plat",
+
+            title: "POULET ÉPICÉ AUX ÉPICES DES CARAÏBES",
+            movie: "Pirates des Caraïbes",
+
+            image: "/img-card-sct-1/pdc3.webp",
+            movieImage: "/img-card-sct-1/pdc1.webp",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "35 min",
+            servings: "4",
+            difficulty: "Moyen",
+
+            mediaType: "Film",
+            releaseDate: "2003",
+
+            ingredients: [
+                "4 morceaux de poulet",
+                "2 échalotes",
+                "1 piment",
+                "1 citron vert",
+                "2 cuillères de sauce soja",
+                "Sel",
+                "Poivre",
+            ],
+
+            preparation: [
+                "Mélangez le citron, la sauce soja et les épices.",
+                "Faites mariner le poulet.",
+                "Faites revenir les échalotes et le piment.",
+                "Ajoutez le poulet et laissez cuire.",
+                "Servez avec du riz ou des légumes.",
+            ],
+        },
+
+        {
+            id: "pirates-caraibes-dessert",
+
+            title: "TARTE TROPICALE COCO ET ANANAS",
+            movie: "Pirates des Caraïbes",
+
+            image: "/img-card-sct-1/pdc4.webp",
+            movieImage: "/img-card-sct-1/pdc1.webp",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "30 min",
+            servings: "6",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2003",
+
+            ingredients: [
+                "1 pâte brisée",
+                "200 g de coco râpée",
+                "1 ananas",
+                "50 g de sucre",
+                "2 œufs",
+                "20 cl de crème",
+            ],
+
+            preparation: [
+                "Étalez la pâte dans un moule.",
+                "Mélangez la coco, le sucre et les œufs.",
+                "Ajoutez la crème et l'ananas coupé en morceaux.",
+                "Versez sur la pâte.",
+                "Faites cuire 30 minutes à 180°C.",
+            ],
+        },
+
+        {
             id: "odyssee-pi",
 
             title: "RIZ AU CURRY ET LAIT DE COCO",
@@ -380,11 +611,689 @@
                 "Ajoutez le riz et mélangez.",
             ],
         },
+        {
+            id: "aquaman-entree-1",
+
+            title: "SALADE DE MANGUE ET CREVETTES",
+            movie: "Aquaman",
+
+            image: "/img-card-sct-1/aquaman1.webp",
+            movieImage: "/img-card-sct-1/aquaman2.webp",
+
+            category: "Entrée",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "0 min",
+            servings: "2",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2018",
+
+            ingredients: [
+                "200 g de crevettes",
+                "1 mangue",
+                "1 citron vert",
+                "1 petite salade",
+                "Huile d'olive",
+                "Sel",
+            ],
+
+            preparation: [
+                "Préparez la salade dans un bol.",
+                "Ajoutez la mangue tranchée.",
+                "Disposez les crevettes dessus.",
+                "Assaisonnez avec citron et huile.",
+                "Servez frais.",
+            ],
+        },
+        {
+            id: "aquaman-plat-1",
+
+            title: "RISOTTO AUX FRUITS DE MER",
+            movie: "Aquaman",
+
+            image: "/img-card-sct-1/aquaman1.webp",
+            movieImage: "/img-card-sct-1/aquaman2.webp",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "25 min",
+            servings: "4",
+            difficulty: "Moyen",
+
+            mediaType: "Film",
+            releaseDate: "2018",
+
+            ingredients: [
+                "250 g de riz arborio",
+                "200 g de fruits de mer",
+                "1 oignon",
+                "20 cl de vin blanc",
+                "Bouillon",
+                "Parmesan",
+            ],
+
+            preparation: [
+                "Faites revenir l'oignon.",
+                "Ajoutez le riz et le vin blanc.",
+                "Versez progressivement le bouillon.",
+                "Ajoutez les fruits de mer.",
+                "Terminez avec du parmesan avant de servir.",
+            ],
+        },
+        {
+            id: "aquaman-dessert-1",
+
+            title: "CRÈME BRÛLÉE TROPICALE",
+            movie: "Aquaman",
+
+            image: "/img-card-sct-1/aquaman2.webp",
+            movieImage: "/img-card-sct-1/aquaman1.webp",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "30 min",
+            servings: "4",
+            difficulty: "Moyen",
+
+            mediaType: "Film",
+            releaseDate: "2018",
+
+            ingredients: [
+                "500 ml de crème",
+                "3 jaunes d'œufs",
+                "80 g de sucre",
+                "Extrait de coco",
+                "Sucre roux",
+            ],
+
+            preparation: [
+                "Chauffez la crème avec l'extrait de coco.",
+                "Mélangez avec les jaunes et le sucre.",
+                "Versez dans des ramequins.",
+                "Faites cuire au bain-marie.",
+                "Saupoudrez de sucre et caramélisez.",
+            ],
+        },
+        {
+            id: "alice-dessert-1",
+
+            title: "SCONES ANGLAIS ET CONFITURE",
+            movie: "Alice au pays des merveilles",
+
+            image: "/img-card-sct-1/alice.webp",
+            movieImage: "/img-card-sct-1/alice.webp",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "15 min",
+            servings: "6",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2010",
+
+            ingredients: [
+                "200 g de farine",
+                "100 g de beurre",
+                "50 g de sucre",
+                "1 œuf",
+                "Confiture de fraises",
+            ],
+
+            preparation: [
+                "Mélangez la farine, le beurre et le sucre.",
+                "Ajoutez l'œuf et formez une pâte.",
+                "Découpez des petits biscuits.",
+                "Faites cuire 15 minutes à 180°C.",
+                "Servez avec de la confiture.",
+            ],
+        },
+        {
+            id: "simpson-dessert-1",
+
+            title: "DONUTS GLACÉS",
+            movie: "Les Simpson le film",
+
+            image: "/img-card-sct-1/simpson.webp",
+            movieImage: "/img-card-sct-1/simpson.webp",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "25 min",
+            cookTime: "15 min",
+            servings: "8",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2007",
+
+            ingredients: [
+                "250 g de farine",
+                "80 g de sucre",
+                "1 œuf",
+                "10 cl de lait",
+                "Glacage au chocolat",
+            ],
+
+            preparation: [
+                "Mélangez la farine, le sucre et l'œuf.",
+                "Ajoutez le lait pour former la pâte.",
+                "Formez des donuts.",
+                "Faites-les frire ou cuire au four.",
+                "Nappes de chocolat avant de servir.",
+            ],
+        },
+        {
+            id: "vaiana-entree-1",
+
+            title: "SALADE DE MANGUE ET AVOCAT",
+            movie: "Vaiana",
+
+            image: "/img-card-sct-1/vaiana.webp",
+            movieImage: "/img-card-sct-1/vaiana2.webp",
+
+            category: "Entrée",
+            author: "Admin",
+
+            prepTime: "10 min",
+            cookTime: "0 min",
+            servings: "2",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2016",
+
+            ingredients: [
+                "1 avocat",
+                "1 mangue",
+                "1 citron",
+                "Feuilles de salade",
+                "Huile d'olive",
+            ],
+
+            preparation: [
+                "Coupez la mangue et l'avocat.",
+                "Disposez les feuilles de salade.",
+                "Ajoutez les morceaux et arrosez d'huile.",
+                "Ajoutez le citron et servez.",
+            ],
+        },
+        {
+            id: "vaiana-plat-1",
+
+            title: "POKÉ BOWL AU SAUMON",
+            movie: "Vaiana",
+
+            image: "/img-card-sct-1/vaiana.webp",
+            movieImage: "/img-card-sct-1/vaiana2.webp",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "10 min",
+            servings: "2",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2016",
+
+            ingredients: [
+                "200 g de saumon",
+                "150 g de riz",
+                "1 mangue",
+                "1 carotte",
+                "Sauce soja",
+                "Citron",
+            ],
+
+            preparation: [
+                "Cuisez le riz.",
+                "Pensez le saumon à la poêle.",
+                "Ajoutez la mangue et la carotte.",
+                "Disposez dans un bol et arrosez de sauce.",
+            ],
+        },
+        {
+            id: "vaiana-dessert-1",
+
+            title: "PARFAIT COCO ET FRUITS",
+            movie: "Vaiana",
+
+            image: "/img-card-sct-1/vaiana2.webp",
+            movieImage: "/img-card-sct-1/vaiana.webp",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "10 min",
+            cookTime: "0 min",
+            servings: "2",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2016",
+
+            ingredients: [
+                "200 g de yaourt",
+                "1 mangue",
+                "Coco râpée",
+                "Miel",
+            ],
+
+            preparation: [
+                "Disposez le yaourt dans des verres.",
+                "Ajoutez la mangue en morceaux.",
+                "Saupoudrez de coco et de miel.",
+                "Servez bien frais.",
+            ],
+        },
+        {
+            id: "toy-story-plat-1",
+
+            title: "PIZZA COWBOY AU POULARD BBQ",
+            movie: "Toy Story",
+
+            image: "/img-card-sct-1/toysStory.jpg",
+            movieImage: "/img-card-sct-1/toysStory.jpg",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "20 min",
+            servings: "4",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "1995",
+
+            ingredients: [
+                "1 pâte à pizza",
+                "200 g de poulet",
+                "200 g de fromage",
+                "Sauce barbecue",
+            ],
+
+            preparation: [
+                "Étalez la pâte.",
+                "Ajoutez la sauce et le poulet.",
+                "Recouvrez de fromage.",
+                "Enfournez 20 minutes.",
+            ],
+        },
+        {
+            id: "toy-story-dessert-1",
+
+            title: "COOKIES AUX MORCEAUX DE CHOCOLAT",
+            movie: "Toy Story",
+
+            image: "/img-card-sct-1/toysStory.jpg",
+            movieImage: "/img-card-sct-1/toysStory.jpg",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "12 min",
+            servings: "8",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "1995",
+
+            ingredients: [
+                "200 g de farine",
+                "100 g de chocolat",
+                "100 g de beurre",
+                "1 œuf",
+                "90 g de sucre",
+            ],
+
+            preparation: [
+                "Mélangez la farine, le beurre et le sucre.",
+                "Ajoutez l'œuf et le chocolat.",
+                "Formez des cookies.",
+                "Enfournez 12 minutes."
+            ],
+        },
+        {
+            id: "raiponce-dessert-1",
+
+            title: "COOKIES DORÉS AUX NOISETTES",
+            movie: "Raiponce",
+
+            image: "/img-card-sct-1/raiponce.jpg",
+            movieImage: "/img-card-sct-1/raiponce.jpg",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "12 min",
+            servings: "8",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2010",
+
+            ingredients: [
+                "200 g de farine",
+                "100 g de sucre",
+                "80 g de noisettes",
+                "1 œuf",
+                "Beurre",
+            ],
+
+            preparation: [
+                "Mélangez les ingrédients de la pâte.",
+                "Ajoutez les noisettes.",
+                "Formez des cookies.",
+                "Cuisez 12 minutes à 180°C.",
+            ],
+        },
+        {
+            id: "rio-plat-1",
+
+            title: "FEIJOADA BRÉSILIENNE",
+            movie: "Rio",
+
+            image: "/img-card-sct-1/rio1.jpg",
+            movieImage: "/img-card-sct-1/rio2.jpg",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "45 min",
+            servings: "4",
+            difficulty: "Moyen",
+
+            mediaType: "Film",
+            releaseDate: "2011",
+
+            ingredients: [
+                "500 g de viande",
+                "200 g de haricots",
+                "1 oignon",
+                "2 gousses d'ail",
+                "Palette de légumes",
+            ],
+
+            preparation: [
+                "Faites cuire les haricots.",
+                "Faites revenir les viandes et l'oignon.",
+                "Ajoutez le tout dans une cocotte.",
+                "Laissez mijoter 45 minutes.",
+            ],
+        },
+        {
+            id: "rio-dessert-1",
+
+            title: "BRIGADEIROS AU CHOCOLAT",
+            movie: "Rio",
+
+            image: "/img-card-sct-1/rio2.jpg",
+            movieImage: "/img-card-sct-1/rio1.jpg",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "10 min",
+            servings: "6",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2011",
+
+            ingredients: [
+                "200 g de chocolat",
+                "1 boîte de lait concentré",
+                "10 g de beurre",
+                "Coco râpée",
+            ],
+
+            preparation: [
+                "Faites fondre le chocolat avec le lait concentré.",
+                "Ajoutez le beurre.",
+                "Laissez refroidir et formez des boules.",
+                "Passez dans la coco.",
+            ],
+        },
+        {
+            id: "epic-entree-1",
+
+            title: "SALADE FORESTIÈRE AUX POMMES",
+            movie: "Epic",
+
+            image: "/img-card-sct-1/epic.jpg",
+            movieImage: "/img-card-sct-1/epic.jpg",
+
+            category: "Entrée",
+            author: "Admin",
+
+            prepTime: "10 min",
+            cookTime: "0 min",
+            servings: "2",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2013",
+
+            ingredients: [
+                "2 pommes",
+                "1 poignée de noix",
+                "Laitue",
+                "Huile d'olive",
+                "Miel",
+            ],
+
+            preparation: [
+                "Coupez les pommes en tranches.",
+                "Disposez les feuilles de laitue.",
+                "Ajoutez les pommes et les noix.",
+                "Assaisonnez avec huile et miel.",
+            ],
+        },
+        {
+            id: "ralph-dessert-1",
+
+            title: "CUPCAKES AUX BONBONS",
+            movie: "Le Monde de Ralph",
+
+            image: "/img-card-sct-1/lmdr.jpg",
+            movieImage: "/img-card-sct-1/lmdr.jpg",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "20 min",
+            servings: "8",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2012",
+
+            ingredients: [
+                "200 g de farine",
+                "1 œuf",
+                "100 g de beurre",
+                "80 g de sucre",
+                "Bonbons colorés",
+            ],
+
+            preparation: [
+                "Mélangez les ingrédients de la pâte.",
+                "Ajoutez les bonbons.",
+                "Versez dans des moules.",
+                "Faites cuire 20 minutes à 180°C.",
+            ],
+        },
+        {
+            id: "coco-plat-1",
+
+            title: "TAMALES MEXICAINS AU POULET",
+            movie: "Coco",
+
+            image: "/img-card-sct-1/coco.jpeg",
+            movieImage: "/img-card-sct-1/coco.jpeg",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "30 min",
+            cookTime: "35 min",
+            servings: "4",
+            difficulty: "Moyen",
+
+            mediaType: "Film",
+            releaseDate: "2017",
+
+            ingredients: [
+                "500 g de pâte de maïs",
+                "250 g de poulet",
+                "1 piment",
+                "Tomates",
+                "Sel",
+            ],
+
+            preparation: [
+                "Préparez la farce au poulet.",
+                "Étalez la pâte de maïs.",
+                "Ajoutez la farce et roulez.",
+                "Cuisez à la vapeur 35 minutes.",
+            ],
+        },
+        {
+            id: "soul-plat-1",
+
+            title: "PIZZA NEW-YORKAISE AUX LÉGUMES",
+            movie: "Soul",
+
+            image: "/img-card-sct-1/soul.jpeg",
+            movieImage: "/img-card-sct-1/soul.jpeg",
+
+            category: "Plat principal",
+            author: "Admin",
+
+            prepTime: "20 min",
+            cookTime: "20 min",
+            servings: "4",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2020",
+
+            ingredients: [
+                "1 pâte à pizza",
+                "Tomates",
+                "Poivrons",
+                "Oignons",
+                "Fromage",
+            ],
+
+            preparation: [
+                "Étalez la pâte.",
+                "Ajoutez les légumes et le fromage.",
+                "Enfournez 20 minutes à 200°C.",
+                "Servez chaud.",
+            ],
+        },
+        {
+            id: "grinch-dessert-1",
+
+            title: "SABLÉS VERTS DE NOËL",
+            movie: "Le Grinch",
+
+            image: "/img-card-sct-1/grinch.jpg",
+            movieImage: "/img-card-sct-1/grinch.jpg",
+
+            category: "Dessert",
+            author: "Admin",
+
+            prepTime: "15 min",
+            cookTime: "12 min",
+            servings: "8",
+            difficulty: "Facile",
+
+            mediaType: "Film",
+            releaseDate: "2018",
+
+            ingredients: [
+                "200 g de farine",
+                "100 g de beurre",
+                "Vanille",
+                "Sucre",
+                "Colorant vert",
+            ],
+
+            preparation: [
+                "Mixez les ingrédients.",
+                "Formez des sablés.",
+                "Cuisez 12 minutes.",
+                "Laissez refroidir avant de servir.",
+            ],
+        },
     ];
+
+    let isLogged = false;
+    let isFavorite = false;
+
+    function getStoredFavorites() {
+        try {
+            const saved = JSON.parse(
+                localStorage.getItem("cin_delices_favorites") || "[]"
+            );
+
+            return Array.isArray(saved) ? saved : [];
+        } catch {
+            return [];
+        }
+    }
+
+    function toggleFavorite() {
+        if (!localStorage.getItem("token")) {
+            alert("Connectez-vous pour ajouter une recette aux favoris.");
+            window.location.hash = "#/login";
+            return;
+        }
+
+        const favorites = getStoredFavorites();
+
+        const updated = favorites.includes(recipe.id)
+            ? favorites.filter((id) => id !== recipe.id)
+            : [...favorites, recipe.id];
+
+        localStorage.setItem(
+            "cin_delices_favorites",
+            JSON.stringify(updated)
+        );
+
+        isFavorite = updated.includes(recipe.id);
+    }
 
     $: recipe = recipes.find(
         (item) => item.id === params.id
     );
+
+    $: {
+        isLogged = Boolean(localStorage.getItem("token"));
+        isFavorite = recipe
+            ? getStoredFavorites().includes(recipe.id)
+            : false;
+    }
 </script>
 
 <main class="recipe-detail-page">
@@ -535,6 +1444,27 @@
             <a class="back" href="#/recipes">
                 ← RETOUR AUX RECETTES
             </a>
+
+            {#if localStorage.getItem("token")}
+                <button
+                    class="favorite-toggle"
+                    type="button"
+                    on:click={toggleFavorite}
+                >
+                    {isFavorite ? "⭐ RETIRER DES FAVORIS" : "⭐ AJOUTER AUX FAVORIS"}
+                </button>
+            {:else}
+                <button
+                    class="favorite-toggle disabled"
+                    type="button"
+                    on:click={() => {
+                        alert("Connectez-vous pour ajouter une recette aux favoris.");
+                        window.location.hash = "#/login";
+                    }}
+                >
+                    ⭐ CONNECTER POUR AJOUTER
+                </button>
+            {/if}
 
             <a
                 class="favorite"

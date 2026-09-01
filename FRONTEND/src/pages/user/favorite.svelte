@@ -1,5 +1,5 @@
 <script>
-    let favorites = [
+    const recipeCatalog = [
         {
             id: "petite-sirene",
             title: "Poisson Rôti et Légumes au Four",
@@ -24,18 +24,66 @@
                 "Une ratatouille aux légumes inspirée du célèbre film d'animation Ratatouille.",
             image: "/img-card-sct-1/ratatouille.jpg",
         },
+        {
+            id: "doctor-who",
+            title: "Tourte du Tardis au poulet",
+            movie: "Doctor Who",
+            description:
+                "Une tourte généreuse et bien épicée inspirée de l'univers du Tardis.",
+            image: "/img-home/who.webp",
+        },
+        {
+            id: "vice-versa",
+            title: "Cupcakes colorés des émotions",
+            movie: "Vice-Versa",
+            description:
+                "Des cupcakes colorés et faciles à partager, parfaits pour une journée joyeuse.",
+            image: "/img-home/vice versa.jpg",
+        },
     ];
+
+    let favorites = [];
+    let isConnected = false;
+
+    function getSavedFavorites() {
+        try {
+            const saved = JSON.parse(
+                localStorage.getItem("cin_delices_favorites") || "[]"
+            );
+
+            return Array.isArray(saved) ? saved : [];
+        } catch {
+            return [];
+        }
+    }
+
+    function syncFavorites() {
+        isConnected = Boolean(localStorage.getItem("token"));
+
+        const ids = getSavedFavorites();
+        favorites = recipeCatalog.filter((recipe) => ids.includes(recipe.id));
+    }
 
     function removeFavorite(id = "") {
         const confirmation = window.confirm(
             "Voulez-vous retirer cette recette de vos favoris ?"
         );
 
-        if (confirmation) {
-            favorites = favorites.filter(
-                (favorite) => favorite.id !== id
-            );
+        if (!confirmation) {
+            return;
         }
+
+        const ids = getSavedFavorites().filter((favoriteId) => favoriteId !== id);
+        localStorage.setItem(
+            "cin_delices_favorites",
+            JSON.stringify(ids)
+        );
+
+        syncFavorites();
+    }
+
+    $: {
+        syncFavorites();
     }
 </script>
 
@@ -49,7 +97,13 @@
 
     <section class="favorites-container">
 
-        {#if favorites.length === 0}
+        {#if !isConnected}
+
+            <p class="empty-message">
+                Connectez-vous pour ajouter des recettes à vos favoris.
+            </p>
+
+        {:else if favorites.length === 0}
 
             <p class="empty-message">
                 Vous n'avez aucune recette dans vos favoris.

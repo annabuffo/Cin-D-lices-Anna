@@ -1,6 +1,9 @@
 <script>
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
     let username = "";
     let email = "";
+    let birthDate = "";
     let password = "";
     let confirmPassword = "";
     let message = "";
@@ -8,15 +11,19 @@
     async function register() {
         message = "";
 
-        // Vérification des mots de passe
         if (password !== confirmPassword) {
             message = "Les mots de passe ne correspondent pas";
             return;
         }
 
+        if (!birthDate) {
+            message = "La date de naissance est obligatoire";
+            return;
+        }
+
         try {
             const response = await fetch(
-                "http://localhost:3000/api/auth/register",
+                `${API_URL}/api/auth/register`,
                 {
                     method: "POST",
 
@@ -26,8 +33,9 @@
 
                     body: JSON.stringify({
                         username: username.trim(),
-                        email: email.trim(),
+                        email: email.trim().toLowerCase(),
                         password,
+                        birth_date: birthDate,
                     }),
                 }
             );
@@ -35,10 +43,29 @@
             const data = await response.json();
 
             if (response.ok) {
+                localStorage.setItem("token", data.token);
+
+                if (data.user) {
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+                    localStorage.setItem(
+                        "role",
+                        data.user.role
+                    );
+                }
+
                 message = "Inscription réussie";
 
-                // Redirection vers la connexion
-                window.location.hash = "#/login";
+                if (data.user?.role === "admin") {
+                    window.location.hash = "#/admin";
+                } else {
+                    window.location.hash = "#/user/profile";
+                }
+
+                window.location.reload();
             } else {
                 message =
                     data.message ||
@@ -83,6 +110,17 @@
                 bind:value={email}
                 placeholder="ton@email.com"
                 autocomplete="email"
+                required
+            />
+
+            <label for="birthDate">
+                Date de naissance
+            </label>
+
+            <input
+                type="date"
+                id="birthDate"
+                bind:value={birthDate}
                 required
             />
 

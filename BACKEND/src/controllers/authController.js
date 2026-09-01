@@ -1,36 +1,42 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
+
 import { User } from "../models/index.js";
 
-const generateToken = (user) => {
+function generateToken(user) {
     return jwt.sign(
         {
             id: user.id,
-            role: user.role
+            role: user.role,
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: "1h"
+            expiresIn: "1h",
         }
     );
-};
+}
+
+/* CONNEXION */
 
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        console.log("EMAIL REÇU :", email);
-        console.log("PASSWORD REÇU :", password);
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "Email et mot de passe requis.",
+            });
+        }
 
         const user = await User.findOne({
-            where: { email }
+            where: {
+                email: email.trim().toLowerCase(),
+            },
         });
-
-        console.log("UTILISATEUR TROUVÉ :", user ? true : false);
 
         if (!user) {
             return res.status(401).json({
-                message: "Identifiants invalides"
+                message: "Identifiants invalides.",
             });
         }
 
@@ -39,32 +45,33 @@ export const login = async (req, res) => {
             password
         );
 
-        console.log("MOT DE PASSE VALIDE :", isPasswordValid);
-
         if (!isPasswordValid) {
             return res.status(401).json({
-                message: "Identifiants invalides"
+                message: "Identifiants invalides.",
             });
         }
 
         const token = generateToken(user);
 
         const userResponse = user.toJSON();
+
         delete userResponse.password_hash;
 
         return res.status(200).json({
+            message: "Connexion réussie.",
             user: userResponse,
-            token
+            token,
         });
-
     } catch (error) {
-        console.log("ERREUR LOGIN :", error);
+        console.error("Erreur login :", error);
 
         return res.status(500).json({
-            error: error.message
+            message: "Erreur serveur lors de la connexion.",
         });
     }
 };
+
+/* INSCRIPTION */
 
 export const register = async (req, res) => {
     try {
@@ -72,42 +79,70 @@ export const register = async (req, res) => {
             username,
             email,
             password,
-            birth_date
+            birth_date,
         } = req.body;
 
-        
-        const hashedPassword = await argon2.hash(password);
+        if (!username || !email || !password || !birth_date) {
+            return res.status(400).json({
+                message:
+                    "Nom d'utilisateur, email, mot de passe et date de naissance requis.",
+            });
+        }
+
+        const cleanUsername = username.trim();
+        const cleanEmail = email.trim().toLowerCase();
 
         const existingUser = await User.findOne({
-            where: { email }
+            where: {
+                email: cleanEmail,
+            },
         });
 
         if (existingUser) {
             return res.status(409).json({
-                message: "Un utilisateur avec cette adresse e-mail existe déjà."
+                message:
+                    "Un utilisateur avec cette adresse e-mail existe déjà.",
             });
         }
 
+        const existingUsername = await User.findOne({
+            where: {
+                username: cleanUsername,
+            },
+        });
+
+        if (existingUsername) {
+            return res.status(409).json({
+                message:
+                    "Ce nom d'utilisateur est déjà utilisé.",
+            });
+        }
+
+        const hashedPassword = await argon2.hash(password);
+
         const user = await User.create({
-            username,
-            email,
+            username: cleanUsername,
+            email: cleanEmail,
             password_hash: hashedPassword,
-            birth_date
+            birth_date: birth_date
         });
 
         const token = generateToken(user);
 
         const userResponse = user.toJSON();
+
         delete userResponse.password_hash;
 
         return res.status(201).json({
+            message: "Inscription réussie.",
             user: userResponse,
-            token
+            token,
         });
     } catch (error) {
+        console.error("Erreur register :", error);
+
         return res.status(500).json({
-            error: error.message
+            message: "Erreur serveur lors de l'inscription.",
         });
     }
 };
-
