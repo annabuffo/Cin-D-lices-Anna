@@ -17,8 +17,10 @@
             title: recipe.title,
             movie: recipe.media?.title || "Film / Série",
             category: recipe.category?.name || "Sans catégorie",
-            image: recipe.image_url || "/img-card-sct-1/champignon.jpg",
-            description: recipe.description || "Recette inspirée de cette œuvre.",
+            image: recipe.image_url || recipe.media?.image_url || "",
+            description:
+                recipe.description || "Recette inspirée de cette œuvre.",
+            author: recipe.author?.username || "Utilisateur",
         };
     }
 
@@ -30,7 +32,9 @@
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || "Erreur lors du chargement des recettes.");
+                throw new Error(
+                    data.message || "Erreur lors du chargement des recettes.",
+                );
             }
 
             recipes = Array.isArray(data) ? data.map(normalizeRecipe) : [];
@@ -56,13 +60,20 @@
             selectedCategory === "all" || recipe.category === selectedCategory;
 
         const matchesMedia =
-            selectedMedia === "all" || recipe.movie.toLowerCase().includes(selectedMedia.toLowerCase());
+            selectedMedia === "all" ||
+            recipe.movie.toLowerCase().includes(selectedMedia.toLowerCase());
 
         return matchesSearch && matchesCategory && matchesMedia;
     });
 
-    $: categories = ["all", ...new Set(recipes.map((recipe) => recipe.category))];
-    $: mediaOptions = ["all", ...new Set(recipes.map((recipe) => recipe.movie))];
+    $: categories = [
+        "all",
+        ...new Set(recipes.map((recipe) => recipe.category)),
+    ];
+    $: mediaOptions = [
+        "all",
+        ...new Set(recipes.map((recipe) => recipe.movie)),
+    ];
 </script>
 
 <main class="recipes-page">
@@ -77,13 +88,21 @@
 
         <select bind:value={selectedCategory}>
             {#each categories as category}
-                <option value={category}>{category === "all" ? "Toutes les catégories" : category}</option>
+                <option value={category}
+                    >{category === "all"
+                        ? "Toutes les catégories"
+                        : category}</option
+                >
             {/each}
         </select>
 
         <select bind:value={selectedMedia}>
             {#each mediaOptions as media}
-                <option value={media}>{media === "all" ? "Tous les films / séries" : media}</option>
+                <option value={media}
+                    >{media === "all"
+                        ? "Tous les films / séries"
+                        : media}</option
+                >
             {/each}
         </select>
     </section>
@@ -106,14 +125,24 @@
         <section class="recipes-grid">
             {#each filteredRecipes as recipe}
                 <article class="recipe-card">
-                    <img src={recipe.image} alt={recipe.title} />
+                    {#if recipe.image}
+                        <img src={recipe.image} alt={recipe.title} />
+                    {:else}
+                        <div class="no-image">
+                            🍽️
+                            <span>Aucune image</span>
+                        </div>
+                    {/if}
 
                     <div class="card-content">
                         <p class="movie-name">🎬 {recipe.movie}</p>
                         <h2>{recipe.title}</h2>
-                        <p class="author">Par Admin</p>
+                        <p class="author">Par {recipe.author}</p>
                         <span class="category">{recipe.category}</span>
-                        <a class="recipe-link" href={`#/user/recipe/${recipe.id}`}>
+                        <a
+                            class="recipe-link"
+                            href={`#/user/recipe/${recipe.id}`}
+                        >
                             VOIR LA RECETTE
                         </a>
                     </div>

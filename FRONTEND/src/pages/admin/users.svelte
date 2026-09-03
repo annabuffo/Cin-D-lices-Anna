@@ -1,4 +1,6 @@
 <script>
+    // @ts-nocheck
+
     let users = [
         {
             id: "user-1",
@@ -14,14 +16,26 @@
         },
     ];
 
-    function deleteUser(id = "") {
-        const confirmation = window.confirm(
-            "Voulez-vous vraiment supprimer cet utilisateur ?"
+    let userToDelete = null;
+
+    function askDeleteUser(user) {
+        userToDelete = user;
+    }
+
+    function cancelDelete() {
+        userToDelete = null;
+    }
+
+    function confirmDelete() {
+        if (!userToDelete) {
+            return;
+        }
+
+        users = users.filter(
+            (user) => user.id !== userToDelete.id
         );
 
-        if (confirmation) {
-            users = users.filter((user) => user.id !== id);
-        }
+        userToDelete = null;
     }
 </script>
 
@@ -55,7 +69,7 @@
                     <button
                         class="delete"
                         type="button"
-                        on:click={() => deleteUser(user.id)}
+                        onclick={() => askDeleteUser(user)}
                     >
                         SUPPRIMER
                     </button>
@@ -87,7 +101,7 @@
                     <button
                         class="delete"
                         type="button"
-                        on:click={() => deleteUser(user.id)}
+                        onclick={() => askDeleteUser(user)}
                     >
                         SUPPRIMER
                     </button>
@@ -95,35 +109,56 @@
             {/each}
         {/if}
     </section>
+
+    {#if userToDelete}
+        <div class="modal-overlay">
+            <div class="modal">
+                <h2>SUPPRIMER L'UTILISATEUR ?</h2>
+
+                <p>
+                    Voulez-vous vraiment supprimer
+                    <strong>{userToDelete.username}</strong> ?
+                </p>
+
+                <div class="modal-actions">
+                    <button
+                        class="cancel-button"
+                        type="button"
+                        onclick={cancelDelete}
+                    >
+                        ANNULER
+                    </button>
+
+                    <button
+                        class="confirm-delete"
+                        type="button"
+                        onclick={confirmDelete}
+                    >
+                        SUPPRIMER
+                    </button>
+                </div>
+            </div>
+        </div>
+    {/if}
 </main>
 
 <style>
     .admin-page {
         width: 90%;
         max-width: 1000px;
-
         margin: 40px auto;
     }
 
-    /* TITRE */
-
     .admin-page h1 {
         color: #d4af37;
-
         text-align: center;
-
         margin-bottom: 25px;
     }
 
-    /* RETOUR */
-
     .back {
         display: inline-block;
-
         color: #d4af37;
-
         margin-bottom: 25px;
-
         text-decoration: none;
     }
 
@@ -131,20 +166,15 @@
         text-decoration: underline;
     }
 
-    /* CONTENEUR */
-
     .admin-container {
         background-color: rgb(6, 6, 48);
-
         border: 1px solid #d4af37;
         border-radius: 8px;
-
         padding: 20px;
     }
 
     .admin-container h2 {
         color: #d4af37;
-
         margin-top: 0;
     }
 
@@ -152,20 +182,15 @@
         margin-top: 30px !important;
     }
 
-    /* UTILISATEUR */
-
     .user-card {
         background-color: #111526;
-
         padding: 15px;
         margin-top: 15px;
-
         border-radius: 6px;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
-
         gap: 20px;
     }
 
@@ -175,17 +200,13 @@
 
     .user-card h3 {
         color: #d4af37;
-
         margin: 0 0 8px;
     }
 
     .user-card p {
         color: white;
-
         margin: 5px 0;
     }
-
-    /* SUPPRESSION */
 
     .delete {
         background-color: #e24d4d;
@@ -204,21 +225,92 @@
         background-color: #d13f3f;
     }
 
-    /* LISTE VIDE */
-
     .empty-message {
         color: white;
-
         padding: 15px;
-
         background-color: #111526;
-
         border-radius: 6px;
+        text-align: center;
+    }
+
+    /* MODALE */
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+
+        background-color: rgba(0, 0, 0, 0.75);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        z-index: 1000;
+    }
+
+    .modal {
+        width: 90%;
+        max-width: 430px;
+
+        background-color: #060630;
+
+        border: 1px solid #d4af37;
+        border-radius: 10px;
+
+        padding: 30px;
 
         text-align: center;
     }
 
-    /* TABLETTE */
+    .modal h2 {
+        color: #d4af37;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .modal p {
+        color: white;
+        margin-bottom: 25px;
+    }
+
+    .modal strong {
+        color: #d4af37;
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .cancel-button,
+    .confirm-delete {
+        border: none;
+        border-radius: 5px;
+
+        padding: 11px 18px;
+
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .cancel-button {
+        background-color: #d4af37;
+        color: black;
+    }
+
+    .cancel-button:hover {
+        background-color: #f0c94d;
+    }
+
+    .confirm-delete {
+        background-color: #e24d4d;
+        color: white;
+    }
+
+    .confirm-delete:hover {
+        background-color: #d13f3f;
+    }
 
     @media (max-width: 768px) {
         .admin-page {
@@ -230,12 +322,9 @@
         }
     }
 
-    /* MOBILE */
-
     @media (max-width: 480px) {
         .admin-page {
             width: 95%;
-
             margin: 25px auto;
         }
 
@@ -261,6 +350,15 @@
         }
 
         .delete {
+            width: 100%;
+        }
+
+        .modal-actions {
+            flex-direction: column;
+        }
+
+        .cancel-button,
+        .confirm-delete {
             width: 100%;
         }
     }
