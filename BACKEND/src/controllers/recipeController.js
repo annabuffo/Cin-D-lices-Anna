@@ -2,100 +2,38 @@ import {
     Category,
     Media,
     Recipe,
-    User,
+    User
 } from "../models/index.js";
 
-/* INCLUDES COMMUNS */
 
 const recipeIncludes = [
     {
         model: User,
         as: "author",
-        attributes: ["id", "username"],
+        attributes: ["id", "username"]
     },
     {
         model: Category,
-        as: "category",
+        as: "category"
     },
     {
         model: Media,
-        as: "media",
-    },
+        as: "media"
+    }
 ];
+
 
 /* CREER UNE RECETTE */
 
 export const createRecipe = async (req, res) => {
     try {
-        const {
-            title,
-            description,
-            ingredients,
-            instructions,
-            difficulte,
-            image_url,
-            prep_time,
-            cook_time,
-            category_id,
-            media_id,
-        } = req.body;
-
-        if (
-            !title ||
-            !ingredients ||
-            !instructions ||
-            !category_id ||
-            !media_id
-        ) {
-            return res.status(400).json({
-                message:
-                    "Titre, ingrédients, instructions, catégorie et média requis.",
-            });
-        }
-
-        const category = await Category.findByPk(category_id);
-
-        if (!category) {
-            return res.status(404).json({
-                message: "Catégorie introuvable.",
-            });
-        }
-
-        const media = await Media.findByPk(media_id);
-
-        if (!media) {
-            return res.status(404).json({
-                message: "Film ou série introuvable.",
-            });
-        }
-
         const recipe = await Recipe.create({
-            title: title.trim(),
-            description,
-            ingredients,
-            instructions,
-            difficulte,
-            image_url,
-            prep_time,
-            cook_time,
-
-            category_id,
-            media_id,
-
-            user_id: req.user.id,
+            ...req.body,
+            user_id: req.user.id
         });
 
-        const createdRecipe = await Recipe.findByPk(
-            recipe.id,
-            {
-                include: recipeIncludes,
-            }
-        );
+        return res.status(201).json(recipe);
 
-        return res.status(201).json({
-            message: "Recette créée avec succès.",
-            recipe: createdRecipe,
-        });
     } catch (error) {
         console.error(
             "Erreur création recette :",
@@ -104,25 +42,49 @@ export const createRecipe = async (req, res) => {
 
         return res.status(500).json({
             message:
-                "Erreur serveur lors de la création de la recette.",
-            error: error.message,
+                "Erreur serveur lors de la création de la recette."
         });
     }
 };
+
 
 /* RECUPERER TOUTES LES RECETTES */
 
 export const getAllRecipes = async (req, res) => {
     try {
-        const recipes = await Recipe.findAll({
-            include: recipeIncludes,
+        const userId =
+            req.query.userId;
 
-            order: [
-                ["date_created", "DESC"],
-            ],
-        });
+        const mediaId =
+            req.query.mediaId;
 
-        return res.status(200).json(recipes);
+        const where = {};
+
+
+        if (userId) {
+            where.user_id = userId;
+        }
+
+
+        if (mediaId) {
+            where.media_id = mediaId;
+        }
+
+
+        const recipes =
+            await Recipe.findAll({
+                where,
+                include: recipeIncludes,
+                order: [
+                    ["date_created", "DESC"]
+                ]
+            });
+
+
+        return res.status(200).json(
+            recipes
+        );
+
     } catch (error) {
         console.error(
             "Erreur récupération recettes :",
@@ -131,29 +93,41 @@ export const getAllRecipes = async (req, res) => {
 
         return res.status(500).json({
             message:
-                "Erreur serveur lors de la récupération des recettes.",
+                "Erreur serveur lors de la récupération des recettes."
         });
     }
 };
 
+
 /* RECUPERER UNE RECETTE */
 
-export const getRecipeById = async (req, res) => {
+export const getRecipeById = async (
+    req,
+    res
+) => {
     try {
-        const recipe = await Recipe.findByPk(
-            req.params.id,
-            {
-                include: recipeIncludes,
-            }
-        );
+        const recipe =
+            await Recipe.findByPk(
+                req.params.id,
+                {
+                    include:
+                        recipeIncludes
+                }
+            );
+
 
         if (!recipe) {
             return res.status(404).json({
-                message: "Recette introuvable.",
+                message:
+                    "Recette introuvable."
             });
         }
 
-        return res.status(200).json(recipe);
+
+        return res.status(200).json(
+            recipe
+        );
+
     } catch (error) {
         console.error(
             "Erreur récupération recette :",
@@ -162,24 +136,32 @@ export const getRecipeById = async (req, res) => {
 
         return res.status(500).json({
             message:
-                "Erreur serveur lors de la récupération de la recette.",
+                "Erreur serveur lors de la récupération de la recette."
         });
     }
 };
 
+
 /* MODIFIER UNE RECETTE */
 
-export const updateRecipe = async (req, res) => {
+export const updateRecipe = async (
+    req,
+    res
+) => {
     try {
-        const recipe = await Recipe.findByPk(
-            req.params.id
-        );
+        const recipe =
+            await Recipe.findByPk(
+                req.params.id
+            );
+
 
         if (!recipe) {
             return res.status(404).json({
-                message: "Recette introuvable.",
+                message:
+                    "Recette introuvable."
             });
         }
+
 
         const {
             title,
@@ -191,98 +173,67 @@ export const updateRecipe = async (req, res) => {
             prep_time,
             cook_time,
             category_id,
-            media_id,
+            media_id
         } = req.body;
 
-        if (category_id) {
-            const category =
-                await Category.findByPk(category_id);
 
-            if (!category) {
-                return res.status(404).json({
-                    message:
-                        "Catégorie introuvable.",
-                });
-            }
+        if (title !== undefined) {
+            recipe.title = title;
         }
 
-        if (media_id) {
-            const media =
-                await Media.findByPk(media_id);
-
-            if (!media) {
-                return res.status(404).json({
-                    message:
-                        "Film ou série introuvable.",
-                });
-            }
+        if (description !== undefined) {
+            recipe.description =
+                description;
         }
 
-        await recipe.update({
-            title:
-                title !== undefined
-                    ? title.trim()
-                    : recipe.title,
+        if (ingredients !== undefined) {
+            recipe.ingredients =
+                ingredients;
+        }
 
-            description:
-                description !== undefined
-                    ? description
-                    : recipe.description,
+        if (instructions !== undefined) {
+            recipe.instructions =
+                instructions;
+        }
 
-            ingredients:
-                ingredients !== undefined
-                    ? ingredients
-                    : recipe.ingredients,
+        if (difficulte !== undefined) {
+            recipe.difficulte =
+                difficulte;
+        }
 
-            instructions:
-                instructions !== undefined
-                    ? instructions
-                    : recipe.instructions,
+        if (image_url !== undefined) {
+            recipe.image_url =
+                image_url;
+        }
 
-            difficulte:
-                difficulte !== undefined
-                    ? difficulte
-                    : recipe.difficulte,
+        if (prep_time !== undefined) {
+            recipe.prep_time =
+                prep_time;
+        }
 
-            image_url:
-                image_url !== undefined
-                    ? image_url
-                    : recipe.image_url,
+        if (cook_time !== undefined) {
+            recipe.cook_time =
+                cook_time;
+        }
 
-            prep_time:
-                prep_time !== undefined
-                    ? prep_time
-                    : recipe.prep_time,
+        if (category_id !== undefined) {
+            recipe.category_id =
+                category_id;
+        }
 
-            cook_time:
-                cook_time !== undefined
-                    ? cook_time
-                    : recipe.cook_time,
+        if (media_id !== undefined) {
+            recipe.media_id =
+                media_id;
+        }
 
-            category_id:
-                category_id !== undefined
-                    ? category_id
-                    : recipe.category_id,
 
-            media_id:
-                media_id !== undefined
-                    ? media_id
-                    : recipe.media_id,
-        });
+        await recipe.save();
 
-        const updatedRecipe =
-            await Recipe.findByPk(
-                recipe.id,
-                {
-                    include: recipeIncludes,
-                }
-            );
 
-        return res.status(200).json({
-            message:
-                "Recette modifiée avec succès.",
-            recipe: updatedRecipe,
-        });
+        return res.status(200).json(
+            recipe
+        );
+
     } catch (error) {
         console.error(
             "Erreur modification recette :",
@@ -291,40 +242,33 @@ export const updateRecipe = async (req, res) => {
 
         return res.status(500).json({
             message:
-                "Erreur serveur lors de la modification de la recette.",
+                "Erreur serveur lors de la modification de la recette."
         });
     }
 };
+
 
 /* SUPPRIMER UNE RECETTE */
 
 export const deleteRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.findByPk(
-            req.params.id
-        );
+        const recipe = await Recipe.findByPk(req.params.id);
 
         if (!recipe) {
             return res.status(404).json({
-                message: "Recette introuvable.",
+                message: "Recette introuvable."
             });
         }
 
         await recipe.destroy();
 
-        return res.status(200).json({
-            message:
-                "Recette supprimée avec succès.",
-        });
+        return res.status(204).send();
+
     } catch (error) {
-        console.error(
-            "Erreur suppression recette :",
-            error
-        );
+        console.error("Erreur suppression recette :", error);
 
         return res.status(500).json({
-            message:
-                "Erreur serveur lors de la suppression de la recette.",
+            message: "Erreur serveur lors de la suppression de la recette."
         });
     }
 };

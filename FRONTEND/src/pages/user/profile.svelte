@@ -1,100 +1,92 @@
 <script>
+    // @ts-nocheck
+
     import { onMount } from "svelte";
 
     const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
     let username = "Utilisateur";
-    let email = "utilisateur@email.com";
-    let role = "Utilisateur";
+    let email = "";
+    let role = "user";
+
     let recipes = [];
     let loading = true;
 
-    function getCurrentUser() {
+    let recipeToDelete = null;
+    let deleteError = "";
+
+    function getUser() {
         try {
-            const savedUser = JSON.parse(localStorage.getItem("user") || "null");
-            if (savedUser) {
-                username = savedUser.username || "Utilisateur";
-                email = savedUser.email || "";
-                role = savedUser.role || "user";
-            }
-        } catch {
-            username = "Utilisateur";
-            email = "";
-            role = "user";
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+            username = user.username || "Utilisateur";
+
+            email = user.email || "";
+
+            role = user.role || "user";
+
+            return user;
+        } catch (error) {
+            console.error(error);
+
+            return {};
         }
     }
 
-    async function loadUserRecipes() {
-        const token = localStorage.getItem("token");
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
-        const userId = user.id;
+    function getInitial() {
+        return username ? username.charAt(0).toUpperCase() : "U";
+    }
 
-        if (!token || !userId) {
-            recipes = [];
+    async function loadRecipes() {
+        const token = localStorage.getItem("token");
+
+        const user = getUser();
+
+        if (!token || !user.id) {
             loading = false;
             return;
         }
 
         try {
-            loading = true;
-            // Charger toutes les recettes de l'utilisateur
-            const response = await fetch(`${API_URL}/api/recipes?userId=${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || "Erreur lors du chargement des recettes.");
-            }
-
-            recipes = Array.isArray(data)
-                ? data.map((recipe) => ({
-                    id: recipe.id,
-                    title: recipe.title,
-                    movie: recipe.media?.title || "Film / Série",
-                    image: recipe.image_url || "/img-card-sct-1/champignon.jpg",
-                }))
-                : [];
-        } catch (error) {
-            console.error(error);
-            // En fallback, charger toutes et filtrer localement
-            try {
-                const response = await fetch(`${API_URL}/api/recipes`, {
+            const response = await fetch(
+                `${API_URL}/api/recipes?userId=${user.id}`,
+                {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
-                });
-                const data = await response.json();
-                if (response.ok && Array.isArray(data)) {
-                    // Filtrer les recettes où user.id == userId
-                    recipes = data
-                        .filter((r) => r.user?.id === userId)
-                        .map((recipe) => ({
-                            id: recipe.id,
-                            title: recipe.title,
-                            movie: recipe.media?.title || "Film / Série",
-                            image: recipe.image_url || "/img-card-sct-1/champignon.jpg",
-                        }));
-                } else {
-                    recipes = [];
-                }
-            } catch {
-                recipes = [];
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error("Erreur chargement recettes");
             }
+
+            const data = await response.json();
+
+            recipes = Array.isArray(data) ? data : [];
+        } catch (error) {
+            console.error(error);
+
+            recipes = [];
         } finally {
             loading = false;
         }
     }
 
-    async function deleteRecipe(id) {
-        const confirmation = window.confirm(
-            "Voulez-vous vraiment supprimer cette recette ?"
-        );
+    function askDelete(recipe) {
+        recipeToDelete = recipe;
+        deleteError = "";
+    }
 
-        if (!confirmation) {
+    function cancelDelete() {
+        recipeToDelete = null;
+        deleteError = "";
+    }
+
+    async function deleteRecipe() {
+        console.log("DELETE lancé", recipeToDelete);
+
+        if (!recipeToDelete) {
             return;
         }
 
@@ -105,52 +97,56 @@
         }
 
         try {
-            const response = await fetch(`${API_URL}/api/recipes/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
+            const response = await fetch(
+                `${API_URL}/api/recipes/${recipeToDelete.id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 },
-            });
+            );
 
             if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message || "Erreur lors de la suppression.");
+                throw new Error("Erreur suppression");
             }
 
-            recipes = recipes.filter((recipe) => recipe.id !== id);
+            recipes = recipes.filter(
+                (recipe) => Number(recipe.id) !== Number(recipeToDelete.id),
+            );
+
+            recipeToDelete = null;
         } catch (error) {
             console.error(error);
-            alert("Impossible de supprimer cette recette pour le moment.");
+
+            deleteError = "Impossible de supprimer la recette.";
         }
     }
 
     onMount(() => {
-        getCurrentUser();
-        loadUserRecipes();
+        loadRecipes();
     });
 </script>
 
 <main class="profile-page">
-    <h1>👤 MON PROFIL</h1>
+    <section class="profile-card">
+        <div class="avatar">
+            {getInitial()}
+        </div>
 
-    <p class="subtitle">
-        Gérez votre profil et retrouvez votre activité sur Ciné Délices
-    </p>
-
-    <!-- INFORMATIONS UTILISATEUR -->
-
-    <section class="profile-container">
-        <div class="profile-header">
-            <div class="avatar">
-                👤
-            </div>
+        <div class="profile-content">
+            <h1>MON PROFIL</h1>
 
             <div class="user-info">
-                <h2>{username}</h2>
+                <p>
+                    <strong>Nom :</strong>
+                    {username}
+                </p>
 
                 <p>
                     <strong>Email :</strong>
-                    {email}
+                    {email || "Non renseigné"}
                 </p>
 
                 <p>
@@ -158,51 +154,51 @@
                     {role}
                 </p>
             </div>
-        </div>
-    </section>
 
-    <!-- MES RECETTES -->
-
-    <section class="profile-section">
-        <div class="section-header">
-            <h2>🍽️ MES RECETTES</h2>
-
-            <a
-                class="add-recipe"
-                href="#/user/addRecipe"
-            >
+            <a class="add-button" href="#/user/addRecipe">
                 + AJOUTER UNE RECETTE
             </a>
         </div>
+    </section>
+
+    <section class="recipes-section">
+        <h2>MES RECETTES</h2>
 
         {#if loading}
-            <p class="empty-message">
-                Chargement de vos recettes...
-            </p>
+            <div class="message">Chargement...</div>
         {:else if recipes.length === 0}
-            <p class="empty-message">
-                Vous n'avez encore créé aucune recette.
-            </p>
+            <div class="message">Vous n'avez encore ajouté aucune recette.</div>
         {:else}
-            <div class="recipe-grid">
+            <div class="recipes-grid">
                 {#each recipes as recipe}
                     <article class="recipe-card">
-                        <img
-                            src={recipe.image}
-                            alt={recipe.title}
-                        />
+                        {#if recipe.image_url}
+                            <img src={recipe.image_url} alt={recipe.title} />
+                        {:else if recipe.media?.image_url}
+                            <img
+                                src={recipe.media.image_url}
+                                alt={recipe.media.title || recipe.title}
+                            />
+                        {:else}
+                            <div class="no-image">
+                                🍽️
+                                <span>Aucune image</span>
+                            </div>
+                        {/if}
 
                         <div class="recipe-content">
                             <h3>
                                 {recipe.title}
                             </h3>
 
-                            <p>
-                                Inspirée de {recipe.movie}
+                            <p class="movie">
+                                🎬
+                                {recipe.media?.title || "Film / Série"}
                             </p>
 
-                            <div class="recipe-actions">
+                            <div class="buttons">
                                 <a
+                                    class="view"
                                     href={`#/user/recipe/${recipe.id}`}
                                 >
                                     VOIR
@@ -218,7 +214,7 @@
                                 <button
                                     class="delete"
                                     type="button"
-                                    on:click={() => deleteRecipe(recipe.id)}
+                                    on:click={() => askDelete(recipe)}
                                 >
                                     SUPPRIMER
                                 </button>
@@ -229,417 +225,479 @@
             </div>
         {/if}
     </section>
-
-    <!-- FAVORIS -->
-
-    <section class="profile-section">
-        <h2>⭐ MES FAVORIS</h2>
-
-        <div class="favorite-card">
-            <img
-                src="/img-card-sct-1/poisson.jpg"
-                alt="Poisson rôti et légumes au four"
-            />
-
-            <div class="favorite-info">
-                <h3>
-                    Poisson Rôti et Légumes au Four
-                </h3>
-
-                <p>
-                    Inspirée de La Petite Sirène
-                </p>
-            </div>
-
-            <a href="#/user/recipe/petite-sirene">
-                VOIR LA RECETTE
-            </a>
-        </div>
-
-        <a
-            class="all-favorites"
-            href="#/user/favorite"
-        >
-            VOIR TOUS MES FAVORIS
-        </a>
-    </section>
 </main>
+
+{#if recipeToDelete}
+    <div class="modal-overlay">
+        <div class="delete-modal">
+            <div class="modal-icon">🗑️</div>
+
+            <h2>SUPPRIMER LA RECETTE ?</h2>
+
+            <p>
+                Voulez-vous vraiment supprimer
+                <strong>
+                    {recipeToDelete.title}
+                </strong>
+                ?
+            </p>
+
+            <p class="warning">Cette action est définitive.</p>
+
+            {#if deleteError}
+                <p class="delete-error">
+                    {deleteError}
+                </p>
+            {/if}
+
+            <div class="modal-buttons">
+                <button
+                    class="cancel-delete"
+                    type="button"
+                    on:click={cancelDelete}
+                >
+                    ANNULER
+                </button>
+
+                <button
+                    class="confirm-delete"
+                    type="button"
+                    on:click={deleteRecipe}
+                >
+                    SUPPRIMER
+                </button>
+            </div>
+        </div>
+    </div>
+{/if}
 
 <style>
     .profile-page {
         width: 90%;
-        max-width: 1000px;
+        max-width: 1100px;
 
-        margin: 40px auto;
+        margin: 45px auto 70px;
     }
 
-    /* TITRE */
-
-    .profile-page h1 {
-        color: #d4af37;
-
-        text-align: center;
-
-        margin-bottom: 10px;
-    }
-
-    .subtitle {
-        color: white;
-
-        text-align: center;
-
-        margin-bottom: 35px;
-    }
-
-    /* PROFIL */
-
-    .profile-container {
-        background-color: rgb(6, 6, 48);
-
-        border: 2px solid #d4af37;
-        border-radius: 8px;
-
-        padding: 25px;
-
-        margin-bottom: 35px;
-    }
-
-    .profile-header {
+    .profile-card {
         display: flex;
         align-items: center;
-        gap: 20px;
+
+        gap: 30px;
+
+        padding: 35px;
+
+        background-color: rgb(6, 6, 48);
+
+        border: 1px solid #d4af37;
+        border-radius: 10px;
     }
 
     .avatar {
-        width: 90px;
-        height: 90px;
-
         display: flex;
-        justify-content: center;
+
         align-items: center;
+        justify-content: center;
 
-        background-color: #111526;
+        flex-shrink: 0;
 
-        border: 2px solid #d4af37;
+        width: 95px;
+        height: 95px;
+
+        background-color: #f34268;
+
         border-radius: 50%;
 
-        font-size: 40px;
+        color: white;
+
+        font-size: 38px;
+        font-weight: bold;
     }
 
-    .user-info {
+    .profile-content {
         flex: 1;
     }
 
-    .user-info h2 {
+    .profile-content h1 {
+        margin: 0 0 22px;
+
         color: #d4af37;
 
-        margin-top: 0;
-        margin-bottom: 10px;
+        font-size: 28px;
+    }
+
+    .user-info {
+        margin-bottom: 25px;
     }
 
     .user-info p {
+        margin: 10px 0;
+
         color: white;
 
-        margin: 6px 0;
+        font-size: 16px;
     }
 
     .user-info strong {
         color: #d4af37;
     }
 
-    /* SECTIONS */
+    .add-button {
+        display: inline-block;
 
-    .profile-section {
+        padding: 13px 20px;
+
+        background-color: #d4af37;
+
+        border-radius: 5px;
+
+        color: black;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        transition: 0.2s;
+    }
+
+    .add-button:hover {
+        background-color: #f0ca45;
+
+        transform: translateY(-1px);
+    }
+
+    .recipes-section {
+        margin-top: 45px;
+    }
+
+    .recipes-section h2 {
+        margin-bottom: 25px;
+
+        color: white;
+
+        font-size: 24px;
+    }
+
+    .recipes-grid {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 25px;
+    }
+
+    .recipe-card {
+        overflow: hidden;
+
         background-color: rgb(6, 6, 48);
 
         border: 1px solid #d4af37;
         border-radius: 8px;
 
-        padding: 25px;
-
-        margin-bottom: 30px;
+        transition: 0.2s;
     }
 
-    .profile-section h2 {
-        color: #d4af37;
-
-        margin-top: 0;
-
-        border-bottom: 1px solid #d4af37;
-
-        padding-bottom: 10px;
-    }
-
-    .section-header {
-        margin-bottom: 20px;
-    }
-
-    /* RECETTES */
-
-    .recipe-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 20px;
-    }
-
-    .recipe-card {
-        background-color: #111526;
-
-        border-radius: 6px;
-
-        overflow: hidden;
+    .recipe-card:hover {
+        transform: translateY(-3px);
     }
 
     .recipe-card img {
+        display: block;
+
         width: 100%;
-        height: 180px;
+        height: 210px;
 
         object-fit: cover;
     }
 
+    .no-image {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+
+        height: 210px;
+
+        background-color: #111526;
+
+        color: #d4af37;
+
+        font-size: 40px;
+    }
+
+    .no-image span {
+        color: #aaa;
+
+        font-size: 14px;
+    }
+
     .recipe-content {
-        padding: 15px;
+        padding: 20px;
     }
 
     .recipe-content h3 {
+        margin: 0 0 12px;
+
         color: #d4af37;
 
-        margin-top: 0;
+        font-size: 19px;
     }
 
-    .recipe-content p {
-        color: white;
+    .movie {
+        margin-bottom: 20px;
+
+        color: #ccc;
     }
 
-    /* ACTIONS */
-
-    .recipe-actions {
+    .buttons {
         display: flex;
-        gap: 8px;
 
-        margin-top: 15px;
+        flex-wrap: wrap;
+
+        gap: 8px;
     }
 
-    .recipe-actions a,
-    .recipe-actions button {
-        padding: 8px 10px;
+    .buttons a,
+    .buttons button {
+        padding: 9px 12px;
 
         border: none;
         border-radius: 4px;
 
-        font-weight: bold;
-
         cursor: pointer;
 
         text-decoration: none;
-    }
 
-    .recipe-actions a {
-        background-color: #07558d;
-        color: white;
-    }
-
-    .recipe-actions .edit {
-        background-color: #d4af37;
-        color: black;
-    }
-
-    .delete {
-        background-color: #e24d4d;
-        color: white;
-    }
-
-    /* AJOUTER UNE RECETTE */
-
-    .add-recipe {
-        display: inline-block;
-
-        padding: 10px 15px;
-
-        background-color: #d4af37;
-        color: black;
-
-        border-radius: 4px;
-
-        text-decoration: none;
+        font-size: 12px;
         font-weight: bold;
     }
 
-    .add-recipe:hover {
-        background-color: #e24d4d;
+    .view {
+        background-color: #d4af37;
+
+        color: black;
+    }
+
+    .edit {
+        background-color: #07558d;
+
         color: white;
     }
 
-    /* MESSAGE VIDE */
+    .delete {
+        background-color: #a82424;
 
-    .empty-message {
+        color: white;
+    }
+
+    .view:hover {
+        background-color: #f0ca45;
+    }
+
+    .edit:hover {
+        background-color: #0872bd;
+    }
+
+    .delete:hover {
+        background-color: #cf3030;
+    }
+
+    .message {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        min-height: 130px;
+
+        padding: 25px;
+
+        background-color: rgb(6, 6, 48);
+
+        border: 1px solid #d4af37;
+        border-radius: 8px;
+
+        color: #a9a9c5;
+
+        text-align: center;
+    }
+
+    /* MODALE SUPPRESSION */
+
+    .modal-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px;
+
+        background-color: rgba(0, 0, 0, 0.78);
+
+        z-index: 9999;
+    }
+
+    .delete-modal {
+        width: 90%;
+        max-width: 430px;
+
+        padding: 30px;
+
+        background-color: rgb(6, 6, 48);
+
+        border: 2px solid #d4af37;
+        border-radius: 10px;
+
         color: white;
 
         text-align: center;
 
-        padding: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
     }
 
-    /* FAVORIS */
+    .modal-icon {
+        margin-bottom: 12px;
 
-    .favorite-card {
-        background-color: #111526;
-
-        padding: 15px;
-
-        border-radius: 6px;
-
-        display: flex;
-        align-items: center;
-        gap: 20px;
-
-        margin-top: 20px;
+        font-size: 38px;
     }
 
-    .favorite-card img {
-        width: 120px;
-        height: 100px;
+    .delete-modal h2 {
+        margin: 0 0 18px;
 
-        object-fit: cover;
-
-        border-radius: 4px;
-    }
-
-    .favorite-info {
-        flex: 1;
-    }
-
-    .favorite-info h3 {
         color: #d4af37;
 
-        margin: 0 0 8px;
+        font-size: 22px;
     }
 
-    .favorite-info p {
-        color: white;
-
-        margin: 0;
+    .delete-modal p {
+        line-height: 1.6;
     }
 
-    .favorite-card a {
-        background-color: #d4af37;
-        color: black;
+    .delete-modal strong {
+        color: #d4af37;
+    }
 
-        padding: 10px 15px;
+    .warning {
+        color: #aaa;
 
-        border-radius: 4px;
+        font-size: 14px;
+    }
 
-        text-decoration: none;
+    .delete-error {
+        color: #ff6666;
+    }
+
+    .modal-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        margin-top: 25px;
+    }
+
+    .modal-buttons button {
+        padding: 11px 20px;
+
+        border: none;
+        border-radius: 5px;
+
+        cursor: pointer;
+
         font-weight: bold;
     }
 
-    .all-favorites {
-        display: inline-block;
+    .cancel-delete {
+        background-color: #d4af37;
 
-        margin-top: 20px;
-
-        color: #d4af37;
-
-        text-decoration: underline;
+        color: black;
     }
 
-    /* TABLETTE */
+    .confirm-delete {
+        background-color: #a82424;
 
-    @media (max-width: 768px) {
+        color: white;
+    }
+
+    .cancel-delete:hover {
+        background-color: #f0ca45;
+    }
+
+    .confirm-delete:hover {
+        background-color: #cf3030;
+    }
+
+    @media (max-width: 850px) {
+        .recipes-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
         .profile-page {
             width: 94%;
+
+            margin-top: 25px;
         }
 
-        .recipe-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .favorite-card {
-            align-items: flex-start;
-        }
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 375px) {
-        .profile-page {
-            width: 95%;
-
-            margin: 25px auto;
-        }
-
-        .profile-page h1 {
-            font-size: 28px;
-        }
-
-        .subtitle {
-            font-size: 14px;
-        }
-
-        .profile-container,
-        .profile-section {
-            padding: 15px;
-        }
-
-        .profile-header {
+        .profile-card {
             flex-direction: column;
 
-            text-align: center;
+            align-items: flex-start;
+
+            padding: 25px;
         }
 
         .avatar {
-            width: 75px;
-            height: 75px;
+            width: 80px;
+            height: 80px;
 
             font-size: 32px;
         }
 
-        .recipe-actions {
+        .profile-content {
+            width: 100%;
+        }
+
+        .recipes-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .buttons {
             flex-direction: column;
         }
 
-        .recipe-actions a,
-        .recipe-actions button {
+        .buttons a,
+        .buttons button {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            text-align: center;
+        }
+
+        .add-button {
+            box-sizing: border-box;
+
             width: 100%;
 
             text-align: center;
-
-            box-sizing: border-box;
         }
 
-        .favorite-card {
+        .modal-buttons {
             flex-direction: column;
-            align-items: stretch;
-
-            text-align: center;
         }
 
-        .favorite-card img {
+        .modal-buttons button {
             width: 100%;
-            height: 200px;
-        }
-
-        .favorite-card a {
-            width: 100%;
-
-            text-align: center;
-
-            box-sizing: border-box;
-        }
-
-        .profile-section h2 {
-            font-size: 22px;
-        }
-
-        .add-recipe {
-            width: 100%;
-
-            padding: 12px 10px;
-
-            text-align: center;
-
-            box-sizing: border-box;
         }
     }
 </style>

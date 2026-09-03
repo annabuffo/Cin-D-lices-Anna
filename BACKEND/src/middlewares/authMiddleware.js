@@ -62,9 +62,7 @@ export const isAdmin = (req, res, next) => {
 
 export const isRecipeAuthor = async (req, res, next) => {
     try {
-        const recipe = await Recipe.findByPk(
-            req.params.id
-        );
+        const recipe = await Recipe.findByPk(req.params.id);
 
         if (!recipe) {
             return res.status(404).json({
@@ -73,7 +71,7 @@ export const isRecipeAuthor = async (req, res, next) => {
         }
 
         const isAuthor =
-            recipe.user_id === req.user.id;
+            Number(recipe.user_id) === Number(req.user.id);
 
         const isAdministrator =
             req.user.role === "admin";
@@ -81,13 +79,14 @@ export const isRecipeAuthor = async (req, res, next) => {
         if (!isAuthor && !isAdministrator) {
             return res.status(403).json({
                 message:
-                    "Vous n'êtes pas autorisé à modifier cette recette.",
+                    "Vous n'êtes pas autorisé à modifier ou supprimer cette recette.",
             });
         }
 
         req.recipe = recipe;
 
         next();
+
     } catch (error) {
         console.error(
             "Erreur vérification auteur recette :",

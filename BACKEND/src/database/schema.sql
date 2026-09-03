@@ -97,3 +97,23 @@ CREATE TABLE comments (
         REFERENCES recipes(id)
         ON DELETE CASCADE
 );
+
+-------------------------------------------------
+-- Données initiales : catégories
+-------------------------------------------------
+
+INSERT INTO categories (name, description) VALUES
+('Entrée', 'Recettes à servir en entrée'),
+('Plat', 'Plats principaux'),
+('Dessert', 'Desserts et recettes sucrées'),
+('Boisson', 'Boissons');
+
+-------------------------------------------------
+-- Données initiales : films et séries
+-------------------------------------------------
+
+INSERT INTO media (title, image_url, type, description, release_date) VALUES
+('Ratatouille', NULL, 'film', 'Film autour de la cuisine française', '2007-08-01'),
+('Harry Potter', NULL, 'film', 'Univers de Harry Potter', '2001-12-05'),
+('Friends', NULL, 'serie', 'Série américaine', '1994-09-22'),
+('Stranger Things', NULL, 'serie', 'Série fantastique', '2016-07-15');
