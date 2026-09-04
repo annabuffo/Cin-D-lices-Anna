@@ -409,6 +409,7 @@
         }
 
         .banner-content {
+            
             width: 50%;
 
             padding: 20px;

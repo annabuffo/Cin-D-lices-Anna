@@ -1,22 +1,59 @@
 <script>
     // @ts-nocheck
+    import { onMount } from "svelte";
 
-    let users = [
-        {
-            id: "user-1",
-            username: "Nom utilisateur",
-            email: "utilisateur@email.com",
-            role: "user",
-        },
-        {
-            id: "admin-1",
-            username: "Nom administrateur",
-            email: "administrateur@email.com",
-            role: "admin",
-        },
-    ];
+    const API_URL =
+        import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+    let users = [];
     let userToDelete = null;
+
+    let loading = true;
+    let error = "";
+
+    async function loadUsers() {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            window.location.hash = "#/login";
+            return;
+        }
+
+        try {
+            loading = true;
+            error = "";
+
+            const response = await fetch(
+                `${API_URL}/api/users`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                        "Impossible de récupérer les utilisateurs."
+                );
+            }
+
+            users = Array.isArray(data) ? data : [];
+        } catch (err) {
+            console.error(err);
+
+            error =
+                err.message ||
+                "Erreur lors du chargement des utilisateurs.";
+
+            users = [];
+        } finally {
+            loading = false;
+        }
+    }
 
     function askDeleteUser(user) {
         userToDelete = user;
@@ -26,17 +63,61 @@
         userToDelete = null;
     }
 
-    function confirmDelete() {
+    async function confirmDelete() {
         if (!userToDelete) {
             return;
         }
 
-        users = users.filter(
-            (user) => user.id !== userToDelete.id
-        );
+        const token = localStorage.getItem("token");
 
-        userToDelete = null;
+        if (!token) {
+            window.location.hash = "#/login";
+            return;
+        }
+
+        try {
+            error = "";
+
+            const response = await fetch(
+                `${API_URL}/api/users/${userToDelete.id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            let data = {};
+
+            if (response.status !== 204) {
+                data = await response.json();
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                        "Impossible de supprimer cet utilisateur."
+                );
+            }
+
+            users = users.filter(
+                (user) => user.id !== userToDelete.id
+            );
+
+            userToDelete = null;
+        } catch (err) {
+            console.error(err);
+
+            error =
+                err.message ||
+                "Erreur lors de la suppression.";
+        }
     }
+
+    onMount(() => {
+        loadUsers();
+    });
 </script>
 
 <main class="admin-page">
@@ -47,80 +128,130 @@
     </a>
 
     <section class="admin-container">
-        <h2>👥 UTILISATEURS</h2>
 
-        {#if users.filter((user) => user.role === "user").length === 0}
+        {#if loading}
+
             <p class="empty-message">
-                Aucun utilisateur.
+                Chargement des utilisateurs...
             </p>
+
+        {:else if error}
+
+            <p class="error-message">
+                {error}
+            </p>
+
         {:else}
-            {#each users.filter((user) => user.role === "user") as user}
-                <div class="user-card">
-                    <div class="user-info">
-                        <h3>{user.username}</h3>
 
-                        <p>{user.email}</p>
+            <h2>👥 UTILISATEURS</h2>
 
-                        <p>
-                            Rôle : {user.role}
-                        </p>
+            {#if users.filter((user) => user.role === "user").length === 0}
+
+                <p class="empty-message">
+                    Aucun utilisateur.
+                </p>
+
+            {:else}
+
+                {#each users.filter((user) => user.role === "user") as user}
+
+                    <div class="user-card">
+
+                        <div class="user-info">
+
+                            <h3>{user.username}</h3>
+
+                            <p>{user.email}</p>
+
+                            <p>
+                                Rôle : {user.role}
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="delete"
+                            type="button"
+                            onclick={() => askDeleteUser(user)}
+                        >
+                            SUPPRIMER
+                        </button>
+
                     </div>
 
-                    <button
-                        class="delete"
-                        type="button"
-                        onclick={() => askDeleteUser(user)}
-                    >
-                        SUPPRIMER
-                    </button>
-                </div>
-            {/each}
-        {/if}
+                {/each}
 
-        <h2 class="admin-title">
-            👑 ADMINISTRATEURS
-        </h2>
+            {/if}
 
-        {#if users.filter((user) => user.role === "admin").length === 0}
-            <p class="empty-message">
-                Aucun administrateur.
-            </p>
-        {:else}
-            {#each users.filter((user) => user.role === "admin") as user}
-                <div class="user-card">
-                    <div class="user-info">
-                        <h3>{user.username}</h3>
 
-                        <p>{user.email}</p>
+            <h2 class="admin-title">
+                👑 ADMINISTRATEURS
+            </h2>
 
-                        <p>
-                            Rôle : {user.role}
-                        </p>
+
+            {#if users.filter((user) => user.role === "admin").length === 0}
+
+                <p class="empty-message">
+                    Aucun administrateur.
+                </p>
+
+            {:else}
+
+                {#each users.filter((user) => user.role === "admin") as user}
+
+                    <div class="user-card">
+
+                        <div class="user-info">
+
+                            <h3>{user.username}</h3>
+
+                            <p>{user.email}</p>
+
+                            <p>
+                                Rôle : {user.role}
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="delete"
+                            type="button"
+                            onclick={() => askDeleteUser(user)}
+                        >
+                            SUPPRIMER
+                        </button>
+
                     </div>
 
-                    <button
-                        class="delete"
-                        type="button"
-                        onclick={() => askDeleteUser(user)}
-                    >
-                        SUPPRIMER
-                    </button>
-                </div>
-            {/each}
+                {/each}
+
+            {/if}
+
         {/if}
+
     </section>
 
+
     {#if userToDelete}
+
         <div class="modal-overlay">
+
             <div class="modal">
-                <h2>SUPPRIMER L'UTILISATEUR ?</h2>
+
+                <h2>
+                    SUPPRIMER L'UTILISATEUR ?
+                </h2>
 
                 <p>
                     Voulez-vous vraiment supprimer
-                    <strong>{userToDelete.username}</strong> ?
+                    <strong>
+                        {userToDelete.username}
+                    </strong>
+                    ?
                 </p>
 
                 <div class="modal-actions">
+
                     <button
                         class="cancel-button"
                         type="button"
@@ -136,11 +267,17 @@
                     >
                         SUPPRIMER
                     </button>
+
                 </div>
+
             </div>
+
         </div>
+
     {/if}
+
 </main>
+
 
 <style>
     .admin-page {
@@ -168,8 +305,10 @@
 
     .admin-container {
         background-color: rgb(6, 6, 48);
+
         border: 1px solid #d4af37;
         border-radius: 8px;
+
         padding: 20px;
     }
 
@@ -184,13 +323,16 @@
 
     .user-card {
         background-color: #111526;
+
         padding: 15px;
         margin-top: 15px;
+
         border-radius: 6px;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         gap: 20px;
     }
 
@@ -227,9 +369,25 @@
 
     .empty-message {
         color: white;
+
         padding: 15px;
+
         background-color: #111526;
+
         border-radius: 6px;
+
+        text-align: center;
+    }
+
+    .error-message {
+        color: #ff8b8b;
+
+        padding: 15px;
+
+        background-color: #111526;
+
+        border-radius: 6px;
+
         text-align: center;
     }
 
@@ -264,6 +422,7 @@
 
     .modal h2 {
         color: #d4af37;
+
         margin-top: 0;
         margin-bottom: 20px;
     }
@@ -280,6 +439,7 @@
     .modal-actions {
         display: flex;
         justify-content: center;
+
         gap: 15px;
     }
 

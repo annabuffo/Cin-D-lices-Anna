@@ -26,7 +26,6 @@
     import AdminComments from "./pages/admin/comments.svelte";
 
     /* PAGES USER */
-    import Favorite from "./pages/user/favorite.svelte";
     import MovieDetail from "./pages/user/movieDetail.svelte";
     import Profile from "./pages/user/profile.svelte";
     import RecipeDetail from "./pages/user/recipeDetail.svelte";
@@ -49,7 +48,6 @@
 
         /* USER */
         "/user/profile": Profile,
-        "/user/favorite": Favorite,
 
         "/user/movie/:id": MovieDetail,
         "/user/recipe/:id": RecipeDetail,

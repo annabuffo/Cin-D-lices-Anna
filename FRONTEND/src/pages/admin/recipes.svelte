@@ -1,40 +1,133 @@
 <script>
-    let recipes = [
-        {
-            id: "super-mario",
-            title: "Tagliatelles crémeuses aux champignons",
-            movie: "Super Mario Bros",
-            category: "Plat principal",
-            author: "Anna",
-            image: "/img-card-sct-1/champignon.jpg",
-        },
-        {
-            id: "ratatouille",
-            title: "Ratatouille aux légumes",
-            movie: "Ratatouille",
-            category: "Plat principal",
-            author: "Admin",
-            image: "/img-card-sct-1/ratatouille.jpg",
-        },
-    ];
+    // @ts-nocheck
 
-    function deleteRecipe(id = "") {
-        const confirmation = window.confirm(
-            "Voulez-vous vraiment supprimer cette recette ?"
-        );
+    import { onMount } from "svelte";
 
-        if (confirmation) {
-            recipes = recipes.filter(
-                (recipe) => recipe.id !== id
+    const API_URL =
+        import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+    let recipes = [];
+
+    let loading = true;
+    let error = "";
+
+    let recipeToDelete = null;
+
+    async function loadRecipes() {
+        try {
+            loading = true;
+            error = "";
+
+            const response = await fetch(
+                `${API_URL}/api/recipes`
             );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                        "Impossible de récupérer les recettes."
+                );
+            }
+
+            recipes = Array.isArray(data) ? data : [];
+        } catch (err) {
+            console.error(err);
+
+            error =
+                err.message ||
+                "Erreur lors du chargement des recettes.";
+
+            recipes = [];
+        } finally {
+            loading = false;
         }
     }
+
+    function askDeleteRecipe(recipe) {
+        recipeToDelete = recipe;
+    }
+
+    function cancelDelete() {
+        recipeToDelete = null;
+    }
+
+    async function confirmDelete() {
+        if (!recipeToDelete) {
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            window.location.hash = "#/login";
+            return;
+        }
+
+        try {
+            error = "";
+
+            const response = await fetch(
+                `${API_URL}/api/recipes/${recipeToDelete.id}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            let data = {};
+
+            if (response.status !== 204) {
+                data = await response.json();
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                        "Impossible de supprimer cette recette."
+                );
+            }
+
+            recipes = recipes.filter(
+                (recipe) =>
+                    recipe.id !== recipeToDelete.id
+            );
+
+            recipeToDelete = null;
+        } catch (err) {
+            console.error(err);
+
+            error =
+                err.message ||
+                "Erreur lors de la suppression.";
+        }
+    }
+
+    function getRecipeImage(recipe) {
+        return (
+            recipe.image_url ||
+            recipe.media?.image_url ||
+            ""
+        );
+    }
+
+    onMount(() => {
+        loadRecipes();
+    });
 </script>
 
 <main class="admin-page">
+
     <h1>GESTION DES RECETTES</h1>
 
-    <a class="back" href="#/admin">
+    <a
+        class="back"
+        href="#/admin"
+    >
         ← Retour au tableau de bord
     </a>
 
@@ -47,11 +140,27 @@
             AJOUTER UNE RECETTE
         </a>
 
-        {#if recipes.length === 0}
+
+        {#if loading}
+
+            <p class="empty-message">
+                Chargement des recettes...
+            </p>
+
+
+        {:else if error}
+
+            <p class="error-message">
+                {error}
+            </p>
+
+
+        {:else if recipes.length === 0}
 
             <p class="empty-message">
                 Aucune recette disponible.
             </p>
+
 
         {:else}
 
@@ -59,28 +168,48 @@
 
                 <div class="item-card">
 
-                    <img
-                        src={recipe.image}
-                        alt={recipe.title}
-                    />
+                    {#if getRecipeImage(recipe)}
+
+                        <img
+                            src={getRecipeImage(recipe)}
+                            alt={recipe.title}
+                        />
+
+                    {:else}
+
+                        <div class="no-image">
+                            🍽️
+                            <span>
+                                Aucune image
+                            </span>
+                        </div>
+
+                    {/if}
+
 
                     <div class="info">
+
                         <h2>
                             {recipe.title}
                         </h2>
 
                         <p>
-                            Film : {recipe.movie}
+                            Film / Série :
+                            {recipe.media?.title || "Non renseigné"}
                         </p>
 
                         <p>
-                            Catégorie : {recipe.category}
+                            Catégorie :
+                            {recipe.category?.name || "Sans catégorie"}
                         </p>
 
                         <p>
-                            Auteur : {recipe.author}
+                            Auteur :
+                            {recipe.author?.username || "Utilisateur"}
                         </p>
+
                     </div>
+
 
                     <div class="actions">
 
@@ -98,13 +227,13 @@
                             MODIFIER
                         </a>
 
-                            <button
-                                class="delete"
-                                type="button"
-                                on:click={() => deleteRecipe(recipe.id)}
-                            >
-                                SUPPRIMER
-                            </button>
+                        <button
+                            class="delete"
+                            type="button"
+                            onclick={() => askDeleteRecipe(recipe)}
+                        >
+                            SUPPRIMER
+                        </button>
 
                     </div>
 
@@ -115,7 +244,54 @@
         {/if}
 
     </section>
+
+
+    {#if recipeToDelete}
+
+        <div class="modal-overlay">
+
+            <div class="modal">
+
+                <h2>
+                    SUPPRIMER LA RECETTE ?
+                </h2>
+
+                <p>
+                    Voulez-vous vraiment supprimer
+                    <strong>
+                        {recipeToDelete.title}
+                    </strong>
+                    ?
+                </p>
+
+                <div class="modal-actions">
+
+                    <button
+                        class="cancel-button"
+                        type="button"
+                        onclick={cancelDelete}
+                    >
+                        ANNULER
+                    </button>
+
+                    <button
+                        class="confirm-delete"
+                        type="button"
+                        onclick={confirmDelete}
+                    >
+                        SUPPRIMER
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {/if}
+
 </main>
+
 
 <style>
     .admin-page {
@@ -201,14 +377,39 @@
         margin-bottom: 0;
     }
 
-    .item-card img {
+    .item-card img,
+    .no-image {
         width: 120px;
         height: 100px;
 
-        object-fit: cover;
+        flex-shrink: 0;
 
         border: 1px solid #d4af37;
         border-radius: 4px;
+    }
+
+    .item-card img {
+        object-fit: cover;
+    }
+
+    .no-image {
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        background-color: #060630;
+
+        color: white;
+
+        font-size: 25px;
+    }
+
+    .no-image span {
+        margin-top: 5px;
+
+        font-size: 12px;
     }
 
     /* INFORMATIONS */
@@ -259,9 +460,17 @@
         color: white;
     }
 
+    .view:hover {
+        background-color: #064a7a;
+    }
+
     .edit {
         background-color: #d4af37;
         color: black;
+    }
+
+    .edit:hover {
+        background-color: #f0c94d;
     }
 
     .delete {
@@ -273,7 +482,7 @@
         background-color: #d13f3f;
     }
 
-    /* LISTE VIDE */
+    /* MESSAGES */
 
     .empty-message {
         color: white;
@@ -287,9 +496,107 @@
         border-radius: 6px;
     }
 
+    .error-message {
+        color: #ff8b8b;
+
+        text-align: center;
+
+        padding: 25px 15px;
+
+        background-color: #111526;
+
+        border-radius: 6px;
+    }
+
+    /* MODALE */
+
+    .modal-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        background-color: rgba(0, 0, 0, 0.75);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        z-index: 1000;
+    }
+
+    .modal {
+        width: 90%;
+        max-width: 430px;
+
+        background-color: #060630;
+
+        border: 1px solid #d4af37;
+        border-radius: 10px;
+
+        padding: 30px;
+
+        text-align: center;
+    }
+
+    .modal h2 {
+        color: #d4af37;
+
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .modal p {
+        color: white;
+
+        margin-bottom: 25px;
+    }
+
+    .modal strong {
+        color: #d4af37;
+    }
+
+    .modal-actions {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 15px;
+    }
+
+    .cancel-button,
+    .confirm-delete {
+        border: none;
+        border-radius: 5px;
+
+        padding: 11px 18px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+    }
+
+    .cancel-button {
+        background-color: #d4af37;
+        color: black;
+    }
+
+    .cancel-button:hover {
+        background-color: #f0c94d;
+    }
+
+    .confirm-delete {
+        background-color: #e24d4d;
+        color: white;
+    }
+
+    .confirm-delete:hover {
+        background-color: #d13f3f;
+    }
+
     /* TABLETTE */
 
     @media (max-width: 768px) {
+
         .admin-page {
             width: 94%;
         }
@@ -306,6 +613,7 @@
     /* MOBILE */
 
     @media (max-width: 480px) {
+
         .admin-page {
             width: 95%;
 
@@ -333,9 +641,12 @@
             align-items: stretch;
         }
 
-        .item-card img {
+        .item-card img,
+        .no-image {
             width: 100%;
             height: 200px;
+
+            box-sizing: border-box;
         }
 
         .info {
@@ -358,6 +669,15 @@
             width: 100%;
 
             box-sizing: border-box;
+        }
+
+        .modal-actions {
+            flex-direction: column;
+        }
+
+        .cancel-button,
+        .confirm-delete {
+            width: 100%;
         }
     }
 </style>

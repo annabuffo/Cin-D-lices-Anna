@@ -11,9 +11,6 @@
     let loading = true;
     let error = "";
 
-    let isFavorite = false;
-
-
     function getRecipeId() {
         const hash =
             window.location.hash;
@@ -24,84 +21,9 @@
         return parts[parts.length - 1];
     }
 
-
-    function getFavoriteIds() {
-        try {
-            const favorites =
-                JSON.parse(
-                    localStorage.getItem(
-                        "cin_delices_favorites"
-                    ) || "[]"
-                );
-
-            return Array.isArray(favorites)
-                ? favorites.map(Number)
-                : [];
-
-        } catch (error) {
-            console.error(error);
-
-            return [];
-        }
-    }
-
-
-    function checkFavorite() {
-        if (!recipe) {
-            return;
-        }
-
-        const favorites =
-            getFavoriteIds();
-
-        isFavorite =
-            favorites.includes(
-                Number(recipe.id)
-            );
-    }
-
-
-    function toggleFavorite() {
-        if (!recipe) {
-            return;
-        }
-
-        let favorites =
-            getFavoriteIds();
-
-        const recipeId =
-            Number(recipe.id);
-
-
-        if (
-            favorites.includes(recipeId)
-        ) {
-            favorites =
-                favorites.filter(
-                    (id) =>
-                        id !== recipeId
-                );
-
-            isFavorite = false;
-
-        } else {
-            favorites.push(recipeId);
-
-            isFavorite = true;
-        }
-
-
-        localStorage.setItem(
-            "cin_delices_favorites",
-            JSON.stringify(favorites)
-        );
-    }
-
-
     async function loadRecipe() {
         const recipeId =
             getRecipeId();
-
 
         if (!recipeId) {
             error =
@@ -112,13 +34,11 @@
             return;
         }
 
-
         try {
             const response =
                 await fetch(
                     `${API_URL}/api/recipes/${recipeId}`
                 );
-
 
             if (!response.ok) {
                 throw new Error(
@@ -126,13 +46,8 @@
                 );
             }
 
-
             recipe =
                 await response.json();
-
-
-            checkFavorite();
-
 
         } catch (err) {
             console.error(err);
@@ -144,7 +59,6 @@
             loading = false;
         }
     }
-
 
     function getIngredients() {
         if (!recipe?.ingredients) {
@@ -159,7 +73,6 @@
             .filter(Boolean);
     }
 
-
     function getInstructions() {
         if (!recipe?.instructions) {
             return [];
@@ -172,7 +85,6 @@
             )
             .filter(Boolean);
     }
-
 
     onMount(() => {
         loadRecipe();
@@ -188,13 +100,11 @@
             Chargement de la recette...
         </div>
 
-
     {:else if error}
 
         <div class="message error">
             {error}
         </div>
-
 
     {:else if recipe}
 
@@ -210,14 +120,12 @@
 
             <div class="recipe-image">
 
-
                 {#if recipe.image_url}
 
                     <img
                         src={recipe.image_url}
                         alt={recipe.title}
                     />
-
 
                 {:else if recipe.media?.image_url}
 
@@ -226,11 +134,11 @@
                         alt={recipe.media?.title || recipe.title}
                     />
 
-
                 {:else}
 
                     <div class="no-image">
                         🍽️
+
                         <span>
                             Aucune image
                         </span>
@@ -251,7 +159,6 @@
                             {recipe.title}
                         </h1>
 
-
                         <p class="media">
                             🎬
                             {recipe.media?.title ||
@@ -259,18 +166,6 @@
                         </p>
 
                     </div>
-
-
-                    <button
-                        class:active={isFavorite}
-                        class="favorite-button"
-                        type="button"
-                        on:click={toggleFavorite}
-                    >
-                        {isFavorite
-                            ? "★ FAVORI"
-                            : "☆ AJOUTER AUX FAVORIS"}
-                    </button>
 
                 </div>
 
@@ -287,7 +182,9 @@
                 <div class="infos">
 
                     <div>
-                        <span>Catégorie</span>
+                        <span>
+                            Catégorie
+                        </span>
 
                         <strong>
                             {recipe.category?.name ||
@@ -297,7 +194,9 @@
 
 
                     <div>
-                        <span>Préparation</span>
+                        <span>
+                            Préparation
+                        </span>
 
                         <strong>
                             {recipe.prep_time !== null &&
@@ -309,7 +208,9 @@
 
 
                     <div>
-                        <span>Cuisson</span>
+                        <span>
+                            Cuisson
+                        </span>
 
                         <strong>
                             {recipe.cook_time !== null &&
@@ -321,7 +222,9 @@
 
 
                     <div>
-                        <span>Difficulté</span>
+                        <span>
+                            Difficulté
+                        </span>
 
                         <strong>
                             {recipe.difficulte ||
@@ -334,6 +237,7 @@
 
                 <div class="author">
                     Recette publiée par
+
                     <strong>
                         {recipe.author?.username ||
                         "Utilisateur"}
@@ -351,7 +255,6 @@
                 INGRÉDIENTS
             </h2>
 
-
             {#if getIngredients().length > 0}
 
                 <ul>
@@ -365,7 +268,6 @@
                     {/each}
 
                 </ul>
-
 
             {:else}
 
@@ -384,7 +286,6 @@
                 INSTRUCTIONS
             </h2>
 
-
             {#if getInstructions().length > 0}
 
                 <ol>
@@ -398,7 +299,6 @@
                     {/each}
 
                 </ol>
-
 
             {:else}
 
@@ -416,14 +316,12 @@
 
 
 <style>
-
     .recipe-detail-page {
         width: 90%;
         max-width: 1100px;
 
         margin: 40px auto 70px;
     }
-
 
     .back-button {
         display: inline-block;
@@ -436,7 +334,6 @@
 
         font-weight: bold;
     }
-
 
     .recipe-card {
         display: grid;
@@ -452,11 +349,9 @@
         border-radius: 10px;
     }
 
-
     .recipe-image {
         min-height: 380px;
     }
-
 
     .recipe-image img {
         display: block;
@@ -468,7 +363,6 @@
 
         object-fit: cover;
     }
-
 
     .no-image {
         display: flex;
@@ -492,18 +386,15 @@
         font-size: 55px;
     }
 
-
     .no-image span {
         color: #aaa;
 
         font-size: 15px;
     }
 
-
     .recipe-main {
         padding: 35px;
     }
-
 
     .title-row {
         display: flex;
@@ -514,7 +405,6 @@
         gap: 20px;
     }
 
-
     h1 {
         margin: 0 0 12px;
 
@@ -522,7 +412,6 @@
 
         font-size: 32px;
     }
-
 
     .media {
         margin: 0;
@@ -532,7 +421,6 @@
         font-size: 17px;
     }
 
-
     .description {
         margin-top: 30px;
 
@@ -540,31 +428,6 @@
 
         line-height: 1.7;
     }
-
-
-    .favorite-button {
-        padding: 11px 15px;
-
-        background-color: transparent;
-
-        border: 1px solid #d4af37;
-        border-radius: 5px;
-
-        color: #d4af37;
-
-        cursor: pointer;
-
-        font-weight: bold;
-    }
-
-
-    .favorite-button:hover,
-    .favorite-button.active {
-        background-color: #d4af37;
-
-        color: black;
-    }
-
 
     .infos {
         display: grid;
@@ -577,7 +440,6 @@
         margin-top: 35px;
     }
 
-
     .infos div {
         padding: 16px;
 
@@ -586,7 +448,6 @@
         border: 1px solid #292d43;
         border-radius: 6px;
     }
-
 
     .infos span {
         display: block;
@@ -598,11 +459,9 @@
         font-size: 13px;
     }
 
-
     .infos strong {
         color: white;
     }
-
 
     .author {
         margin-top: 30px;
@@ -610,11 +469,9 @@
         color: #ccc;
     }
 
-
     .author strong {
         color: #d4af37;
     }
-
 
     .recipe-section {
         margin-top: 30px;
@@ -629,26 +486,22 @@
         color: white;
     }
 
-
     .recipe-section h2 {
         margin-top: 0;
 
         color: #d4af37;
     }
 
-
     .recipe-section ul,
     .recipe-section ol {
         padding-left: 25px;
     }
-
 
     .recipe-section li {
         margin: 10px 0;
 
         line-height: 1.6;
     }
-
 
     .message {
         padding: 35px;
@@ -663,11 +516,9 @@
         text-align: center;
     }
 
-
     .message.error {
         color: #ff7777;
     }
-
 
     @media (max-width: 850px) {
 
@@ -675,19 +526,15 @@
             grid-template-columns: 1fr;
         }
 
-
         .recipe-image {
             min-height: 300px;
         }
-
 
         .recipe-image img,
         .no-image {
             min-height: 300px;
         }
-
     }
-
 
     @media (max-width: 600px) {
 
@@ -695,31 +542,20 @@
             width: 94%;
         }
 
-
         .recipe-main {
             padding: 24px;
         }
-
 
         .title-row {
             flex-direction: column;
         }
 
-
-        .favorite-button {
-            width: 100%;
-        }
-
-
         .infos {
             grid-template-columns: 1fr;
         }
 
-
         .recipe-section {
             padding: 22px;
         }
-
     }
-
 </style>
