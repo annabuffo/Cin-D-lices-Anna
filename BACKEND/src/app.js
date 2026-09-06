@@ -32,7 +32,7 @@ app.use(
                 return;
             }
 
-            callback(null, true);
+            callback(new Error("Origine non autorisée par CORS."));
         },
         credentials: true,
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],

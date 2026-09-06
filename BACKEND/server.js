@@ -8,7 +8,10 @@ const PORT = process.env.PORT || 3000;
 async function startServer() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync({ alter: true });
+
+        if (process.env.NODE_ENV !== "production") {
+            await sequelize.sync({ alter: true });
+        }
 
         console.log("✅ Connexion à PostgreSQL réussie.");
 
