@@ -1,452 +1,664 @@
-# Cin-D-lices-Anna
+# Ciné Délices
 
-1. Conception 
-    - Idées du projet
-    - cahier des charges 
-    - Besoins utilisateurs
-    - Users Stories
-    - MCD
-    - MPD
-    - MLD
-    - Cardinalités
-    - Relations SQL
+> Application web permettant de découvrir, rechercher et publier des recettes inspirées de films et de séries.
 
-2. Préparation Technique
-    - Structure du projet
-    - Installations Node.js / Express
-    - PostgresSQL
-    - Sequelize
-    - Variables .env
-    - GitHub
+## Sommaire
 
-3. Frontend 
-    - HTML/CSS responsive 
-    - Pages principales 
-    - Formulaire
-    - Navigation
-    - Dynamisme JavaScript
-    - Connexion avec une API REST
+- [Présentation du projet](#présentation-du-projet)
+- [Cahier des charges](#cahier-des-charges)
+- [Besoins utilisateurs](#besoins-utilisateurs)
+- [User stories](#user-stories)
+- [Conception de la base de données](#conception-de-la-base-de-données)
+- [Préparation technique](#préparation-technique)
+- [Frontend](#frontend)
+- [Backend](#backend)
+- [Fonctionnalités](#fonctionnalités)
+- [Sécurité](#sécurité)
+- [Installation locale](#installation-locale)
+- [Structure du projet](#structure-du-projet)
+- [Préparation à la présentation](#préparation-à-la-présentation)
 
-4. Backend 
-    - API REST
-    - Routes
-    - Controllers
-    - Middlewares
-    - Models
-    - Migrations
-    - Seeders
-    - CRUD Recettes
-    - Authentification JWT / Argon2
-    - Sécurité
+---
 
-5. Verbalisation du projet
-    - Apprendre à expliquer chaques fichiers
-    - Vocabulaires techniques 
-    - Question Jury 
-    - Entraînement oral
+## Présentation du projet
 
-ARBORECENCE 
+**Ciné Délices** est une application web qui associe l'univers culinaire au cinéma et aux séries.
 
-Projet-reprise-Cin-d-lices
-├── backend
-├── frontend
-├── .gitignore
-├── README.md
-├── data.sql
-├── package.json
-└── package-lock.json
+L'objectif est de permettre aux visiteurs de rechercher et consulter des recettes inspirées de films ou de séries. Les utilisateurs authentifiés disposent d'un espace personnel leur permettant notamment de publier et gérer leurs propres recettes.
 
+Le projet sépare le **frontend**, le **backend**, l'**API REST** et la **base de données PostgreSQL**.
 
-FONCTIONNALITEES DE BASES A PREVOIR 
+### Objectif « moins de 3 clics »
 
-- Page d'Accueil
-- Liste des recettes
-- Détails d'une recette
-- Film / Séries associés aux recettes
-- Catégories de recettes
+L'interface doit rester simple et permettre à l'utilisateur d'accéder rapidement aux recettes et aux œuvres associées, en quelques clics.
+
+---
+
+# Cahier des charges
+
+## Quel est le but de Ciné Délices ?
+
+Le but de Ciné Délices est de créer une application web possédant une véritable interface utilisateur permettant de rechercher des recettes inspirées de films et de séries.
+
+Le site associe l'univers culinaire au monde cinématographique grâce à différentes recettes liées à des œuvres de cinéma et de télévision.
+
+## Qui utilise le site ?
+
+Les contenus publics peuvent être consultés par les visiteurs.
+
+L'inscription et les fonctionnalités nécessitant un compte sont destinées aux utilisateurs remplissant les conditions prévues par l'application, notamment l'âge minimum défini lors de l'inscription.
+
+## Fonctionnalités principales
+
+- Consultation des films et séries
+- Consultation et recherche des recettes
+- Filtrage des recettes par catégorie
+- Filtrage des recettes par film ou série
+- Affichage d'une fiche recette détaillée
+- Affichage d'une fiche film/série et de ses recettes associées
 - Inscription
-- Connexion 
+- Authentification
+- Espace personnel utilisateur
+- Création d'une recette
+- Modification d'une recette par son auteur
+- Suppression d'une recette par son auteur
+- Commentaires associés aux recettes
+- Espace d'administration
+- Gestion administrative des utilisateurs
+- Gestion administrative des recettes
+- Gestion administrative des catégories
+- Gestion administrative des médias
+- Modération des commentaires
 
-- Création de recette  -------------\
-- Modification d'une recette         ------- Seulement lorsqu'un utilisateur est authentifié.
-- Suppression d'une recette---------/
+## Données principales
 
-BASE DE DONNEES DE DEPART (Entités - tables)
+L'application utilise cinq entités principales :
 
-- User
-- Recipe
-- Category
-- Media
-- Comment
+| Entité | Rôle |
+| --- | --- |
+| `User` | Stocker les comptes utilisateurs |
+| `Recipe` | Stocker les recettes publiées |
+| `Category` | Classer les recettes |
+| `Media` | Stocker les films et séries associés |
+| `Comment` | Stocker les commentaires associés aux recettes |
 
-RELATIONS SIMPLES : 
+---
 
-Un utilisateur peut créer plusieurs recettes.
-Une recette appartient à un  utilisateur.
+# Besoins utilisateurs
 
-Une catégorie peut contenir plusieurs recettes.
+## Visiteur
+
+Un visiteur doit pouvoir :
+
+- consulter la page d'accueil ;
+- rechercher des recettes ;
+- filtrer les recettes ;
+- consulter les films et séries ;
+- consulter une fiche film/série ;
+- consulter une fiche recette ;
+- accéder aux pages À propos, Contact, Politique de confidentialité et Conditions d'utilisation ;
+- créer un compte ;
+- se connecter.
+
+## Utilisateur authentifié
+
+Un utilisateur authentifié doit pouvoir :
+
+- accéder à son espace personnel ;
+- consulter ses informations ;
+- créer une recette ;
+- modifier ses propres recettes ;
+- supprimer ses propres recettes ;
+- consulter les recettes et médias disponibles ;
+- associer une recette à une catégorie ;
+- associer une recette à un film ou une série.
+
+## Administrateur
+
+Un administrateur doit pouvoir :
+
+- accéder à son tableau de bord ;
+- gérer les utilisateurs ;
+- gérer les recettes ;
+- gérer les catégories ;
+- gérer les films et séries ;
+- modérer les commentaires.
+
+---
+
+# User stories
+
+## Visiteur
+
+| En tant que... | Je veux... | Afin de... |
+| --- | --- | --- |
+| Visiteur | consulter les recettes associées à des films et séries | découvrir des recettes inspirées du cinéma |
+| Visiteur | rechercher une recette | trouver rapidement une recette précise |
+| Visiteur | rechercher un film ou une série | découvrir les recettes qui lui sont associées |
+| Visiteur | filtrer les recettes par catégorie | trouver le type de recette recherché |
+| Visiteur | consulter une fiche recette | connaître ses ingrédients et ses instructions |
+| Visiteur | consulter une fiche film/série | découvrir les recettes associées à cette œuvre |
+| Visiteur | m'inscrire | créer un compte utilisateur |
+| Visiteur | me connecter | accéder aux fonctionnalités réservées aux utilisateurs authentifiés |
+| Visiteur | consulter la page À propos | comprendre le concept de Ciné Délices |
+| Visiteur | consulter la page Contact | accéder aux informations de contact |
+| Visiteur | consulter la Politique de confidentialité | connaître les règles relatives aux données |
+| Visiteur | consulter les Conditions d'utilisation | connaître les règles d'utilisation du site |
+
+## Utilisateur authentifié
+
+| En tant que... | Je veux... | Afin de... |
+| --- | --- | --- |
+| Utilisateur | accéder à mon profil | consulter mon espace personnel |
+| Utilisateur | créer une recette | publier une recette inspirée d'un film ou d'une série |
+| Utilisateur | modifier ma recette | corriger ou mettre à jour son contenu |
+| Utilisateur | supprimer ma recette | retirer une publication dont je suis l'auteur |
+| Utilisateur | associer une recette à une catégorie | permettre son classement |
+| Utilisateur | associer une recette à un film ou une série | relier la recette à l'œuvre qui l'inspire |
+| Utilisateur | commenter une recette lorsque cette fonctionnalité est disponible | partager mon avis |
+
+## Administrateur
+
+| En tant que... | Je veux... | Afin de... |
+| --- | --- | --- |
+| Administrateur | accéder à un tableau de bord | gérer l'application |
+| Administrateur | gérer les utilisateurs | administrer les comptes |
+| Administrateur | gérer les recettes | administrer les contenus culinaires |
+| Administrateur | gérer les catégories | maintenir le classement des recettes |
+| Administrateur | gérer les médias | maintenir le catalogue de films et séries |
+| Administrateur | modérer les commentaires | administrer les contenus publiés |
+
+---
+
+# Conception de la base de données
+
+## MCD — Modèle Conceptuel de Données
+
+Le **MCD** décrit les entités principales et leurs relations sans dépendre de leur implémentation SQL.
+
+### Entités
+
+- `USER`
+- `RECIPE`
+- `CATEGORY`
+- `MEDIA`
+- `COMMENT`
+
+### Relations et cardinalités
+
+#### USER — RECIPE
+
+```text
+USER (0,N) -------- crée -------- (1,1) RECIPE
+```
+
+Un utilisateur peut créer zéro ou plusieurs recettes.
+
+Une recette est créée par un seul utilisateur.
+
+#### CATEGORY — RECIPE
+
+```text
+CATEGORY (0,N) ----- classe ------ (1,1) RECIPE
+```
+
+Une catégorie peut contenir zéro ou plusieurs recettes.
+
 Une recette appartient à une catégorie.
 
-Un film / série peut être associé à plusieurs catégories.
-Une catégorie appartient à un film / série.
+#### MEDIA — RECIPE
 
-Un utilisateur peut écrire plusieurs commentaires.
+```text
+MEDIA (0,N) ------- inspire ------ (1,1) RECIPE
+```
+
+Un film ou une série peut inspirer zéro ou plusieurs recettes.
+
+Une recette est associée à un média.
+
+#### USER — COMMENT
+
+```text
+USER (0,N) -------- écrit ------- (1,1) COMMENT
+```
+
+Un utilisateur peut écrire zéro ou plusieurs commentaires.
+
 Un commentaire appartient à un utilisateur.
 
-Une recette peut recevoir plusieurs commentaires.
-Une commentaires appartient à une recette.
+#### RECIPE — COMMENT
 
-CAHIER DES CHARGES
+```text
+RECIPE (0,N) ------ reçoit ------ (1,1) COMMENT
+```
 
-1. Quel est le but du site CinéDélices ? 
+Une recette peut recevoir zéro ou plusieurs commentaires.
 
-Le but du prjet CinéDélices est de créer une appli web possédant une véritable interface utilisateur permettant de rechercher des recettes inspirées de films / séries.
-Le site permettra également d'associer l'univers culinaire au monde cinématographique grâce à différentes recettes liées à des oeuvres de cinéma et de télévison.
+Un commentaire est associé à une recette.
 
-2. Qui va utiliser le site ?
+---
 
-Le site pourra être consulté par des utilisateurs de toutes âges mais avec un accés limité.
-En revanche l'accés à l'authentification, l'inscription, la publication de recettes, laisser des commentaires, seront réservées aux utilisateurs authentifié âgé d'au minimum 18 ans révolu et plus. 
+# MLD — Modèle Logique de Données
 
-3. Quelle sont les fonctionnalitées principales ?
+Le **MLD** transforme les relations du MCD en tables, clés primaires et clés étrangères.
 
-Les principales fonctionnalités du site seront :
+Dans une relation **1,N**, la clé étrangère est placée du côté **N**.
 
-• la consultation de recettes associées à des films ou des séries ;
-
-• l’inscription et l’authentification des utilisateurs ;
-
-• l’affichage des fiches recettes avec les films ou séries associés ;
-
-• la possibilité pour les utilisateurs authentifiés de publier une recette ;
-
-• la création, modification et suppression des recettes par leurs auteurs ;
-
-• la possibilité de laisser des commentaires sous les recettes ;
-
-• l’interaction entre utilisateurs grâce aux commentaires et aux publications culinaires.
-
-4. Quelle données le site doit stocker ?
-
-users --> utilisateurs
-recipes --> recettes
-media --> média
-categories --> catégories
-comments --> commentaires
-
-Pourquoi ces 5 tables ?
-
-- users
-Pour stocker les utilisateurs inscrits.
-
-- recipes
-Pour stocker les recettes publiées.
-
-- media
-Pour stocker les films ou séries associés aux recettes.
-
-- categories
-Pour classer les recettes : dessert, plat, boisson, etc.
-
-- comments
-Pour permettre aux utilisateurs connectés de commenter les recettes.
-
-
-OBJECTIF "moins de 3 clics"
-
-L’interface devra être simple et facile à utiliser afin que l’utilisateur puisse accéder rapidement aux recettes et aux films en quelques clics.
-
-USER STORIES (users non authentifiées)
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir consulter des recettes associées à des films      |
-| et séries                                                         |
-| afin de découvrir des recettes inspirées du cinéma.               |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir m'inscrire                                        |
-| afin de créer un espace personnnel.                               |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir accéder à la page de politiques et                |  confidentialité                                                     |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir consulter la page de contact                      |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir accéder à la page de conditions d'utilisation     |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir consulter la page A propos                        |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-USER STORIES (users authentifiées)
-
-|-------------------------------------------------------------------|
-| En tant qu'utilisateur,                                           |
-| je veux pouvoir m'authentifier                                    |
-| afin d'avoir accès à mon espace personnel.                        |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant qu'utilisateur authenfié,                                 |
-| je veux pouvoir commenter une recette                             |
-| afin de partager mon avis avec les autres utilisateurs.           |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant qu'utilisateur,                                           |
-| je veux consulter des recettes associées à des films et séries    |
-| afin de découvrir des recettes inspirées du cinéma.               |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant qu’utilisateur,                                           |
-| je veux pouvoir m'authentifier,                                   |
-| afin d’accéder aux fonctionnalités réservées aux utilisateurs     |
-| authentifiés.                                                     |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant qu’utilisateur,                                           |
-| je veux pouvoir créer des recettes                                |
-| afin de publier des recettes.                                     |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir accéder à la page de politiques et                |  confidentialité                                                     |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir consulter la page de contact                      |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir accéder à la page de conditions d'utilisation     |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-|-------------------------------------------------------------------|
-| En tant que visiteur,                                             |
-| je veux pouvoir consulter la page A propos                        |
-| afin de la consulter.                                             |
-|-------------------------------------------------------------------|
-
-MCD entités (Modèles Conceptuel de Données)
-
-- USER
-- RECIPE
-- CATEGORY
-- MEDIA
-- COMMENT
-
-Première relation : USER -- RECIPE
-
-- USER (0,N) —— crée —— (1,1) RECIPE
-
-Un user peut créer 0 ou plusieurs recipes.
-Une recipe est créée par 1 seul user.
-
-Deuxième relation : CATEGORY -- RECIPE
-
-- CATEGORY (0,N) —— contenir —— (1,1) RECIPE
-
-Une category peut contenir 0 ou plusieurs recipe.
-Une recipe appartient à 1 category.
-
-Troisième relation : MEDIA -- RECIPE
-
-- MEDIA (0,N) —— inspire —— (1,1) RECIPE
-
-Un media est associé à 0 ou plusieurs recipes.
-Une recipe appartient à 1 media.
-
-Quatrième relation USER -- COMMENT
-
-- USER (0,N) —— écrit —— (1,1) COMMENT
-
-Un user peut écrire 0 ou plusieurs comments.
-Un comment appartient à 1 user.
-
-Cinquième relation RECIPE -- COMMENT
-
-- RECIPE (0,N) —— recevoir —— (1,1) COMMENT
-
-Une recipe peut recevoir 0 ou plusieurs comments.
-Un comment appartient à 1 recipe.
-
-MLD (Modèle Logique de Données) 
-
-"permet de transformer le MCD en tables, clé primaires et clé étrangères" 
-
+```text
 USER
--
-id_user (PK)
+----
+id (PK)
 username
 email
 password
-age
-date_creation
+birth_date
+role
+date_created
 
-RECIPE
--
-id_recipe (PK)
-titre
+
+CATEGORY
+--------
+id (PK)
+name
 description
-ingredients
-instructions
+
+
+MEDIA
+-----
+id (PK)
+title
+type
+description
 image_url
-temps_preparation
-temps_cuisson
-date_creation
-
-id_user (FK)
-id_category (FK)
-id_media (FK)
-
-CATEGORY
--
-id_category (PK)
-nom
-description
-id_media (FK)
-
-MEDIA
--
-id_media (PK)
-title
-type
-description
-release_date  (date de sortie)
-
-COMMENT
--
-id_comment (PK)
-contenu
-date_creation
-
-id_user (FK)
-id_recipe (FK)
-
- - id_user dans RECIPE car une recette appartient à un utilisateur.
- - id_category dans RECIPE car une recette appartient à une catégorie.
- - id_media dans RECIPE car une recette appartient à un film/série.
- - id_user dans COMMENT car un commentaire est écrit par un utilisateur.
- - id_recipe dans COMMENT car un commentaire appartient à une recette.
-
-id_user dans RECIPE (1,1),
-id_category dans RECIPE (1,1),
-id_media dans RECIPE (1,1),
-id_user dans COMMENT (1,1),
-id_recipe dans COMMENT (1,1)
-
-MLD (Modèle Logique de Données) 
-
-- USER -- RECIPE
-
-Etape 1 
-
-Repérer : qui est du côté MANY (N)
-RECIPE
-car 1 user peut créer  plusieurs recipes.
-
-Etape 2
-
-le côté MANY reçoit : la clé étrangère 
-RECIPE reçoit id_user
-
-Etape 3 
-
-USER 
--
-id_user (PK)
-pseudo
-email
-mot_de_passe
-
-RECIPE
--
-id_recipe (PK)
-titre
-description
-
-id_user (FK)
-
-pourquoi ? : parce que chaque recette appartient à 1 utilisateur 
-donc : RECIPE doit savoir quel user l'a créer
-
-Le MLD consiste surtout à :
-transformer les relations du MCD en clés étrangères
-
-Dans une relation 1,N :
-la FK va du côté N.
-
-USER
--
-id_user (PK)
-username
-email
-password
-age
-date_creation
-
-CATEGORY
--
-id_category (PK)
-nom
-description
-
-MEDIA
--
-id_media (PK)
-title
-type
-description
 release_date
 
-COMMENT
--
-id_comment (PK)
-contenu
-date_creation
 
-id_user (FK)
-id_recipe (FK)
-
-RECIPE 
--
-id_recipe (PK)
-titre
+RECIPE
+------
+id (PK)
+title
 description
 ingredients
 instructions
+difficulte
 image_url
-temps_preparation
-temps_cuisson
-date_creation
+prep_time
+cook_time
+date_created
+user_id (FK -> USER.id)
+category_id (FK -> CATEGORY.id)
+media_id (FK -> MEDIA.id)
 
-id_user (FK)
-id_category (FK)
-id_media (FK)
 
-MPD (Modèle Physique de Données)
+COMMENT
+-------
+id (PK)
+content
+date_created
+user_id (FK -> USER.id)
+recipe_id (FK -> RECIPE.id)
+```
+
+## Placement des clés étrangères
+
+- `user_id` dans `RECIPE` car une recette appartient à un utilisateur.
+- `category_id` dans `RECIPE` car une recette appartient à une catégorie.
+- `media_id` dans `RECIPE` car une recette appartient à un film ou une série.
+- `user_id` dans `COMMENT` car un commentaire est écrit par un utilisateur.
+- `recipe_id` dans `COMMENT` car un commentaire appartient à une recette.
+
+---
+
+# MPD — Modèle Physique de Données
+
+Le **MPD** représente l'implémentation physique de la base de données dans PostgreSQL.
+
+Les types et contraintes doivent rester cohérents avec les modèles Sequelize utilisés dans le projet.
+
+```sql
+users (
+    id INTEGER PRIMARY KEY,
+    username VARCHAR,
+    email VARCHAR UNIQUE,
+    password VARCHAR,
+    birth_date DATE,
+    role VARCHAR,
+    date_created TIMESTAMP
+)
+
+categories (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR,
+    description TEXT
+)
+
+media (
+    id INTEGER PRIMARY KEY,
+    title VARCHAR,
+    type VARCHAR,
+    description TEXT,
+    image_url TEXT,
+    release_date DATE
+)
+
+recipes (
+    id INTEGER PRIMARY KEY,
+    title VARCHAR,
+    description TEXT,
+    ingredients TEXT,
+    instructions TEXT,
+    difficulte VARCHAR,
+    image_url TEXT,
+    prep_time INTEGER,
+    cook_time INTEGER,
+    date_created TIMESTAMP,
+    user_id INTEGER REFERENCES users(id),
+    category_id INTEGER REFERENCES categories(id),
+    media_id INTEGER REFERENCES media(id)
+)
+
+comments (
+    id INTEGER PRIMARY KEY,
+    content TEXT,
+    date_created TIMESTAMP,
+    user_id INTEGER REFERENCES users(id),
+    recipe_id INTEGER REFERENCES recipes(id)
+)
+```
+
+---
+
+# Préparation technique
+
+## Frontend
+
+- Svelte 5
+- Vite
+- JavaScript
+- HTML
+- CSS
+- `svelte-spa-router`
+
+## Backend
+
+- Node.js
+- Express
+- Sequelize
+- PostgreSQL
+
+## Authentification et sécurité
+
+- JSON Web Token (JWT)
+- Argon2
+- Helmet
+- CORS
+- Express Rate Limit
+- Express Validator
+- `dotenv`
+
+## Outils
+
+- Git
+- GitHub
+- Visual Studio Code
+- npm
+
+---
+
+# Frontend
+
+Le frontend constitue l'interface utilisateur de Ciné Délices.
+
+Il comprend notamment :
+
+- une interface responsive ;
+- une navigation entre les différentes pages ;
+- une page d'accueil ;
+- une page Films / Séries ;
+- une page Recettes ;
+- des fiches détaillées ;
+- les formulaires d'inscription et de connexion ;
+- l'espace utilisateur ;
+- l'espace administrateur ;
+- les formulaires de création et modification de recettes ;
+- les pages légales et informatives ;
+- les appels vers l'API REST du backend.
+
+L'URL du backend peut être définie par une variable d'environnement :
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+---
+
+# Backend
+
+Le backend fournit une **API REST** utilisée par le frontend.
+
+L'organisation repose notamment sur :
+
+- les routes ;
+- les controllers ;
+- les models Sequelize ;
+- les middlewares ;
+- la connexion PostgreSQL ;
+- les seeders et scripts de données ;
+- l'authentification JWT.
+
+## Principales ressources de l'API
+
+```text
+/api/auth
+/api/users
+/api/recipes
+/api/categories
+/api/media
+/api/comments
+```
+
+Les opérations disponibles dépendent de la ressource, de l'authentification et du rôle de l'utilisateur.
+
+## CRUD des recettes
+
+Le projet met notamment en œuvre les quatre opérations fondamentales du CRUD :
+
+- **Create** : création d'une recette ;
+- **Read** : consultation des recettes ;
+- **Update** : modification d'une recette ;
+- **Delete** : suppression d'une recette.
+
+---
+
+# Fonctionnalités
+
+## Fonctionnalités publiques
+
+- Page d'accueil
+- Consultation des films et séries
+- Recherche de films et séries
+- Consultation des recettes
+- Recherche de recettes
+- Filtrage par catégorie
+- Filtrage par film/série
+- Détail d'une recette
+- Détail d'un film/série
+- Consultation des recettes associées à un média
+- Inscription
+- Connexion
+- Page À propos
+- Page Contact
+- Politique de confidentialité
+- Conditions d'utilisation
+
+## Espace utilisateur
+
+- Profil utilisateur
+- Création d'une recette
+- Consultation de ses recettes
+- Modification de ses recettes
+- Suppression de ses recettes
+- Association d'une recette à une catégorie
+- Association d'une recette à un film ou une série
+
+## Administration
+
+- Tableau de bord
+- Gestion des utilisateurs
+- Gestion des recettes
+- Gestion des catégories
+- Gestion des médias
+- Modération des commentaires
+
+---
+
+# Sécurité
+
+Plusieurs mécanismes sont utilisés côté backend :
+
+- hachage des mots de passe avec **Argon2** ;
+- authentification par **JWT** ;
+- routes protégées par middleware ;
+- contrôle des droits sur certaines opérations ;
+- en-têtes de sécurité avec **Helmet** ;
+- configuration **CORS** ;
+- limitation du nombre de requêtes avec **Express Rate Limit** ;
+- validation de données avec **Express Validator** ;
+- paramètres sensibles placés dans des variables d'environnement.
+
+> **Important :** le fichier `.env` contenant les secrets ne doit jamais être envoyé sur GitHub.
+
+---
+
+# Installation locale
+
+## Prérequis
+
+Avant de lancer le projet :
+
+- Node.js
+- npm
+- PostgreSQL
+- une base de données configurée pour Ciné Délices
+
+## Récupération du projet
+
+```bash
+git clone <URL_DU_DEPOT>
+cd Cin-D-lices-Anna
+```
+
+## Installation du backend
+
+```bash
+cd BACKEND
+npm install
+```
+
+Créer le fichier `.env` nécessaire à la connexion PostgreSQL et à l'authentification.
+
+Exemple indicatif :
+
+```env
+PORT=3000
+DATABASE_URL=<URL_POSTGRESQL>
+JWT_SECRET=<SECRET_JWT>
+```
+
+Les noms exacts des variables doivent correspondre à ceux utilisés dans la configuration du projet.
+
+Démarrer ensuite le backend avec le script défini dans `package.json`, par exemple :
+
+```bash
+npm run dev
+```
+
+## Installation du frontend
+
+Dans un autre terminal :
+
+```bash
+cd FRONTEND
+npm install
+npm run dev
+```
+
+Puis ouvrir l'adresse indiquée par Vite dans le terminal.
+
+---
+
+# Structure du projet
+
+```text
+Cin-D-lices-Anna/
+│
+├── BACKEND/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── database/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   └── routes/
+│   │
+│   ├── seed.js
+│   ├── seed-recipes.js
+│   └── package.json
+│
+├── FRONTEND/
+│   ├── src/
+│   │   ├── components/
+│   │   └── pages/
+│   └── package.json
+│
+├── README.md
+└── .gitignore
+```
+
+---
+
+# Préparation à la présentation
+
+Pour présenter le projet, il est important de savoir expliquer :
+
+- l'objectif de Ciné Délices ;
+- le parcours d'un visiteur ;
+- le parcours d'un utilisateur authentifié ;
+- le rôle de l'administrateur ;
+- la séparation frontend/backend ;
+- le fonctionnement d'une API REST ;
+- le CRUD ;
+- le rôle des routes ;
+- le rôle des controllers ;
+- le rôle des models ;
+- le rôle des middlewares ;
+- le fonctionnement de Sequelize ;
+- les relations entre les tables ;
+- le MCD ;
+- le MLD ;
+- le MPD ;
+- le fonctionnement de JWT ;
+- le hachage des mots de passe avec Argon2 ;
+- le rôle des variables d'environnement ;
+- les principales mesures de sécurité.
+
+---
+
+# État du projet
+
+Les principales fonctionnalités de **Ciné Délices** ont été développées et testées localement.
+
+La prochaine étape consiste à effectuer :
+
+1. les contrôles techniques finaux ;
+2. la préparation au déploiement ;
+3. le déploiement de l'application ;
+4. la vérification de la version déployée ;
+5. la finalisation des documents de présentation.
+
+---
+
+# Auteur
+
+**Anna BUFFO**
+
+Projet réalisé dans le cadre de la préparation au titre professionnel **Développeur Web et Web Mobile (DWWM)**.
