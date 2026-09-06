@@ -49,7 +49,7 @@
         /* USER */
         "/user/profile": Profile,
 
-        "/user/movie/:id": MovieDetail,
+        "/user/movieDetail/:id": MovieDetail,
         "/user/recipe/:id": RecipeDetail,
 
         "/user/addRecipe": AddRecipe,

@@ -1,5 +1,222 @@
 <script>
+    // @ts-nocheck
+
+    import { onMount } from "svelte";
     import Cookies from "../components/cookies.svelte";
+
+    const API_URL =
+        import.meta.env.VITE_API_URL ||
+        "http://localhost:3000";
+
+    let recipes = [];
+
+    let featuredCards = [
+        {
+            mediaTitle: "La petite sirène",
+            displayMedia: "La Petite Sirène",
+            fallbackTitle: "Poisson Rôti et Légumes au Four",
+            image: "/img-card-sct-1/poisson.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Super Mario Bros",
+            displayMedia: "Super Mario Bros",
+            fallbackTitle: "Tagliatelles crémeuses aux champignons",
+            image: "/img-card-sct-1/champignon.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Ratatouille",
+            displayMedia: "Ratatouille",
+            fallbackTitle: "Ratatouille aux légumes",
+            image: "/img-card-sct-1/ratatouille.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "La Soupe Aux Choux",
+            displayMedia: "La Soupe Aux Choux",
+            fallbackTitle: "Soupe aux choux traditionnelle",
+            image: "/img-card-sct-1/choux.png",
+            recipeId: null,
+            recipeTitle: null,
+        },
+    ];
+
+    let adventureCards = [
+        {
+            mediaTitle: "La petite sirène",
+            displayMedia: "La Petite Sirène",
+            fallbackTitle: "Poisson Rôti et Légumes au Four",
+            image: "/img-card-sct-1/sirène.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "La Soupe Aux Choux",
+            displayMedia: "La soupe aux choux",
+            fallbackTitle: "Soupe aux choux traditionnelle",
+            image: "/img-home/La_Soupe_aux_choux.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Doctor Who",
+            displayMedia: "Doctor Who",
+            fallbackTitle: "Tourte du Tardis",
+            image: "/img-home/who.webp",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Charlie et la chocolaterie",
+            displayMedia: "Charlie et la chocolaterie",
+            fallbackTitle: "Moelleux au chocolat et caramel",
+            image: "/img-home/chocolat.webp",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Vice Versa",
+            displayMedia: "Vice Versa",
+            fallbackTitle: "Cupcakes des émotions",
+            image: "/img-home/vice versa.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Né quelque part",
+            displayMedia: "Né quelque part",
+            fallbackTitle: "Makrout aux dattes",
+            image: "/img-home/né.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "L'Odyssée de Pi",
+            displayMedia: "L'Odyssée de Pi",
+            fallbackTitle: "Riz au curry et lait de coco",
+            image: "/img-home/odyssé.webp",
+            recipeId: null,
+            recipeTitle: null,
+        },
+        {
+            mediaTitle: "Super Mario Bros",
+            displayMedia: "Super Mario Bros",
+            fallbackTitle: "Tagliatelles crémeuses aux champignons",
+            image: "/img-home/Mario.jpg",
+            recipeId: null,
+            recipeTitle: null,
+        },
+    ];
+
+    let bannerRecipeId = null;
+    let bannerRecipeTitle =
+        "Tagliatelles crémeuses aux champignons";
+
+    function normalize(value) {
+        return String(value || "")
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function findRecipeByMedia(mediaTitle) {
+        return recipes.find((recipe) => {
+            const recipeMediaTitle =
+                recipe.media?.title || "";
+
+            return (
+                normalize(recipeMediaTitle) ===
+                normalize(mediaTitle)
+            );
+        });
+    }
+
+    function connectCards(cards) {
+        return cards.map((card) => {
+            const recipe =
+                findRecipeByMedia(
+                    card.mediaTitle
+                );
+
+            return {
+                ...card,
+                recipeId:
+                    recipe?.id || null,
+                recipeTitle:
+                    recipe?.title || null,
+            };
+        });
+    }
+
+    async function loadRecipes() {
+        try {
+            const response =
+                await fetch(
+                    `${API_URL}/api/recipes`
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Impossible de charger les recettes."
+                );
+            }
+
+            const data =
+                await response.json();
+
+            recipes =
+                Array.isArray(data)
+                    ? data
+                    : [];
+
+            featuredCards =
+                connectCards(
+                    featuredCards
+                );
+
+            adventureCards =
+                connectCards(
+                    adventureCards
+                );
+
+            const marioRecipe =
+                findRecipeByMedia(
+                    "Super Mario Bros"
+                );
+
+            if (marioRecipe) {
+                bannerRecipeId =
+                    marioRecipe.id;
+
+                bannerRecipeTitle =
+                    marioRecipe.title;
+            }
+
+            console.log(
+                "RECETTES HOME :",
+                recipes
+            );
+
+            console.log(
+                "CARTES HOME :",
+                featuredCards
+            );
+        } catch (error) {
+            console.error(
+                "Erreur Home :",
+                error
+            );
+        }
+    }
+
+    onMount(() => {
+        loadRecipes();
+    });
 </script>
 
 <main>
@@ -8,14 +225,25 @@
             <span class="movie-icon">🎥</span>
 
             <h2>Super Mario Bros</h2>
-            <h3>Tagliatelles crémeuses aux champignons</h3>
+
+            <h3>
+                {bannerRecipeTitle}
+            </h3>
 
             <p>
-                Plongez dans l'univers de Super Mario Bros avec une recette
-                gourmande inspirée du célèbre champignon.
+                Plongez dans l'univers de Super Mario Bros
+                avec une recette gourmande inspirée du
+                célèbre champignon.
             </p>
 
-            <a href="#/recipes" class="banner-button">
+            <a
+                href={
+                    bannerRecipeId
+                        ? `#/user/recipe/${bannerRecipeId}`
+                        : "#/recipes"
+                }
+                class="banner-button"
+            >
                 VOIR L'ASSOCIATION RECETTE ET FILM
             </a>
         </div>
@@ -26,65 +254,38 @@
     </h1>
 
     <section class="container-card-one">
-        <article class="card">
-            <img
-                src="/img-card-sct-1/poisson.jpg"
-                alt="Poisson rôti et légumes au four"
-            />
+        {#each featuredCards as card}
+            <article class="card">
+                <img
+                    src={card.image}
+                    alt={
+                        card.recipeTitle ||
+                        card.fallbackTitle
+                    }
+                />
 
-            <h3><em>La Petite Sirène :</em></h3>
+                <h3>
+                    <em>
+                        {card.displayMedia} :
+                    </em>
+                </h3>
 
-            <h2>Poisson Rôti et Légumes au Four</h2>
+                <h2>
+                    {card.recipeTitle ||
+                        card.fallbackTitle}
+                </h2>
 
-            <a href="#/user/recipe/petite-sirene">
-                VOIR LA RECETTE
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-card-sct-1/champignon.jpg"
-                alt="Plat de pâtes aux champignons"
-            />
-
-            <h3><em>Super Mario Bros :</em></h3>
-
-            <h2>Tagliatelles crémeuses aux champignons</h2>
-
-            <a href="#/user/recipe/super-mario">
-                VOIR LA RECETTE
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-card-sct-1/ratatouille.jpg"
-                alt="Ratatouille aux légumes"
-            />
-
-            <h3><em>Ratatouille :</em></h3>
-
-            <h2>Ratatouille aux légumes</h2>
-
-            <a href="#/user/recipe/ratatouille">
-                VOIR LA RECETTE
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-card-sct-1/choux.png"
-                alt="Soupe aux choux"
-            />
-
-            <h3><em>La Soupe Aux Choux :</em></h3>
-
-            <h2>Soupe aux choux traditionnelle</h2>
-
-            <a href="#/user/recipe/soupe-choux">
-                VOIR LA RECETTE
-            </a>
-        </article>
+                <a
+                    href={
+                        card.recipeId
+                            ? `#/user/recipe/${card.recipeId}`
+                            : "#/recipes"
+                    }
+                >
+                    VOIR LA RECETTE
+                </a>
+            </article>
+        {/each}
     </section>
 
     <div class="footer-film-strip">
@@ -96,125 +297,33 @@
     </h1>
 
     <section class="container-card">
-        <article class="card">
-            <img
-                src="/img-card-sct-1/sirène.jpg"
-                alt="La Petite Sirène"
-            />
+        {#each adventureCards as card}
+            <article class="card">
+                <img
+                    src={card.image}
+                    alt={card.displayMedia}
+                />
 
-            <h2>La Petite Sirène</h2>
+                <h2>
+                    {card.displayMedia}
+                </h2>
 
-            <p>Poisson Rôti et Légumes au Four</p>
+                <p>
+                    {card.recipeTitle ||
+                        card.fallbackTitle}
+                </p>
 
-            <a href="#/user/recipe/petite-sirene">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/La_Soupe_aux_choux.jpg"
-                alt="La Soupe aux Choux"
-            />
-
-            <h2>La soupe aux choux</h2>
-
-            <p>Soupe aux choux traditionnelle</p>
-
-            <a href="#/user/recipe/soupe-choux">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/who.webp"
-                alt="Doctor Who"
-            />
-
-            <h2>Doctor Who</h2>
-
-            <p>Tourte du Tardis</p>
-
-            <a href="#/user/recipe/doctor-who">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/chocolat.webp"
-                alt="Charlie et la chocolaterie"
-            />
-
-            <h2>Charlie et la chocolaterie</h2>
-
-            <p>Moelleux au chocolat et caramel</p>
-
-            <a href="#/user/recipe/charlie-chocolaterie">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/vice versa.jpg"
-                alt="Vice Versa"
-            />
-
-            <h2>Vice Versa</h2>
-
-            <p>Cupcakes des émotions</p>
-
-            <a href="#/user/recipe/vice-versa">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/né.jpg"
-                alt="Né quelque part"
-            />
-
-            <h2>Né quelque part</h2>
-
-            <p>Makrout aux dattes</p>
-
-            <a href="#/user/recipe/ne-quelque-part">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/odyssé.webp"
-                alt="L'Odyssée de Pi"
-            />
-
-            <h2>L'Odyssée de Pi</h2>
-
-            <p>Riz au curry et lait de coco</p>
-
-            <a href="#/user/recipe/odyssee-pi">
-                Voir la recette
-            </a>
-        </article>
-
-        <article class="card">
-            <img
-                src="/img-home/Mario.jpg"
-                alt="Super Mario Bros"
-            />
-
-            <h2>Super Mario Bros</h2>
-
-            <p>Tagliatelles crémeuses aux champignons</p>
-
-            <a href="#/user/recipe/super-mario">
-                Voir la recette
-            </a>
-        </article>
+                <a
+                    href={
+                        card.recipeId
+                            ? `#/user/recipe/${card.recipeId}`
+                            : "#/recipes"
+                    }
+                >
+                    Voir la recette
+                </a>
+            </article>
+        {/each}
     </section>
 </main>
 
@@ -301,7 +410,7 @@
         padding: 30px;
     }
 
-    /* PREMIÈRE SECTION : 4 CARTES */
+    /* PREMIÈRE SECTION */
 
     .container-card-one {
         width: 90%;
@@ -317,7 +426,7 @@
         border: 2px solid #d4af37;
     }
 
-    /* DEUXIÈME SECTION : 8 CARTES */
+    /* DEUXIÈME SECTION */
 
     .container-card {
         padding: 40px 8%;
@@ -330,7 +439,7 @@
         background-color: #d4af37;
     }
 
-    /* TOUTES LES CARTES */
+    /* CARTES */
 
     .card {
         background-color: rgb(6, 6, 48);
@@ -388,13 +497,14 @@
     .barre {
         height: 10px;
 
-        background: repeating-linear-gradient(
-            to right,
-            black 0,
-            black 12px,
-            #d4af37 12px,
-            #d4af37 18px
-        );
+        background:
+            repeating-linear-gradient(
+                to right,
+                black 0,
+                black 12px,
+                #d4af37 12px,
+                #d4af37 18px
+            );
     }
 
     /* TABLETTE */
@@ -409,9 +519,7 @@
         }
 
         .banner-content {
-            
             width: 50%;
-
             padding: 20px;
         }
 
@@ -421,7 +529,8 @@
 
         .container-card-one,
         .container-card {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+                repeat(2, 1fr);
         }
     }
 
@@ -440,10 +549,15 @@
 
         .banner-content {
             width: 100%;
-
             padding: 20px;
 
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.75
+                );
         }
 
         .banner-content h2 {
