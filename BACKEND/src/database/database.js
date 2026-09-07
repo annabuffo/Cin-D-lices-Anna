@@ -1,20 +1,11 @@
 import { Sequelize } from "sequelize";
-import "dotenv/config";
 
-const isProduction = process.env.NODE_ENV === "production";
+import "dotenv/config";
 
 const sequelize = process.env.DATABASE_URL
     ? new Sequelize(process.env.DATABASE_URL, {
           dialect: "postgres",
           logging: false,
-          dialectOptions: isProduction
-              ? {
-                    ssl: {
-                        require: true,
-                        rejectUnauthorized: false,
-                    },
-                }
-              : {},
       })
     : new Sequelize(
           process.env.DB_NAME || "cin_delices",
@@ -25,14 +16,6 @@ const sequelize = process.env.DATABASE_URL
               port: Number(process.env.DB_PORT || 5432),
               dialect: "postgres",
               logging: false,
-              dialectOptions: isProduction
-                  ? {
-                        ssl: {
-                            require: true,
-                            rejectUnauthorized: false,
-                        },
-                    }
-                  : {},
           }
       );
 
