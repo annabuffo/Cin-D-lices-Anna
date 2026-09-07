@@ -68,12 +68,6 @@
                             Profil
                         </a>
                     </li>
-
-                    <li>
-                        <a href="#/user/favorite">
-                            Favoris
-                        </a>
-                    </li>
                 {/if}
 
                 <li>

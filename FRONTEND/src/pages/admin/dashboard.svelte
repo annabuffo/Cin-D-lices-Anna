@@ -1,124 +1,158 @@
 <script>
     // @ts-nocheck
 
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    import { onMount } from "svelte";
+
+    let user = {};
+    let authorized = false;
+
+    onMount(() => {
+        const token = localStorage.getItem("token");
+
+        try {
+            user = JSON.parse(
+                localStorage.getItem("user") || "{}"
+            );
+        } catch (error) {
+            console.error(
+                "Erreur récupération utilisateur :",
+                error
+            );
+
+            user = {};
+        }
+
+        if (!token) {
+            window.location.hash = "#/login";
+            return;
+        }
+
+        if (user.role !== "admin") {
+            window.location.hash = "#/user/profile";
+            return;
+        }
+
+        authorized = true;
+    });
 
     function goToAddRecipe() {
         window.location.hash = "#/user/addRecipe";
     }
 </script>
 
-<main class="admin-page">
+{#if authorized}
+    <main class="admin-page">
 
-    <section class="profile-card">
-        <div class="avatar">
-            {user.username
-                ? user.username.charAt(0).toUpperCase()
-                : "A"}
-        </div>
+        <section class="profile-card">
+            <div class="avatar">
+                {user.username
+                    ? user.username.charAt(0).toUpperCase()
+                    : "A"}
+            </div>
 
-        <div class="profile-info">
-            <h2>MON PROFIL</h2>
+            <div class="profile-info">
+                <h2>MON PROFIL</h2>
 
-            <p>
-                <strong>Nom :</strong>
-                {user.username || "admin"}
+                <p>
+                    <strong>Nom :</strong>
+                    {user.username || "admin"}
+                </p>
+
+                <p>
+                    <strong>Email :</strong>
+                    {user.email || "admin@cinedelices.com"}
+                </p>
+
+                <p>
+                    <strong>Rôle :</strong>
+                    {user.role || "admin"}
+                </p>
+
+                <button on:click={goToAddRecipe}>
+                    + AJOUTER UNE RECETTE
+                </button>
+            </div>
+        </section>
+
+
+        <section class="dashboard-section">
+            <h1>ESPACE ADMINISTRATEUR</h1>
+
+            <p class="subtitle">
+                Gérez le contenu et les utilisateurs de Ciné Délices
             </p>
 
-            <p>
-                <strong>Email :</strong>
-                {user.email || "admin@cinedelices.com"}
-            </p>
+            <div class="dashboard-grid">
 
-            <p>
-                <strong>Rôle :</strong>
-                {user.role || "admin"}
-            </p>
+                <article class="admin-card">
+                    <h2>👥 UTILISATEURS</h2>
 
-            <button on:click={goToAddRecipe}>
-                + AJOUTER UNE RECETTE
-            </button>
-        </div>
-    </section>
+                    <p>
+                        Consultez et gérez les utilisateurs inscrits.
+                    </p>
+
+                    <a href="#/admin/users">
+                        GÉRER LES UTILISATEURS
+                    </a>
+                </article>
 
 
-    <section class="dashboard-section">
-        <h1>ESPACE ADMINISTRATEUR</h1>
+                <article class="admin-card">
+                    <h2>🍽️ RECETTES</h2>
 
-        <p class="subtitle">
-            Gérez le contenu et les utilisateurs de Ciné Délices
-        </p>
+                    <p>
+                        Consultez, modifiez ou supprimez les recettes.
+                    </p>
 
-        <div class="dashboard-grid">
-
-            <article class="admin-card">
-                <h2>👥 UTILISATEURS</h2>
-
-                <p>
-                    Consultez et gérez les utilisateurs inscrits.
-                </p>
-
-                <a href="#/admin/users">
-                    GÉRER LES UTILISATEURS
-                </a>
-            </article>
+                    <a href="#/admin/recipes">
+                        GÉRER LES RECETTES
+                    </a>
+                </article>
 
 
-            <article class="admin-card">
-                <h2>🍽️ RECETTES</h2>
+                <article class="admin-card">
+                    <h2>📁 CATÉGORIES</h2>
 
-                <p>
-                    Consultez, modifiez ou supprimez les recettes.
-                </p>
+                    <p>
+                        Gérez les différentes catégories de recettes.
+                    </p>
 
-                <a href="#/admin/recipes">
-                    GÉRER LES RECETTES
-                </a>
-            </article>
-
-
-            <article class="admin-card">
-                <h2>📁 CATÉGORIES</h2>
-
-                <p>
-                    Gérez les différentes catégories de recettes.
-                </p>
-
-                <a href="#/admin/categories">
-                    GÉRER LES CATÉGORIES
-                </a>
-            </article>
+                    <a href="#/admin/categories">
+                        GÉRER LES CATÉGORIES
+                    </a>
+                </article>
 
 
-            <article class="admin-card">
-                <h2>🎬 MÉDIAS</h2>
+                <article class="admin-card">
+                    <h2>🎬 MÉDIAS</h2>
 
-                <p>
-                    Gérez les films et séries associés aux recettes.
-                </p>
+                    <p>
+                        Gérez les films et séries associés aux recettes.
+                    </p>
 
-                <a href="#/admin/media">
-                    GÉRER LES MÉDIAS
-                </a>
-            </article>
+                    <a href="#/admin/media">
+                        GÉRER LES MÉDIAS
+                    </a>
+                </article>
 
 
-            <article class="admin-card">
-                <h2>💬 COMMENTAIRES</h2>
+                <article class="admin-card">
+                    <h2>💬 COMMENTAIRES</h2>
 
-                <p>
-                    Consultez et modérez les commentaires.
-                </p>
+                    <p>
+                        Consultez et modérez les commentaires.
+                    </p>
 
-                <a href="#/admin/comments">
-                    GÉRER LES COMMENTAIRES
-                </a>
-            </article>
+                    <a href="#/admin/comments">
+                        GÉRER LES COMMENTAIRES
+                    </a>
+                </article>
 
-        </div>
-    </section>
+            </div>
+        </section>
 
-</main>
+    </main>
+{/if}
 
 
 <style>
